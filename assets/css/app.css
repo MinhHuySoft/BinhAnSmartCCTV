@@ -408,3 +408,57 @@ body.app {
 /* a screen rendered inside the shell frame: content only */
 body.app--embedded { display: flex; flex-direction: column; height: 100%; overflow: hidden; }
 body.app--embedded > .app-main { flex: 1; min-height: 0; overflow: auto; }
+
+/* ================= Scrollbars ================= */
+html body ::-webkit-scrollbar { width: 10px; height: 10px; background: transparent; }
+html body ::-webkit-scrollbar-track { background: transparent; }
+html body ::-webkit-scrollbar-thumb {
+  background-color: rgba(100, 116, 139, 0.35);
+  border: 3px solid transparent;
+  border-radius: 9999px;
+  background-clip: padding-box;
+}
+html body ::-webkit-scrollbar-thumb:hover { background-color: rgba(148, 163, 184, 0.65); }
+html body ::-webkit-scrollbar-thumb:active { background-color: rgba(96, 165, 250, 0.75); }
+html body ::-webkit-scrollbar-button { display: none; width: 0; height: 0; }
+html body ::-webkit-scrollbar-corner { background: transparent; }
+@supports not selector(::-webkit-scrollbar) {
+  * { scrollbar-width: thin; scrollbar-color: rgba(100, 116, 139, 0.45) transparent; }
+}
+
+/* ================= Image viewer ================= */
+.demo-viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: grid;
+  place-items: center;
+  padding: 32px;
+  background: rgba(2, 6, 23, 0.86);
+  backdrop-filter: blur(4px);
+  animation: demo-in 0.18s ease-out;
+}
+.demo-viewer figure { margin: 0; max-width: min(1200px, 100%); }
+.demo-viewer img {
+  display: block;
+  max-width: 100%;
+  max-height: calc(100vh - 120px);
+  border: 1px solid #334155;
+  border-radius: 10px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+.demo-viewer figcaption { margin-top: 10px; color: #94a3b8; font: 500 12px/1.4 "JetBrains Mono", monospace; text-align: center; }
+.demo-viewer button {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #334155;
+  border-radius: 9999px;
+  background: #1e293b;
+  color: #e2e8f0;
+  font-size: 16px;
+  cursor: pointer;
+}
+.demo-viewer button:hover { border-color: #60a5fa; }

@@ -111,6 +111,35 @@
     if (window.demoToast) demoToast('Đã đặt lại dữ liệu mẫu');
   });
 
+  // ---------- header search: cameras, plates, screens ----------
+  var search = document.querySelector('.app-search input');
+  if (search) search.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter') return;
+    var q = search.value.trim().toLowerCase();
+    if (!q) return;
+    var flat = q.replace(/[-.\s]/g, '');
+    var hit = null;
+    if (window.MockDB) {
+      var cam = MockDB.all('cameras').find(function (c) { return c.id.toLowerCase().indexOf(q) >= 0 || c.name.toLowerCase().indexOf(q) >= 0; });
+      if (cam) hit = ['cameras', 'Camera ' + cam.id + ' – ' + cam.name];
+      var veh = !hit && MockDB.all('vehicles').find(function (v) { return v.plate.toLowerCase().indexOf(flat) >= 0; });
+      if (veh) hit = ['vehicles', 'Xe ' + veh.display + ' – căn ' + veh.apartment];
+      var log = !hit && MockDB.all('anprLogs').find(function (l) { return l.plate.toLowerCase().replace(/[-.\s]/g, '').indexOf(flat) >= 0; });
+      if (log) hit = ['anpr', 'Biển số ' + log.plate + ' trong nhật ký ANPR'];
+    }
+    if (!hit) {
+      var name = Object.keys(PAGES).find(function (k) { return PAGES[k].title.toLowerCase().indexOf(q) >= 0; });
+      if (name) hit = [name, PAGES[name].title];
+    }
+    if (hit) { location.hash = '#/' + hit[0]; if (window.demoToast) demoToast('Tìm thấy: ' + hit[1]); }
+    else if (window.demoToast) demoToast('Không tìm thấy “' + search.value.trim() + '”', { level: 'warning' });
+  });
+
+  var site = document.querySelector('.app-site');
+  if (site) site.addEventListener('click', function () {
+    if (window.demoToast) demoToast('Hệ thống đang quản lý 1 khu: HQ – Khu phức hợp Đông Tây 2 (801 căn hộ)');
+  });
+
   // ---------- simulated real-time alerts (SignalR ReceiveNewAlert) ----------
   function startLiveAlerts() {
     if (!window.MockDB) return;
