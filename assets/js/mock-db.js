@@ -117,6 +117,8 @@
       return clone(a);
     },
     onChange: function (fn) { listeners.push(fn); },
+    /* Re-read from localStorage, e.g. after another frame changed the data. */
+    reload: function () { db = load(); },
     reset: function () { db = clone(seed); save(); }
   };
 

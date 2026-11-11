@@ -8,7 +8,11 @@ Bản demo tĩnh của hệ thống Camera AI giám sát cho **Khu 3.1 Trạm s�
 npx http-server . -p 5173 -c-1
 ```
 
-Sau đó mở http://localhost:5173. Trang gốc sẽ tự chuyển sang `pages/dashboard.html`.
+Sau đó mở http://localhost:5173.
+
+## Cách hoạt động
+
+`index.html` là khung web cố định gồm sidebar, header và footer, chỉ tải một lần. Mỗi màn hình được nạp vào vùng nội dung ở giữa, điều hướng bằng hash, ví dụ `index.html#/anpr`. Khi chuyển màn, chỉ phần nội dung thay đổi. Trạng thái thu gọn sidebar được lưu trong `localStorage`. Nếu mở thẳng một file trong `pages/`, trang sẽ tự chuyển về khung.
 
 ## Deploy
 
@@ -18,11 +22,12 @@ Sau đó mở http://localhost:5173. Trang gốc sẽ tự chuyển sang `pages/
 
 | Đường dẫn | Nội dung |
 |---|---|
-| `index.html` | Trang mở đầu, tự chuyển sang Trung tâm giám sát |
-| `pages/*.html` | 13 màn hình xuất từ Stitch |
+| `index.html` | Khung web cố định (sidebar, header, footer) và vùng nội dung |
+| `pages/*.html` | 13 màn hình xuất từ Stitch, chỉ chứa phần nội dung |
+| `assets/js/portal.js` | Điều hướng theo hash, tiêu đề header, số cảnh báo, đồng hồ, thu gọn sidebar, cảnh báo realtime giả lập |
 | `assets/js/mock-db.js` | Mock DB theo schema mục 4.1 của tài liệu kỹ thuật: Cameras, CameraRules, AI_Alerts, RegisteredVehicles, ANPR_Logs. Dữ liệu được lưu trong `localStorage` |
-| `assets/js/app.js` | Khung web chung: số cảnh báo, đồng hồ, thu gọn sidebar. Ngoài ra nối điều hướng, toast thay cho `alert()`, menu "Màn hình demo" và mô phỏng cảnh báo realtime |
-| `assets/css/app.css` | Style của khung web chung (sidebar chia nhóm, header, footer trạng thái), toast và menu demo |
+| `assets/js/app.js` | Nối các nút trong màn hình sang màn khác, gắn quy trình xử lý cảnh báo vào mock DB, toast thay cho `alert()` |
+| `assets/css/app.css` | Style của khung web và toast |
 | `assets/img/` | Ảnh CCTV do Stitch sinh ra |
 
 ## Các màn hình
@@ -44,6 +49,6 @@ Sau đó mở http://localhost:5173. Trang gốc sẽ tự chuyển sang `pages/
 
 ## Mẹo khi demo
 
-- Nút **Màn hình demo** ở góc trái dưới mở danh sách tất cả màn hình.
-- Mục **Đặt lại dữ liệu mẫu** trong menu đó đưa mock DB về trạng thái ban đầu.
-- Khoảng 20 giây sau khi mở một màn, hệ thống tự đẩy một cảnh báo mới (giả lập SignalR), sau đó lặp lại mỗi 45 giây.
+- Mục **Đặt lại dữ liệu mẫu** ở cuối sidebar đưa mock DB về trạng thái ban đầu.
+- Mục **Core Server ↗** mở giao diện app WinForms trong tab mới.
+- Khoảng 20 giây sau khi mở trang, hệ thống tự đẩy cảnh báo mới (giả lập SignalR), mỗi 45 giây một lần, tổng cộng 4 cảnh báo.
