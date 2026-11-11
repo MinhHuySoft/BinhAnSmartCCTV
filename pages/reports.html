@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="vi"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"canvas":"#020617","panel":"#0f172a","input-chip":"#1e293b","border-subtle":"#1e293b","border-mid":"#334155","brand-blue":"#2563eb","brand-blue-hover":"#1d4ed8","primary-text":"#e2e8f0","secondary-text":"#94a3b8","muted-text":"#64748b","accent-amber":"#f59e0b","accent-red":"#ef4444","accent-sky":"#0ea5e9","accent-emerald":"#10b981","accent-violet":"#a855f7","accent-orange":"#f97316"},"fontFamily":{"headline":["Space Grotesk","sans-serif"],"body":["Inter","sans-serif"],"mono":["JetBrains Mono","monospace"]}}}};</script></head><body class="bg-[#020617] font-body text-[#e2e8f0] antialiased min-h-screen selection:bg-[#2563eb]/30 selection:text-white"><aside class="fixed left-0 top-0 bottom-0 w-14 bg-[#0f172a] border-r border-[#1e293b] z-50 flex flex-col items-center justify-between py-3"><div class="flex flex-col items-center gap-3 w-full"><div class="w-9 h-9 rounded-lg bg-[#2563eb] flex items-center justify-center text-white shadow-md shadow-blue-900/30 cursor-pointer"><span class="material-symbols-outlined text-[20px]">security</span></div><div class="w-8 h-[1px] bg-[#1e293b]"></div><nav class="flex flex-col items-center gap-1.5 w-full px-1.5"><a class="w-10 h-10 rounded-lg flex items-center justify-center text-[#94a3b8] hover:bg-[#1e293b] hover:text-[#e2e8f0] transition-colors" data-path="dashboard" href="#" title="Tổng quan"><span class="material-symbols-outlined text-[20px]">grid_view</span></a><a class="w-10 h-10 rounded-lg flex items-center justify-center text-[#94a3b8] hover:bg-[#1e293b] hover:text-[#e2e8f0] transition-colors" data-path="cameras" href="#" title="Hệ thống Camera"><span class="material-symbols-outlined text-[20px]">videocam</span></a><a class="w-10 h-10 rounded-lg flex items-center justify-center text-[#94a3b8] hover:bg-[#1e293b] hover:text-[#e2e8f0] transition-colors" data-path="anpr" href="#" title="Kiểm soát Xe &amp; ANPR"><span class="material-symbols-outlined text-[20px]">directions_car</span></a><a class="w-10 h-10 rounded-lg flex items-center justify-center text-[#94a3b8] hover:bg-[#1e293b] hover:text-[#e2e8f0] transition-colors" data-path="canh-bao" href="#" title="Cảnh báo &amp; Sự cố"><span class="material-symbols-outlined text-[20px]">notifications_active</span></a><a aria-current="page" class="w-10 h-10 rounded-lg flex items-center justify-center transition-all bg-[rgba(37,99,235,0.15)] text-[#60a5fa] border border-[#2563eb]/40" data-path="bao-cao" href="#" title="Báo cáo &amp; Phân tích"><span class="material-symbols-outlined text-[20px]">bar_chart</span></a></nav></div><div class="flex flex-col items-center gap-2.5 w-full"><a class="w-10 h-10 rounded-lg flex items-center justify-center text-[#94a3b8] hover:bg-[#1e293b] hover:text-[#e2e8f0] transition-colors" data-path="cai-dat" href="#" title="Cấu hình hệ thống"><span class="material-symbols-outlined text-[20px]">settings</span></a><div class="w-8 h-8 rounded-full bg-[#1e293b] border border-[#334155] flex items-center justify-center cursor-pointer shadow-sm"><span class="font-mono text-xs text-[#60a5fa] font-bold">BA</span></div></div></aside><div class="pl-14"><header class="fixed top-0 left-14 right-0 h-14 bg-[#0f172a]/95 backdrop-blur-md border-b border-[#1e293b] z-40 flex items-center justify-between px-5"><div class="flex items-center gap-4"><div class="flex items-center gap-1.5"><span class="font-headline text-base font-bold tracking-tight text-[#e2e8f0]">Bình An</span><span class="font-headline text-base font-semibold text-[#60a5fa]">CCTV</span><span class="ml-1 px-1.5 py-0.5 rounded bg-[#1e293b] text-[#94a3b8] font-mono text-[10px] uppercase border border-[#334155]">HQ Ops</span></div><div class="flex items-center gap-1.5 px-3 py-1.5 bg-[#1e293b] hover:bg-[#283548] rounded-lg cursor-pointer text-[#e2e8f0] text-xs font-medium border border-[#334155]/60 transition-colors"><span class="material-symbols-outlined text-[#60a5fa] text-[16px]">domain</span><span>HQ - Khu phức hợp Đông Tây 2</span><span class="material-symbols-outlined text-[#94a3b8] text-[15px]">keyboard_arrow_down</span></div><div class="hidden md:flex items-center gap-2 w-72 h-8 px-3 rounded-lg bg-[#1e293b] border border-[#334155]/60 text-[#94a3b8] focus-within:border-[#2563eb] focus-within:ring-1 focus-within:ring-[#2563eb] transition-all"><span class="material-symbols-outlined text-[#64748b] text-[16px]">search</span><input class="w-full bg-transparent border-0 outline-none text-[#e2e8f0] text-xs placeholder:text-[#64748b]" placeholder="Tìm kiếm báo cáo, sự cố, biển số..." type="text"/></div></div><div class="flex items-center gap-3"><button class="flex items-center gap-1.5 h-8 px-3 rounded-lg bg-[#2563eb] hover:bg-[#1d4ed8] text-white transition-all text-xs font-semibold shadow-sm"><span class="material-symbols-outlined text-[16px]">add</span><span>Quản trị Thiết bị</span></button><div class="h-4 w-[1px] bg-[#334155]"></div><div class="flex items-center gap-2"><div class="flex flex-col text-right hidden sm:flex"><span class="text-xs text-[#e2e8f0] font-medium leading-tight">Trực ban BQL</span><span class="font-mono text-[11px] text-[#94a3b8]">801 Căn hộ • 16 Online</span></div><div class="w-8 h-8 rounded-full bg-[#1e293b] border border-[#334155] flex items-center justify-center text-[#60a5fa]"><span class="material-symbols-outlined text-[18px]">person</span></div></div></div></header><div class="fixed top-14 left-14 right-0 h-10 bg-[#0f172a] border-b border-[#1e293b] z-30 flex items-center justify-between px-5"><nav class="flex items-center gap-1"><a class="px-3 py-1 rounded-lg text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1e293b] text-xs font-medium transition-all whitespace-nowrap" href="#">Tất cả camera (16)</a><a class="px-3 py-1 rounded-lg text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1e293b] text-xs font-medium transition-all whitespace-nowrap" href="#">Trạm sạc xe điện (6)</a><a class="px-3 py-1 rounded-lg text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1e293b] text-xs font-medium transition-all whitespace-nowrap" href="#">Sân nền &amp; Lối PCCC (10)</a><a class="px-3 py-1 rounded-lg text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1e293b] text-xs font-medium transition-all whitespace-nowrap" href="#">Cổng ANPR (2)</a><a aria-current="page" class="px-3 py-1 text-[#60a5fa] border-b-2 border-[#2563eb] font-semibold text-xs whitespace-nowrap" href="#">Báo cáo vận hành</a></nav><div class="flex items-center gap-2 font-mono text-[11px] text-[#94a3b8]"><span class="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#10b981]/10 text-[#10b981] border border-[#10b981]/20"><span class="w-1.5 h-1.5 rounded-full bg-[#10b981] animate-pulse"></span>Phạm vi: Khu 3.1 &amp; Khu 3.2</span></div></div><main class="relative pt-24 pb-12 bg-[#020617] min-h-screen"><div class="flex flex-col w-full"><div class="px-5 py-4 space-y-4">
+<!-- TOP FILTER BAR -->
+<div class="w-full bg-[#0f172a] border border-[#1e293b] rounded-lg p-3.5 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3 shadow-sm">
+<div class="flex items-center gap-3 min-w-0">
+<!-- Segmented Control: Tuần | Tháng -->
+<div class="flex items-center p-0.5 rounded-lg bg-[#1e293b] border border-[#334155]/60 shrink-0">
+<button class="px-2.5 py-1 rounded text-xs font-medium text-[#94a3b8] hover:text-[#e2e8f0] transition-colors">Tuần</button>
+<button class="px-2.5 py-1 rounded text-xs font-semibold bg-[#2563eb] text-white shadow-sm">Tháng</button>
+</div>
+<div class="h-6 w-[1px] bg-[#1e293b] hidden sm:block"></div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-headline text-sm font-bold text-[#e2e8f0] uppercase tracking-tight">Báo cáo hiệu quả vận hành hệ thống camera AI</span>
+<span class="px-2 py-0.5 rounded bg-[#1e293b] text-[#60a5fa] font-mono text-[11px] border border-[#334155]/50">Khu 3.1 &amp; 3.2</span>
+</div>
+<p class="text-xs text-[#94a3b8] truncate">Phân tích tự động từ AI Core (YOLOv8 + ByteTrack) • Giám sát trạm sạc EV &amp; sân nền</p>
+</div>
+</div>
+<div class="flex items-center gap-2.5 flex-wrap w-full lg:w-auto justify-start lg:justify-end">
+<!-- Period Selector -->
+<div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#1e293b] hover:bg-[#283548] text-[#e2e8f0] text-xs font-medium border border-[#334155]/60 cursor-pointer transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[#94a3b8] text-[15px]">calendar_today</span>
+<span class="font-mono">Tháng 11/2026 (01/11 – 30/11)</span>
+<span class="material-symbols-outlined text-[#94a3b8] text-[15px]">arrow_drop_down</span>
+</div>
+<!-- Zone Filter Dropdown -->
+<div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#1e293b] hover:bg-[#283548] text-[#e2e8f0] text-xs font-medium border border-[#334155]/60 cursor-pointer transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[#94a3b8] text-[15px]">filter_alt</span>
+<span>Tất cả (Khu 3.1 &amp; Khu 3.2)</span>
+<span class="material-symbols-outlined text-[#94a3b8] text-[15px]">arrow_drop_down</span>
+</div>
+<!-- Export Excel CTA -->
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#2563eb] hover:bg-[#1d4ed8] text-white text-xs font-semibold shadow-sm transition-all shrink-0">
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+<span>Xuất Excel</span>
+</button>
+</div>
+</div>
+<!-- ROW 1: 4 KPI CARDS (Mathemetically 100% consistent: 64 total, 58 processed, 4 false, 2 in-progress) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+<!-- KPI 1 -->
+<div class="bg-[#0f172a] border border-[#1e293b] rounded-lg p-3.5 flex flex-col justify-between space-y-2 hover:border-[#334155] transition-colors">
+<div class="flex items-center justify-between">
+<span class="text-xs text-[#94a3b8] uppercase font-semibold tracking-wider">Tổng cảnh báo</span>
+<div class="w-7 h-7 rounded-lg bg-[#1e293b] border border-[#334155]/60 flex items-center justify-center text-[#60a5fa]">
+<span class="material-symbols-outlined text-[17px]">warning</span>
+</div>
+</div>
+<div class="space-y-1">
+<div class="font-headline text-2xl font-bold text-[#e2e8f0] tracking-tight">64 <span class="font-body text-xs text-[#94a3b8] font-normal">vụ việc</span></div>
+<div class="flex items-center gap-1.5 px-2 py-0.5 rounded bg-[#1e293b] text-[#94a3b8] border border-[#334155]/40 w-fit">
+<span class="w-1.5 h-1.5 rounded-full bg-[#60a5fa]"></span>
+<span class="font-mono text-[11px]">Tất cả 8 bài toán AI</span>
+</div>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="bg-[#0f172a] border border-[#1e293b] rounded-lg p-3.5 flex flex-col justify-between space-y-2 hover:border-[#334155] transition-colors">
+<div class="flex items-center justify-between">
+<span class="text-xs text-[#94a3b8] uppercase font-semibold tracking-wider">Đã xử lý</span>
+<div class="w-7 h-7 rounded-lg bg-[#10b981]/15 border border-[#10b981]/30 flex items-center justify-center text-[#10b981]">
+<span class="material-symbols-outlined text-[17px]">check_circle</span>
+</div>
+</div>
+<div class="space-y-1">
+<div class="font-headline text-2xl font-bold text-[#10b981] tracking-tight">58 <span class="font-body text-xs text-[#94a3b8] font-normal">vụ việc</span></div>
+<div class="flex items-center gap-1.5 px-2 py-0.5 rounded bg-[#10b981]/10 text-[#10b981] border border-[#10b981]/25 w-fit">
+<span class="material-symbols-outlined text-[13px]">done_all</span>
+<span class="font-mono text-[11px] font-semibold">Tỷ lệ 90.6% hoàn thành</span>
+</div>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="bg-[#0f172a] border border-[#1e293b] rounded-lg p-3.5 flex flex-col justify-between space-y-2 hover:border-[#334155] transition-colors">
+<div class="flex items-center justify-between">
+<span class="text-xs text-[#94a3b8] uppercase font-semibold tracking-wider">Báo giả</span>
+<div class="w-7 h-7 rounded-lg bg-[#f59e0b]/15 border border-[#f59e0b]/30 flex items-center justify-center text-[#f59e0b]">
+<span class="material-symbols-outlined text-[17px]">notification_important</span>
+</div>
+</div>
+<div class="space-y-1">
+<div class="font-headline text-2xl font-bold text-[#e2e8f0] tracking-tight">4 <span class="font-body text-xs text-[#94a3b8] font-normal">vụ việc</span></div>
+<div class="flex items-center gap-1.5 px-2 py-0.5 rounded bg-[#f59e0b]/10 text-[#f59e0b] border border-[#f59e0b]/25 w-fit">
+<span class="w-1.5 h-1.5 rounded-full bg-[#f59e0b]"></span>
+<span class="font-mono text-[11px]">Tỷ lệ 6.3% • Còn 2 đang xử lý</span>
+</div>
+</div>
+</div>
+<!-- KPI 4 -->
+<div class="bg-[#0f172a] border border-[#1e293b] rounded-lg p-3.5 flex flex-col justify-between space-y-2 hover:border-[#334155] transition-colors">
+<div class="flex items-center justify-between">
+<span class="text-xs text-[#94a3b8] uppercase font-semibold tracking-wider">Thời gian xử lý TB</span>
+<div class="w-7 h-7 rounded-lg bg-[#1e293b] border border-[#334155]/60 flex items-center justify-center text-[#60a5fa]">
+<span class="material-symbols-outlined text-[17px]">timer</span>
+</div>
+</div>
+<div class="space-y-1">
+<div class="font-headline text-2xl font-bold text-[#60a5fa] tracking-tight font-mono">02:40 <span class="font-body text-xs text-[#94a3b8] font-normal">phút:giây</span></div>
+<div class="flex items-center gap-1.5 px-2 py-0.5 rounded bg-[#10b981]/10 text-[#10b981] border border-[#10b981]/25 w-fit">
+<span class="material-symbols-outlined text-[13px]">bolt</span>
+<span class="font-mono text-[11px]">Đạt mục tiêu &lt; 03:00</span>
+</div>
+</div>
+</div>
+</div>
+<!-- ROW 2: CHARTS & 8-PROBLEM TABLE -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-3">
+<!-- Left Chart Card (7 Cols) -->
+<div class="lg:col-span-7 bg-[#0f172a] border border-[#1e293b] rounded-lg p-4 flex flex-col justify-between space-y-3">
+<div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+<div>
+<span class="font-headline text-sm font-bold text-[#e2e8f0]">Vi phạm theo tuần</span>
+<p class="text-xs text-[#94a3b8]">Phân bổ 64 vi phạm theo 4 tuần tháng 11 tại Khu 3.1 &amp; Khu 3.2</p>
+</div>
+<span class="font-mono text-[11px] px-2 py-0.5 rounded bg-[#1e293b] text-[#94a3b8] border border-[#334155]/50 self-start sm:self-auto">Tổng: 64 sự kiện</span>
+</div>
+<!-- Legend: 7 series with vibrant colors -->
+<div class="flex items-center gap-x-3 gap-y-1.5 flex-wrap pt-2 text-[11px] font-medium text-[#94a3b8]">
+<span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-[#f59e0b]"></span>Đỗ xe trái phép</span>
+<span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-[#0ea5e9]"></span>Chiếm dụng ô sạc</span>
+<span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-[#ef4444]"></span>Quá nhiệt</span>
+<span class="flex items-center gap-1.5" title="Khu 3.1 Trạm sạc EV"><span class="w-2.5 h-2.5 rounded-sm bg-[#f97316]"></span>Khói &amp; lửa (Trạm sạc EV)</span>
+<span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-[#10b981]"></span>Xe ngã đổ</span>
+<span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-[#a855f7]"></span>Đồ vật bỏ rơi</span>
+<span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-[#64748b]"></span>Tụ tập / Lảng vảng</span>
+</div>
+<!-- Stacked Bar Chart Area (Clean SVG Grid) -->
+<div class="mt-3 w-full bg-[#020617]/70 border border-[#1e293b] rounded-lg p-3 relative overflow-hidden">
+<div class="relative z-10 w-full h-56 flex flex-col justify-between">
+<!-- Grid reference lines -->
+<div class="flex items-center justify-between text-[10px] font-mono text-[#64748b] border-b border-[#1e293b] pb-1">
+<span>20 sự kiện</span>
+<span>Ngưỡng cảnh báo</span>
+</div>
+<div class="flex items-center justify-between text-[10px] font-mono text-[#64748b] border-b border-[#1e293b]/70 pb-1">
+<span>15 sự kiện</span>
+</div>
+<div class="flex items-center justify-between text-[10px] font-mono text-[#64748b] border-b border-[#1e293b]/70 pb-1">
+<span>10 sự kiện</span>
+</div>
+<div class="flex items-center justify-between text-[10px] font-mono text-[#64748b] border-b border-[#1e293b]/70 pb-1">
+<span>5 sự kiện</span>
+</div>
+<div class="flex items-center justify-between text-[10px] font-mono text-[#64748b] border-b border-[#1e293b] pb-1">
+<span>0 sự kiện</span>
+<span>Cơ sở</span>
+</div>
+<!-- Bars overlay -->
+<div class="absolute inset-0 pt-4 pb-6 px-6 sm:px-12 flex items-end justify-between gap-6 sm:gap-12">
+<!-- Tuần 1: 12 events (Do xe 4, Chiem EV 3, Qua nhiet 0, Khoi 0, Nga do 1, Do vat 1, Tu tap 3) -->
+<div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group">
+<div class="w-full max-w-[48px] flex flex-col-reverse justify-start rounded overflow-hidden shadow-sm" style="height: 60%;">
+<div class="w-full bg-[#f59e0b]" style="height: 33.3%;" title="Đỗ xe trái phép: 4"></div>
+<div class="w-full bg-[#0ea5e9]" style="height: 25.0%;" title="Chiếm dụng ô sạc: 3"></div>
+<div class="w-full bg-[#10b981]" style="height: 8.3%;" title="Xe ngã đổ: 1"></div>
+<div class="w-full bg-[#a855f7]" style="height: 8.3%;" title="Đồ vật bỏ rơi: 1"></div>
+<div class="w-full bg-[#64748b]" style="height: 25.1%;" title="Tụ tập / Lảng vảng: 3"></div>
+</div>
+<div class="flex flex-col items-center">
+<span class="font-headline text-xs font-semibold text-[#e2e8f0]">Tuần 1</span>
+<span class="font-mono text-[10px] text-[#94a3b8]">12 vụ</span>
+</div>
+</div>
+<!-- Tuần 2: 16 events (Do xe 5, Chiem EV 4, Qua nhiet 1, Khoi 0, Nga do 1, Do vat 2, Tu tap 3) -->
+<div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group">
+<div class="w-full max-w-[48px] flex flex-col-reverse justify-start rounded overflow-hidden shadow-sm" style="height: 80%;">
+<div class="w-full bg-[#f59e0b]" style="height: 31.25%;" title="Đỗ xe trái phép: 5"></div>
+<div class="w-full bg-[#0ea5e9]" style="height: 25.0%;" title="Chiếm dụng ô sạc: 4"></div>
+<div class="w-full bg-[#ef4444]" style="height: 6.25%;" title="Quá nhiệt: 1"></div>
+<div class="w-full bg-[#10b981]" style="height: 6.25%;" title="Xe ngã đổ: 1"></div>
+<div class="w-full bg-[#a855f7]" style="height: 12.5%;" title="Đồ vật bỏ rơi: 2"></div>
+<div class="w-full bg-[#64748b]" style="height: 18.75%;" title="Tụ tập / Lảng vảng: 3"></div>
+</div>
+<div class="flex flex-col items-center">
+<span class="font-headline text-xs font-semibold text-[#e2e8f0]">Tuần 2</span>
+<span class="font-mono text-[10px] text-[#94a3b8]">16 vụ</span>
+</div>
+</div>
+<!-- Tuần 3: 18 events (Do xe 6, Chiem EV 4, Qua nhiet 1, Khoi 1, Nga do 0, Do vat 2, Tu tap 4) -->
+<div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group">
+<div class="w-full max-w-[48px] flex flex-col-reverse justify-start rounded overflow-hidden shadow-sm" style="height: 90%;">
+<div class="w-full bg-[#f59e0b]" style="height: 33.3%;" title="Đỗ xe trái phép: 6"></div>
+<div class="w-full bg-[#0ea5e9]" style="height: 22.2%;" title="Chiếm dụng ô sạc: 4"></div>
+<div class="w-full bg-[#ef4444]" style="height: 5.6%;" title="Quá nhiệt: 1"></div>
+<div class="w-full bg-[#f97316]" style="height: 5.6%;" title="Khói &amp; lửa trạm sạc: 1"></div>
+<div class="w-full bg-[#a855f7]" style="height: 11.1%;" title="Đồ vật bỏ rơi: 2"></div>
+<div class="w-full bg-[#64748b]" style="height: 22.2%;" title="Tụ tập / Lảng vảng: 4"></div>
+</div>
+<div class="flex flex-col items-center">
+<span class="font-headline text-xs font-semibold text-[#60a5fa]">Tuần 3</span>
+<span class="font-mono text-[10px] text-[#94a3b8]">18 vụ</span>
+</div>
+</div>
+<!-- Tuần 4: 18 events (Do xe 7, Chiem EV 3, Qua nhiet 0, Khoi 0, Nga do 1, Do vat 1, Tu tap 2, Bien so loi 4) -->
+<div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group">
+<div class="w-full max-w-[48px] flex flex-col-reverse justify-start rounded overflow-hidden shadow-sm" style="height: 90%;">
+<div class="w-full bg-[#f59e0b]" style="height: 38.9%;" title="Đỗ xe trái phép: 7"></div>
+<div class="w-full bg-[#0ea5e9]" style="height: 16.7%;" title="Chiếm dụng ô sạc: 3"></div>
+<div class="w-full bg-[#10b981]" style="height: 5.6%;" title="Xe ngã đổ: 1"></div>
+<div class="w-full bg-[#a855f7]" style="height: 5.6%;" title="Đồ vật bỏ rơi: 1"></div>
+<div class="w-full bg-[#64748b]" style="height: 11.1%;" title="Tụ tập / Lảng vảng: 2"></div>
+<div class="w-full bg-[#3b82f6]" style="height: 22.1%;" title="Nhận diện biển số: 4"></div>
+</div>
+<div class="flex flex-col items-center">
+<span class="font-headline text-xs font-semibold text-[#e2e8f0]">Tuần 4</span>
+<span class="font-mono text-[10px] text-[#94a3b8]">18 vụ</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick note -->
+<div class="flex items-center gap-2 p-2.5 rounded-lg bg-[#1e293b] border border-[#334155]/60 text-xs text-[#94a3b8]">
+<span class="material-symbols-outlined text-[#60a5fa] text-[18px] shrink-0">info</span>
+<span>Tuần 1 (12 vụ) + Tuần 2 (16 vụ) + Tuần 3 (18 vụ) + Tuần 4 (18 vụ) = <strong>64 vụ việc</strong> được phân tích đồng bộ tự động.</span>
+</div>
+</div>
+<!-- Right Table Panel: 8 Bài toán AI (5 Cols) -->
+<div class="lg:col-span-5 bg-[#0f172a] border border-[#1e293b] rounded-lg p-4 flex flex-col justify-between space-y-3">
+<div class="flex items-center justify-between pb-1 border-b border-[#1e293b]">
+<div>
+<span class="font-headline text-sm font-bold text-[#e2e8f0]">8 bài toán AI</span>
+<p class="text-[11px] text-[#94a3b8]">Hiệu năng phát hiện &amp; điều phối của AI Core (YOLOv8 + ByteTrack)</p>
+</div>
+<span class="font-mono text-[10px] px-2 py-0.5 rounded bg-[#1e293b] text-[#60a5fa] border border-[#334155]/50">Kestrel Core</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse text-xs">
+<thead>
+<tr class="bg-[#1e293b] text-[#94a3b8] font-mono text-[11px] uppercase border-b border-[#334155]">
+<th class="py-2 px-2.5 font-semibold">Bài toán</th>
+<th class="py-2 px-2 font-semibold text-center">Cảnh báo</th>
+<th class="py-2 px-2 font-semibold text-center text-[#10b981]">Đã xử lý</th>
+<th class="py-2 px-2 font-semibold text-center text-[#f59e0b]">Báo giả</th>
+<th class="py-2 px-2.5 font-semibold text-right">TG TB</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#1e293b] text-[#e2e8f0] font-normal">
+<tr class="hover:bg-[#1e293b]/60 transition-colors">
+<td class="py-2 px-2.5 font-medium flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#ef4444]"></span>Quá nhiệt</td>
+<td class="py-2 px-2 text-center font-mono">2</td>
+<td class="py-2 px-2 text-center font-mono text-[#10b981]">2</td>
+<td class="py-2 px-2 text-center font-mono text-[#94a3b8]">0</td>
+<td class="py-2 px-2.5 text-right font-mono text-[#60a5fa]">00:45</td>
+</tr>
+<tr class="hover:bg-[#1e293b]/60 transition-colors">
+<td class="py-2 px-2.5 font-medium flex items-center gap-1.5" title="Trạm sạc EV"><span class="w-1.5 h-1.5 rounded-full bg-[#f97316]"></span>Khói &amp; lửa sớm <span class="text-[10px] text-[#94a3b8]">(Trạm EV)</span></td>
+<td class="py-2 px-2 text-center font-mono">1</td>
+<td class="py-2 px-2 text-center font-mono text-[#10b981]">1</td>
+<td class="py-2 px-2 text-center font-mono text-[#94a3b8]">0</td>
+<td class="py-2 px-2.5 text-right font-mono text-[#60a5fa]">00:30</td>
+</tr>
+<tr class="hover:bg-[#1e293b]/60 transition-colors">
+<td class="py-2 px-2.5 font-medium flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#10b981]"></span>Xe ngã đổ</td>
+<td class="py-2 px-2 text-center font-mono">3</td>
+<td class="py-2 px-2 text-center font-mono text-[#10b981]">3</td>
+<td class="py-2 px-2 text-center font-mono text-[#94a3b8]">0</td>
+<td class="py-2 px-2.5 text-right font-mono text-[#60a5fa]">01:15</td>
+</tr>
+<tr class="hover:bg-[#1e293b]/60 transition-colors">
+<td class="py-2 px-2.5 font-medium flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#0ea5e9]"></span>Chiếm dụng ô sạc</td>
+<td class="py-2 px-2 text-center font-mono">14</td>
+<td class="py-2 px-2 text-center font-mono text-[#10b981]">13</td>
+<td class="py-2 px-2 text-center font-mono text-[#f59e0b]">1</td>
+<td class="py-2 px-2.5 text-right font-mono text-[#60a5fa]">02:20</td>
+</tr>
+<tr class="hover:bg-[#1e293b]/60 transition-colors">
+<td class="py-2 px-2.5 font-medium flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#3b82f6]"></span>Nhận diện biển số (lỗi đọc)</td>
+<td class="py-2 px-2 text-center font-mono">4</td>
+<td class="py-2 px-2 text-center font-mono text-[#10b981]">3</td>
+<td class="py-2 px-2 text-center font-mono text-[#f59e0b]">1</td>
+<td class="py-2 px-2.5 text-right font-mono text-[#60a5fa]">01:50</td>
+</tr>
+<tr class="hover:bg-[#1e293b]/60 transition-colors">
+<td class="py-2 px-2.5 font-medium flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#f59e0b]"></span>Đỗ xe trái phép</td>
+<td class="py-2 px-2 text-center font-mono">22</td>
+<td class="py-2 px-2 text-center font-mono text-[#10b981]">21</td>
+<td class="py-2 px-2 text-center font-mono text-[#94a3b8]">0 <span class="text-[10px] text-[#94a3b8]">(1 đang XL)</span></td>
+<td class="py-2 px-2.5 text-right font-mono text-[#60a5fa]">03:10</td>
+</tr>
+<tr class="hover:bg-[#1e293b]/60 transition-colors">
+<td class="py-2 px-2.5 font-medium flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#a855f7]"></span>Đồ vật bỏ rơi</td>
+<td class="py-2 px-2 text-center font-mono">6</td>
+<td class="py-2 px-2 text-center font-mono text-[#10b981]">5</td>
+<td class="py-2 px-2 text-center font-mono text-[#f59e0b]">1</td>
+<td class="py-2 px-2.5 text-right font-mono text-[#60a5fa]">02:50</td>
+</tr>
+<tr class="hover:bg-[#1e293b]/60 transition-colors">
+<td class="py-2 px-2.5 font-medium flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#64748b]"></span>Tụ tập &amp; lảng vảng</td>
+<td class="py-2 px-2 text-center font-mono">12</td>
+<td class="py-2 px-2 text-center font-mono text-[#10b981]">10</td>
+<td class="py-2 px-2 text-center font-mono text-[#f59e0b]">1 <span class="text-[10px] text-[#94a3b8]">(1 đang XL)</span></td>
+<td class="py-2 px-2.5 text-right font-mono text-[#60a5fa]">04:15</td>
+</tr>
+</tbody>
+<tfoot>
+<tr class="bg-[#1e293b]/90 text-[#e2e8f0] font-semibold border-t-2 border-[#334155]">
+<td class="py-2 px-2.5">Tổng cộng (8 bài toán)</td>
+<td class="py-2 px-2 text-center font-mono text-[#60a5fa] font-bold">64</td>
+<td class="py-2 px-2 text-center font-mono text-[#10b981] font-bold">58</td>
+<td class="py-2 px-2 text-center font-mono text-[#f59e0b] font-bold">4</td>
+<td class="py-2 px-2.5 text-right font-mono text-[#60a5fa] font-bold">02:40</td>
+</tr>
+</tfoot>
+</table>
+</div>
+<div class="pt-1 flex items-center justify-between font-mono text-[10px] text-[#64748b]">
+<span>Khớp 100% với dữ liệu tổng hợp KPI</span>
+<span class="text-[#10b981] font-semibold">Tỷ lệ xử lý: 90.6%</span>
+</div>
+</div>
+</div>
+<!-- ROW 3: TOP OFFENDERS TABLE -->
+<div class="w-full bg-[#0f172a] border border-[#1e293b] rounded-lg p-4 space-y-3">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-1">
+<div>
+<span class="font-headline text-sm font-bold text-[#e2e8f0]">Phương tiện vi phạm nhiều nhất</span>
+<p class="text-xs text-[#94a3b8]">Top 5 phương tiện có tần suất vi phạm cao tại Khu 3.1 (Trạm sạc xe điện) và Khu 3.2 (Sân nền)</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-mono text-xs px-2.5 py-1 rounded bg-[#1e293b] text-[#94a3b8] border border-[#334155]/60">Hiển thị Top 5 phương tiện</span>
+</div>
+</div>
+<!-- Table -->
+<div class="w-full overflow-x-auto rounded-lg border border-[#1e293b]">
+<table class="w-full text-left border-collapse text-xs">
+<thead>
+<tr class="bg-[#1e293b] text-[#94a3b8] font-mono text-[11px] uppercase tracking-wider border-b border-[#334155]">
+<th class="py-2.5 px-4 font-semibold">Biển số</th>
+<th class="py-2.5 px-4 font-semibold">Đối tượng</th>
+<th class="py-2.5 px-4 font-semibold">Loại vi phạm</th>
+<th class="py-2.5 px-4 font-semibold text-center">Số lần</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#1e293b] font-body">
+<!-- Row 1 -->
+<tr class="hover:bg-[#1e293b]/50 transition-colors">
+<td class="py-3 px-4">
+<span class="font-mono text-xs font-bold text-[#e2e8f0] px-2 py-1 rounded bg-[#020617] border border-[#334155]">59A-456.78</span>
+</td>
+<td class="py-3 px-4 text-[#e2e8f0]">Cư dân Căn B-08.12</td>
+<td class="py-3 px-4 text-[#94a3b8]">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-[#ef4444]"></span>
+<span class="text-[#e2e8f0]">Chiếm ô sạc xe điện (Xe xăng đỗ ô EV)</span>
+</div>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="px-2.5 py-0.5 rounded-full bg-[#ef4444]/15 text-[#ef4444] font-mono text-xs font-bold border border-[#ef4444]/30">4 lần</span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-[#1e293b]/50 transition-colors">
+<td class="py-3 px-4">
+<span class="font-mono text-xs font-bold text-[#e2e8f0] px-2 py-1 rounded bg-[#020617] border border-[#334155]">51H-123.45</span>
+</td>
+<td class="py-3 px-4 text-[#e2e8f0]">Cư dân Căn A-04.06</td>
+<td class="py-3 px-4 text-[#94a3b8]">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-[#f59e0b]"></span>
+<span class="text-[#e2e8f0]">Đỗ lấn lối PCCC Đông</span>
+</div>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="px-2.5 py-0.5 rounded-full bg-[#f59e0b]/15 text-[#f59e0b] font-mono text-xs font-bold border border-[#f59e0b]/30">3 lần</span>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-[#1e293b]/50 transition-colors">
+<td class="py-3 px-4">
+<span class="font-mono text-xs font-bold text-[#e2e8f0] px-2 py-1 rounded bg-[#020617] border border-[#334155]">51K-678.90</span>
+</td>
+<td class="py-3 px-4 text-[#e2e8f0]">Cư dân Căn B-15.02</td>
+<td class="py-3 px-4 text-[#94a3b8]">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-[#0ea5e9]"></span>
+<span class="text-[#e2e8f0]">Chiếm ô sạc xe máy điện</span>
+</div>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="px-2.5 py-0.5 rounded-full bg-[#1e293b] text-[#e2e8f0] font-mono text-xs font-bold border border-[#334155]">2 lần</span>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-[#1e293b]/50 transition-colors">
+<td class="py-3 px-4">
+<span class="font-mono text-xs font-bold text-[#e2e8f0] px-2 py-1 rounded bg-[#020617] border border-[#334155]">50E-991.23</span>
+</td>
+<td class="py-3 px-4 text-[#e2e8f0]">Cư dân Căn A-19.10</td>
+<td class="py-3 px-4 text-[#94a3b8]">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-[#f59e0b]"></span>
+<span class="text-[#e2e8f0]">Sạc xong quá hạn không dời (&gt;45 phút)</span>
+</div>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="px-2.5 py-0.5 rounded-full bg-[#1e293b] text-[#e2e8f0] font-mono text-xs font-bold border border-[#334155]">2 lần</span>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-[#1e293b]/50 transition-colors">
+<td class="py-3 px-4">
+<span class="font-mono text-xs font-bold text-[#e2e8f0] px-2 py-1 rounded bg-[#020617] border border-[#334155]">51A-882.11</span>
+</td>
+<td class="py-3 px-4 text-[#e2e8f0]">Khách vãng lai (Gate 2)</td>
+<td class="py-3 px-4 text-[#94a3b8]">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-[#64748b]"></span>
+<span class="text-[#e2e8f0]">Dừng đón trả khách quá 3 phút</span>
+</div>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="px-2.5 py-0.5 rounded-full bg-[#1e293b] text-[#e2e8f0] font-mono text-xs font-bold border border-[#334155]">2 lần</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div></div></main><footer class="fixed bottom-0 left-14 right-0 h-9 bg-[#0f172a] border-t border-[#1e293b] z-40 flex items-center justify-between px-5 font-mono text-[11px] text-[#94a3b8]"><div class="flex items-center gap-3 overflow-hidden text-ellipsis whitespace-nowrap"><div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#10b981]"></span><span class="text-[#e2e8f0]">Kestrel API: Online</span></div><span class="text-[#334155]">•</span><span>AI Core: 18 ms/frame</span><span class="text-[#334155]">•</span><span>MediaMTX WebRTC: 0.28s</span><span class="text-[#334155]">•</span><span>GPU RTX 4060 Ti: 6.2 / 16 GB</span></div><div class="flex items-center gap-3 shrink-0"><span class="text-[#64748b]">Trích xuất tự động</span><span class="text-[#334155]">•</span><span class="text-[#e2e8f0]">Cập nhật lúc 18:30:00 GMT+7</span></div></footer></div>
+<link rel="stylesheet" href="../assets/css/app.css"/>
+<script src="../assets/js/mock-db.js"></script>
+<script src="../assets/js/app.js"></script>
+</body></html>

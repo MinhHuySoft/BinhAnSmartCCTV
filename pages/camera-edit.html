@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_dashboard" name="shell-type"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+        background-color: #020617;
+        color: #e2e8f0;
+      }
+      body { overscroll-behavior: none; }
+    }
+    ::-webkit-scrollbar { display: none; }
+  </style>
+</head>
+<body class="bg-[#020617] font-['Inter'] text-[#e2e8f0] antialiased min-h-screen overflow-hidden select-none">
+<!-- 56px Left Rail (Dark Mode) -->
+<aside class="fixed left-0 top-0 bottom-0 w-14 bg-[#0f172a] border-r border-[#1e293b] z-40 flex flex-col items-center justify-between py-3">
+<div class="flex flex-col items-center gap-3 w-full">
+<div class="w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center text-white shadow-md cursor-pointer hover:bg-blue-500 transition-colors">
+<span class="material-symbols-outlined text-[20px]">security</span>
+</div>
+<div class="w-8 h-[1px] bg-[#1e293b]"></div>
+<nav class="flex flex-col items-center gap-1 w-full px-1">
+<a class="w-10 h-10 rounded-lg flex items-center justify-center text-[#94a3b8] hover:bg-[#1e293b] hover:text-[#e2e8f0] transition-colors" href="#" title="Tổng quan">
+<span class="material-symbols-outlined text-[20px]">grid_view</span>
+</a>
+<a class="w-10 h-10 rounded-lg flex items-center justify-center bg-blue-600/20 text-blue-400 font-semibold border border-blue-500/30 transition-colors" href="#" title="Quản lý Camera">
+<span class="material-symbols-outlined text-[20px]">videocam</span>
+</a>
+<a class="w-10 h-10 rounded-lg flex items-center justify-center text-[#94a3b8] hover:bg-[#1e293b] hover:text-[#e2e8f0] transition-colors" href="#" title="Khu 3.1 Trạm sạc">
+<span class="material-symbols-outlined text-[20px]">battery_charging_full</span>
+</a>
+<a class="w-10 h-10 rounded-lg flex items-center justify-center text-[#94a3b8] hover:bg-[#1e293b] hover:text-[#e2e8f0] transition-colors" href="#" title="Khu 3.2 Sân nền">
+<span class="material-symbols-outlined text-[20px]">local_fire_department</span>
+</a>
+<a class="w-10 h-10 rounded-lg flex items-center justify-center text-[#94a3b8] hover:bg-[#1e293b] hover:text-[#e2e8f0] transition-colors" href="#" title="Cảnh báo &amp; Sự cố">
+<span class="material-symbols-outlined text-[20px]">notifications_active</span>
+</a>
+<a class="w-10 h-10 rounded-lg flex items-center justify-center text-[#94a3b8] hover:bg-[#1e293b] hover:text-[#e2e8f0] transition-colors" href="#" title="Bản đồ mặt bằng">
+<span class="material-symbols-outlined text-[20px]">map</span>
+</a>
+</nav>
+</div>
+<div class="flex flex-col items-center gap-3 w-full">
+<a class="w-10 h-10 rounded-lg flex items-center justify-center text-[#94a3b8] hover:bg-[#1e293b] hover:text-[#e2e8f0] transition-colors" href="#" title="Cấu hình hệ thống">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</a>
+<div class="w-8 h-8 rounded-full bg-[#1e293b] border border-[#334155] flex items-center justify-center cursor-pointer text-xs font-bold text-sky-400">
+        BA
+      </div>
+</div>
+</aside>
+<!-- Main Shell Wrapper (Dimmed Background behind Modal) -->
+<div class="pl-14 flex flex-col min-h-screen">
+<!-- 56px Top Header -->
+<header class="h-14 bg-[#0f172a] border-b border-[#1e293b] flex items-center justify-between px-5 z-30">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="font-['Space_Grotesk'] text-lg font-bold text-white tracking-tight">Bình An</span>
+<span class="font-['Space_Grotesk'] text-lg font-semibold text-blue-400">CCTV</span>
+<span class="ml-1 px-1.5 py-0.5 rounded bg-[#1e293b] text-[#94a3b8] font-['JetBrains_Mono'] text-[10px] uppercase border border-[#334155]">Ops Console</span>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1.5 bg-[#1e293b] rounded-lg border border-[#334155] text-xs text-[#e2e8f0]">
+<span class="material-symbols-outlined text-blue-400 text-[16px]">domain</span>
+<span class="font-medium">HQ - Khu phức hợp Đông Tây 2</span>
+<span class="material-symbols-outlined text-[#64748b] text-[16px]">keyboard_arrow_down</span>
+</div>
+<div class="hidden md:flex items-center gap-2 w-72 h-8 px-3 rounded-lg bg-[#1e293b] text-[#94a3b8] border border-[#334155]">
+<span class="material-symbols-outlined text-[#64748b] text-[16px]">search</span>
+<input class="w-full bg-transparent border-0 outline-none text-xs text-[#e2e8f0] placeholder-[#64748b]" placeholder="Tìm camera, IP, phân khu..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#1e293b] hover:bg-[#334155] text-xs text-[#e2e8f0] border border-[#334155] transition-colors">
+<span class="material-symbols-outlined text-[16px]">bar_chart</span>
+<span>Quản trị &amp; Báo cáo</span>
+</button>
+<div class="h-4 w-[1px] bg-[#1e293b]"></div>
+<div class="flex items-center gap-2">
+<div class="flex flex-col text-right hidden sm:flex">
+<span class="text-xs font-semibold text-[#e2e8f0]">Trực ban BQL</span>
+<span class="font-['JetBrains_Mono'] text-[11px] text-[#94a3b8]">801 Căn hộ • 16 Online</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-blue-600/20 border border-blue-500/40 flex items-center justify-center text-blue-400">
+<span class="material-symbols-outlined text-[18px]">person</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Page Content (Dimmed Data Table View) -->
+<main class="flex-1 p-6 bg-[#020617] opacity-40 filter pointer-events-none">
+<div class="flex flex-col gap-4">
+<!-- Title and Top Action Toolbar -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<h1 class="font-['Space_Grotesk'] text-xl font-bold text-white">Quản lý camera</h1>
+<span class="px-2 py-0.5 rounded bg-[#1e293b] text-[#94a3b8] font-['JetBrains_Mono'] text-xs border border-[#334155]">16 camera đang giám sát</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="h-9 px-3 rounded-lg bg-[#1e293b] text-[#e2e8f0] text-xs font-medium border border-[#334155] flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+<span>Xuất Excel</span>
+</button>
+<button class="h-9 px-3 rounded-lg bg-blue-600 text-white text-xs font-medium flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">add</span>
+<span>+ Thêm camera</span>
+</button>
+</div>
+</div>
+<!-- Scope Tabs Filter -->
+<div class="flex items-center gap-2 border-b border-[#1e293b] pb-2">
+<button class="px-3 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-medium">Tất cả 16</button>
+<button class="px-3 py-1.5 rounded-lg bg-[#1e293b] text-[#94a3b8] text-xs font-medium">Khu 3.1 Trạm sạc 6</button>
+<button class="px-3 py-1.5 rounded-lg bg-[#1e293b] text-[#94a3b8] text-xs font-medium">Khu 3.2 Sân nền 10</button>
+</div>
+<!-- Data Table (Dimmed) -->
+<div class="rounded-xl border border-[#1e293b] bg-[#0f172a] overflow-hidden">
+<table class="w-full text-left text-xs text-[#e2e8f0]">
+<thead class="bg-[#1e293b] text-[#94a3b8] uppercase font-['JetBrains_Mono'] text-[11px] border-b border-[#334155]">
+<tr>
+<th class="py-3 px-4">Mã &amp; Tên Camera</th>
+<th class="py-3 px-4">Phân khu</th>
+<th class="py-3 px-4">Loại Camera</th>
+<th class="py-3 px-4">Địa chỉ IP</th>
+<th class="py-3 px-4">Trạng thái</th>
+<th class="py-3 px-4 text-right">Thao tác</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#1e293b]">
+<tr class="bg-blue-600/10">
+<td class="py-3 px-4 font-['JetBrains_Mono'] text-sky-400 font-semibold">CAM-EV-01 - Trạm sạc Xe máy 01</td>
+<td class="py-3 px-4">3.1 Trạm sạc xe điện</td>
+<td class="py-3 px-4">Camera nhiệt Bi-spectrum</td>
+<td class="py-3 px-4 font-['JetBrains_Mono']">192.168.10.101</td>
+<td class="py-3 px-4 text-emerald-400 font-medium">Online (25 FPS)</td>
+<td class="py-3 px-4 text-right text-blue-400">Chỉnh sửa</td>
+</tr>
+<tr>
+<td class="py-3 px-4 font-['JetBrains_Mono'] text-white">CAM-EV-02 - Trụ sạc Ô tô EV 02</td>
+<td class="py-3 px-4">3.1 Trạm sạc xe điện</td>
+<td class="py-3 px-4">Camera AI tiêu chuẩn</td>
+<td class="py-3 px-4 font-['JetBrains_Mono']">192.168.10.102</td>
+<td class="py-3 px-4 text-emerald-400 font-medium">Online (30 FPS)</td>
+<td class="py-3 px-4 text-right text-blue-400">Chỉnh sửa</td>
+</tr>
+<tr>
+<td class="py-3 px-4 font-['JetBrains_Mono'] text-white">CAM-ANPR-01 - Nhận diện Làn vào</td>
+<td class="py-3 px-4">3.2 Sân nền</td>
+<td class="py-3 px-4">Camera ANPR</td>
+<td class="py-3 px-4 font-['JetBrains_Mono']">192.168.10.105</td>
+<td class="py-3 px-4 text-emerald-400 font-medium">Online (25 FPS)</td>
+<td class="py-3 px-4 text-right text-blue-400">Chỉnh sửa</td>
+</tr>
+<tr>
+<td class="py-3 px-4 font-['JetBrains_Mono'] text-white">CAM-GR-01 - Sân nền Khu Đông</td>
+<td class="py-3 px-4">3.2 Sân nền</td>
+<td class="py-3 px-4">Camera AI tiêu chuẩn</td>
+<td class="py-3 px-4 font-['JetBrains_Mono']">192.168.10.110</td>
+<td class="py-3 px-4 text-emerald-400 font-medium">Online (25 FPS)</td>
+<td class="py-3 px-4 text-right text-blue-400">Chỉnh sửa</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</main>
+<!-- 36px Footer -->
+<footer class="h-9 bg-[#0f172a] border-t border-[#1e293b] flex items-center justify-between px-5 font-['JetBrains_Mono'] text-[11px] text-[#94a3b8] z-30">
+<div class="flex items-center gap-3">
+<span class="flex items-center gap-1.5 text-emerald-400">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          Kestrel API: Online
+        </span>
+<span class="text-[#334155]">•</span>
+<span>AI Core: 18 ms/frame</span>
+<span class="text-[#334155]">•</span>
+<span>MediaMTX WebRTC: 0.28s</span>
+<span class="text-[#334155]">•</span>
+<span>GPU RTX 4060 Ti: 6.2 / 16 GB</span>
+</div>
+<div class="text-[#64748b]">
+        Hệ thống giám sát an ninh tập trung • 14:32:08 GMT+7
+      </div>
+</footer>
+</div>
+<!-- OVERLAY & MODAL DIALOG: CẬP NHẬT CAMERA: CAM-EV-01 -->
+<div class="fixed inset-0 bg-[#020617]/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+<div class="max-w-5xl w-full bg-[#0f172a] border border-[#1e293b] rounded-2xl shadow-2xl overflow-hidden flex flex-col my-auto animate-in fade-in zoom-in-95 duration-200">
+<!-- Modal Header -->
+<div class="px-6 py-4 bg-[#0f172a] border-b border-[#1e293b] flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-blue-600/20 border border-blue-500/40 text-blue-400 flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">videocam</span>
+</div>
+<div class="flex items-center gap-2.5">
+<h2 class="font-['Space_Grotesk'] text-lg font-bold text-white tracking-tight">Cập nhật camera: CAM-EV-01</h2>
+<span class="px-2.5 py-0.5 rounded-full bg-blue-500/10 text-sky-400 border border-blue-500/30 font-['JetBrains_Mono'] text-xs font-medium">
+              3.1 Trạm sạc xe điện
+            </span>
+</div>
+</div>
+<button class="w-8 h-8 rounded-lg bg-[#1e293b] hover:bg-[#334155] border border-[#334155] flex items-center justify-center text-[#94a3b8] hover:text-white transition-colors" title="Đóng cửa sổ">
+          ✕
+        </button>
+</div>
+<!-- Modal Body (Two-Column Architecture) -->
+<div class="p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 overflow-y-auto max-h-[78vh]">
+<!-- LEFT COLUMN: Form Fields (7 cols) -->
+<div class="lg:col-span-7 flex flex-col gap-4">
+<!-- Tên camera -->
+<div class="flex flex-col gap-1.5">
+<label class="text-xs font-medium text-[#e2e8f0]">Tên camera <span class="text-red-400">*</span></label>
+<input class="w-full px-3 py-2 rounded-lg bg-[#1e293b] border border-[#334155] text-xs text-[#e2e8f0] focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all" type="text" value="Trạm sạc Xe máy 01"/>
+</div>
+<!-- Địa chỉ IP -->
+<div class="flex flex-col gap-1.5">
+<label class="text-xs font-medium text-[#e2e8f0]">Địa chỉ IP <span class="text-red-400">*</span></label>
+<input class="w-full px-3 py-2 rounded-lg bg-[#1e293b] border border-[#334155] font-['JetBrains_Mono'] text-xs text-[#e2e8f0] focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all" type="text" value="192.168.10.101"/>
+</div>
+<!-- RTSP luồng chính & luồng phụ -->
+<div class="flex flex-col gap-1.5">
+<label class="text-xs font-medium text-[#e2e8f0]">RTSP luồng chính (4MP – lưu bằng chứng) <span class="text-red-400">*</span></label>
+<input class="w-full px-3 py-2 rounded-lg bg-[#1e293b] border border-[#334155] font-['JetBrains_Mono'] text-xs text-[#e2e8f0] focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all" type="text" value="rtsp://192.168.10.101:554/main"/>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-xs font-medium text-[#e2e8f0]">RTSP luồng phụ (720p – AI &amp; WebRTC) <span class="text-red-400">*</span></label>
+<input class="w-full px-3 py-2 rounded-lg bg-[#1e293b] border border-[#334155] font-['JetBrains_Mono'] text-xs text-[#e2e8f0] focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all" type="text" value="rtsp://192.168.10.101:554/sub"/>
+</div>
+<!-- Phân khu & Loại camera (2-Column Dropdown) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+<div class="flex flex-col gap-1.5">
+<label class="text-xs font-medium text-[#e2e8f0]">Phân khu <span class="text-red-400">*</span></label>
+<div class="relative">
+<select class="w-full appearance-none px-3 py-2 rounded-lg bg-[#1e293b] border border-[#334155] text-xs text-[#e2e8f0] focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none pr-8 transition-all">
+<option selected="" value="3.1">3.1 Trạm sạc xe điện</option>
+<option value="3.2">3.2 Sân nền</option>
+</select>
+<span class="material-symbols-outlined text-[#64748b] text-[18px] absolute right-2.5 top-2 pointer-events-none">expand_more</span>
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-xs font-medium text-[#e2e8f0]">Loại camera <span class="text-red-400">*</span></label>
+<div class="relative">
+<select class="w-full appearance-none px-3 py-2 rounded-lg bg-[#1e293b] border border-[#334155] text-xs text-[#e2e8f0] focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none pr-8 transition-all">
+<option selected="" value="thermal">Camera nhiệt Bi-spectrum</option>
+<option value="anpr">Camera ANPR</option>
+<option value="standard">Camera AI tiêu chuẩn</option>
+</select>
+<span class="material-symbols-outlined text-[#64748b] text-[18px] absolute right-2.5 top-2 pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Vị trí trên bản đồ -->
+<div class="flex flex-col gap-2 p-3 rounded-xl bg-[#1e293b]/70 border border-[#334155]">
+<div class="flex items-center justify-between">
+<span class="text-xs font-medium text-[#e2e8f0] flex items-center gap-1.5">
+<span class="material-symbols-outlined text-blue-400 text-[16px]">pin_drop</span>
+                Vị trí trên bản đồ tòa nhà
+              </span>
+<span class="font-['JetBrains_Mono'] text-[11px] text-[#94a3b8]">Tọa độ: X 42.5%, Y 61.0%</span>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div class="flex items-center gap-2">
+<span class="font-['JetBrains_Mono'] text-xs text-[#94a3b8]">X (%):</span>
+<input class="w-full px-2.5 py-1 rounded bg-[#0f172a] border border-[#334155] font-['JetBrains_Mono'] text-xs text-[#e2e8f0] outline-none" type="text" value="42.5"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-['JetBrains_Mono'] text-xs text-[#94a3b8]">Y (%):</span>
+<input class="w-full px-2.5 py-1 rounded bg-[#0f172a] border border-[#334155] font-['JetBrains_Mono'] text-xs text-[#e2e8f0] outline-none" type="text" value="61.0"/>
+</div>
+</div>
+<!-- Interactive mini floor-plan schematic picker with glowing pin -->
+<div class="relative w-full h-28 bg-[#0a0f1d] rounded-lg border border-[#334155] overflow-hidden flex items-center justify-center">
+<!-- Schematic floor background lines -->
+<svg class="absolute inset-0 w-full h-full opacity-20" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="20" id="grid" patternunits="userSpaceOnUse" width="20">
+<path d="M 20 0 L 0 0 0 20" fill="none" stroke="#60a5fa" stroke-width="0.5"></path>
+</pattern>
+</defs>
+<rect fill="url(#grid)" height="100%" width="100%"></rect>
+<!-- Building layout lines -->
+<path d="M 30,15 L 280,15 L 280,95 L 30,95 Z" fill="none" stroke="#93c5fd" stroke-dasharray="4" stroke-width="1"></path>
+<path d="M 120,15 L 120,95" stroke="#93c5fd" stroke-width="1"></path>
+<path d="M 200,15 L 200,60 L 280,60" stroke="#93c5fd" stroke-width="1"></path>
+</svg>
+<div class="absolute top-2 left-2 text-[10px] font-['JetBrains_Mono'] text-[#64748b] uppercase tracking-wider">
+                Mặt bằng Zone 3.1 &amp; 3.2 • Nhấp để đặt lại vị trí
+              </div>
+<!-- Glowing Pin located at X: 42.5%, Y: 61.0% -->
+<div class="absolute cursor-pointer -translate-x-1/2 -translate-y-1/2 group" style="left: 42.5%; top: 61.0%;">
+<span class="absolute -inset-2 rounded-full bg-blue-500/40 animate-ping"></span>
+<div class="relative w-4 h-4 rounded-full bg-blue-500 border-2 border-white shadow-[0_0_12px_rgba(59,130,246,0.9)] flex items-center justify-center">
+<div class="w-1.5 h-1.5 bg-white rounded-full"></div>
+</div>
+<!-- Pin Tooltip -->
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 px-1.5 py-0.5 rounded bg-[#0f172a] text-[10px] font-['JetBrains_Mono'] text-sky-300 border border-blue-500/40 whitespace-nowrap shadow-md">
+                  CAM-EV-01
+                </div>
+</div>
+</div>
+</div>
+<!-- Toggle Kích hoạt & Status chip -->
+<div class="flex items-center justify-between p-3 rounded-xl bg-[#1e293b]/70 border border-[#334155]">
+<div class="flex items-center gap-3">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-9 h-5 bg-[#334155] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
+</label>
+<span class="text-xs font-semibold text-[#e2e8f0]">Kích hoạt thiết bị</span>
+</div>
+<!-- Read-only Status chip -->
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-['JetBrains_Mono'] text-[11px]">
+<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+<span>Trạng thái: Online • heartbeat 3s trước</span>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Live Stream Preview & Rules (5 cols) -->
+<div class="lg:col-span-5 flex flex-col gap-4">
+<!-- Preview Header -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+<span class="text-xs font-semibold text-[#e2e8f0]">Luồng phụ 720p • LIVE</span>
+</div>
+<span class="font-['JetBrains_Mono'] text-[11px] text-[#94a3b8]">WebRTC latency: 0.28s • 25 FPS</span>
+</div>
+<!-- 16:9 Video stream preview container with real image and CCTV HUD overlay -->
+<div class="w-full aspect-video rounded-xl bg-black overflow-hidden relative shadow-lg border border-[#334155] flex flex-col justify-between group">
+<img alt="Luồng xem trực tiếp trạm sạc EV" class="absolute inset-0 w-full h-full object-cover" src="../assets/img/ev-scooter-heat.jpg"/>
+<!-- Top HUD Overlays -->
+<div class="relative z-10 w-full p-2.5 bg-gradient-to-b from-black/80 via-black/30 to-transparent flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="px-1.5 py-0.5 rounded bg-black/70 border border-white/20 text-white font-['JetBrains_Mono'] text-[10px] font-semibold">
+                  CAM-EV-01
+                </span>
+<span class="px-1.5 py-0.5 rounded bg-blue-600/80 text-white font-['JetBrains_Mono'] text-[10px] font-medium">
+                  FLIR Bi-spectrum
+                </span>
+</div>
+<span class="px-1.5 py-0.5 rounded bg-emerald-500/80 text-black font-['JetBrains_Mono'] text-[10px] font-bold">
+                REC • 720p
+              </span>
+</div>
+<!-- AI Bounding Indicator Over Video -->
+<div class="relative z-10 mx-6 mb-2 border border-sky-400 bg-sky-400/10 rounded p-1 max-w-[130px] shadow-[0_0_8px_rgba(56,189,248,0.4)]">
+<span class="bg-sky-500 text-black font-['JetBrains_Mono'] text-[9px] font-bold px-1 rounded-xs uppercase leading-none">EV VEHICLE: 98%</span>
+</div>
+<!-- Bottom HUD Overlays -->
+<div class="relative z-10 w-full p-2 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex items-center justify-between font-['JetBrains_Mono'] text-[10px] text-[#e2e8f0]">
+<span class="text-[#94a3b8]">rtsp://192.168.10.101:554/sub</span>
+<span class="text-emerald-400">FPS: 25.0</span>
+</div>
+</div>
+<!-- Card: Luật AI đang áp dụng (2) -->
+<div class="p-4 rounded-xl bg-[#1e293b] border border-[#334155] flex flex-col gap-2.5">
+<div class="flex items-center justify-between">
+<span class="text-xs font-semibold text-white flex items-center gap-1.5">
+<span class="material-symbols-outlined text-amber-400 text-[18px]">psychology</span>
+                Luật AI đang áp dụng (2)
+              </span>
+<span class="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30 text-[10px] font-semibold font-['JetBrains_Mono']">
+                ĐANG PHÂN TÍCH
+              </span>
+</div>
+<p class="text-xs text-[#cbd5e1]">
+              Đã gán 2 luật: <span class="text-white font-medium">Quá nhiệt (60°C)</span>, <span class="text-white font-medium">Xe ngã đổ</span>
+</p>
+<div class="pt-1">
+<a class="inline-flex items-center gap-1 text-xs text-sky-400 hover:text-sky-300 font-medium transition-colors" href="#">
+<span>Mở cấu hình vùng &amp; luật</span>
+<span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+</a>
+</div>
+<div class="pt-2 border-t border-[#334155]/60 flex items-center gap-2">
+<span class="material-symbols-outlined text-[#64748b] text-[15px]">memory</span>
+<span class="text-[11px] text-[#94a3b8] leading-tight">
+                AI Core (YOLOv8 + ByteTrack) đang phân tích luồng thời gian thực
+              </span>
+</div>
+</div>
+<!-- Quick Test Connection Status Bar -->
+<div class="p-3 rounded-xl bg-[#1e293b]/50 border border-[#334155] flex items-center justify-between text-xs text-[#94a3b8]">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-blue-400 text-[16px]">network_check</span>
+              Kiểm tra luồng RTSP
+            </span>
+<span class="text-emerald-400 font-['JetBrains_Mono'] text-[11px]">Sẵn sàng (200 OK)</span>
+</div>
+</div>
+</div>
+<!-- Modal Footer -->
+<div class="px-6 py-4 bg-[#0f172a] border-t border-[#1e293b] flex items-center justify-between">
+<button class="px-3.5 py-2 rounded-lg border border-red-500/40 text-red-400 hover:bg-red-500/10 text-xs font-medium flex items-center gap-1.5 transition-colors">
+<span>🗑️</span>
+<span>Xóa camera</span>
+</button>
+<div class="flex items-center gap-3">
+<button class="px-4 py-2 rounded-lg bg-transparent hover:bg-slate-800 text-slate-300 border border-slate-700 text-xs font-medium transition-colors">
+            Hủy
+          </button>
+<button class="px-5 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium shadow-md flex items-center gap-1.5 transition-colors">
+<span>💾</span>
+<span>Lưu camera</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+
+<link rel="stylesheet" href="../assets/css/app.css"/>
+<script src="../assets/js/mock-db.js"></script>
+<script src="../assets/js/app.js"></script>
+</body></html>

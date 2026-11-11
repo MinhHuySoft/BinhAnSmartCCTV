@@ -1,0 +1,8 @@
+.claude/
+node_modules/
+*.log
+Thumbs.db
+.DS_Store
+
+# Internal technical plan, kept local
+Tai lieu ky thuat.md

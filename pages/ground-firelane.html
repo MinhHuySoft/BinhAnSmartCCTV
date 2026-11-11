@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-[#020617] text-[#e2e8f0] antialiased" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KHU VỰC 3.2: AN NINH SÂN NỀN &amp; LỐI PCCC - Bình An CCTV</title><link rel="icon" href="../assets/img/favicon.svg"/>
+<!-- Tailwind CSS CDN v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<!-- Google Fonts: Inter, Space Grotesk & JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            display: ['Space Grotesk', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              canvas: '#020617',
+              panel: '#0f172a',
+              card: '#0f172a',
+              input: '#1e293b',
+              border: '#1e293b',
+              borderLight: '#334155',
+              textPrimary: '#e2e8f0',
+              textSecondary: '#94a3b8',
+              textMuted: '#64748b',
+              accent: '#2563eb'
+            }
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+  </style>
+</head>
+<body class="h-full flex overflow-hidden text-sm bg-[#020617] text-[#e2e8f0]">
+<!-- Verkada Left Rail Icon Navigation (56px) -->
+<aside class="w-14 flex-shrink-0 bg-[#0f172a] border-r border-[#1e293b] flex flex-col items-center justify-between py-3.5 z-30 select-none">
+<div class="flex flex-col items-center space-y-5 w-full">
+<!-- Minimalist Verkada / Bình An Symbol -->
+<a class="w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center text-white hover:bg-blue-500 transition-colors shadow-sm" href="#" title="Bình An CCTV Operations">
+<svg class="w-4 h-4 fill-white" viewbox="0 0 24 24">
+<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+</svg>
+</a>
+<!-- Primary Sidebar Navigation Icons -->
+<nav class="flex flex-col space-y-1.5 w-full px-2">
+<button class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1e293b]" title="Dashboard">
+<i class="w-4 h-4" data-lucide="layout-dashboard"></i>
+</button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1e293b]" title="Cảnh báo sự cố">
+<i class="w-4 h-4" data-lucide="shield-alert"></i>
+</button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1e293b]" title="Trạm sạc EV">
+<i class="w-4 h-4" data-lucide="zap"></i>
+</button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors bg-[rgba(37,99,235,0.15)] text-[#60a5fa] font-medium" title="Sân nền &amp; Lối PCCC">
+<i class="w-4 h-4" data-lucide="flame"></i>
+</button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1e293b]" title="Nhật ký ANPR Biển số">
+<i class="w-4 h-4" data-lucide="scan"></i>
+</button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1e293b]" title="Cấu hình vùng cấm">
+<i class="w-4 h-4" data-lucide="sliders"></i>
+</button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1e293b]" title="Báo cáo thống kê">
+<i class="w-4 h-4" data-lucide="bar-chart"></i>
+</button>
+</nav>
+</div>
+<!-- User & Settings Footer -->
+<div class="flex flex-col items-center space-y-3 w-full">
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1e293b] transition" title="Cài đặt hệ thống">
+<i class="w-4 h-4" data-lucide="settings"></i>
+</button>
+<div class="w-7 h-7 rounded-full bg-blue-600/20 text-blue-400 border border-blue-500/40 text-[11px] font-semibold flex items-center justify-center cursor-pointer" title="BQL: Nguyễn Văn An (801 căn hộ)">
+BA
+</div>
+</div>
+</aside>
+<!-- Main Content Layout -->
+<div class="flex-1 flex flex-col h-full overflow-hidden min-w-0 bg-[#020617]">
+<!-- Header (56px): Ultra-Clean Verkada Style Dark -->
+<header class="h-14 py-2.5 px-6 bg-[#0f172a] border-b border-[#1e293b] flex items-center justify-between flex-shrink-0 z-20">
+<!-- Left: Logo Title & Dropdown Site Selection -->
+<div class="flex items-center space-x-3">
+<div class="flex items-center space-x-2">
+<span class="font-semibold text-[#e2e8f0] text-sm tracking-tight font-display">Bình An CCTV</span>
+<i class="w-3.5 h-3.5 text-[#64748b]" data-lucide="chevron-right"></i>
+<button class="flex items-center space-x-1.5 text-xs font-medium text-[#e2e8f0] bg-[#1e293b] hover:bg-[#334155]/60 px-2.5 py-1.5 rounded-md transition-colors border border-[#334155]">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+<span>HQ - Khu phức hợp Đông Tây 2</span>
+<i class="w-3.5 h-3.5 text-[#94a3b8] ml-1" data-lucide="chevron-down"></i>
+</button>
+</div>
+</div>
+<!-- Center: Minimal Search Bar -->
+<div class="flex-1 max-w-md mx-6">
+<div class="relative w-full">
+<i class="w-3.5 h-3.5 text-[#64748b] absolute left-3 top-2.5" data-lucide="search"></i>
+<input class="w-full bg-[#1e293b] border border-[#334155] text-xs rounded-lg pl-9 pr-3 py-1.5 focus:bg-[#0f172a] focus:outline-none focus:border-blue-500 transition placeholder:text-[#64748b] text-[#e2e8f0]" placeholder="Tìm camera, biển số xe, vị trí..." type="text"/>
+</div>
+</div>
+<!-- Right: Actions & Profile -->
+<div class="flex items-center space-x-3">
+<button class="border border-[#334155] text-xs text-[#e2e8f0] bg-[#1e293b] hover:bg-[#334155] px-3 py-1.5 rounded-lg font-medium transition flex items-center gap-1.5">
+<span>🖥️ Mở WinForms Server</span>
+</button>
+<button class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-[#2563eb] hover:bg-blue-600 text-white transition shadow-sm">
+<i class="w-3.5 h-3.5" data-lucide="plus"></i>
+<span>Quản lý Thiết bị</span>
+</button>
+<div class="h-4 w-px bg-[#334155]"></div>
+<div class="flex items-center space-x-2 pl-1">
+<div class="text-right hidden sm:block">
+<div class="text-xs font-medium text-[#e2e8f0]">Trực ban BQL</div>
+<div class="text-[10px] text-[#94a3b8] font-mono">801 Căn hộ • 15 Online</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Sub-Nav: Active Pill Tabs -->
+<div class="bg-[#0f172a] border-b border-[#1e293b] px-6 flex items-center justify-between">
+<nav class="flex space-x-7 text-xs font-medium">
+<button class="py-3 border-b-2 border-transparent text-[#94a3b8] hover:text-[#e2e8f0] flex items-center gap-1.5">
+<span>Tất cả camera</span>
+<span class="bg-[#1e293b] text-[#94a3b8] rounded px-1.5 py-0.5 text-[10px] font-mono">16</span>
+</button>
+<button class="py-3 border-b-2 border-transparent text-[#94a3b8] hover:text-[#e2e8f0] flex items-center gap-1.5">
+<span>Cảnh báo sự cố</span>
+<span class="bg-rose-500/10 text-rose-400 border border-rose-500/20 rounded px-1.5 py-0.5 text-[10px] font-mono font-bold">5</span>
+</button>
+<button class="py-3 border-b-2 border-transparent text-[#94a3b8] hover:text-[#e2e8f0] flex items-center gap-1.5">
+<span>Trạm sạc xe điện</span>
+<span class="bg-[#1e293b] text-[#94a3b8] rounded px-1.5 py-0.5 text-[10px] font-mono">6</span>
+</button>
+<button class="py-3 border-b-2 border-blue-500 text-blue-400 flex items-center gap-1.5 font-semibold">
+<span>Sân nền &amp; Lối PCCC</span>
+<span class="bg-blue-500/20 text-blue-400 border border-blue-500/30 rounded px-1.5 py-0.5 text-[10px] font-mono font-bold">10</span>
+</button>
+<button class="py-3 border-b-2 border-transparent text-[#94a3b8] hover:text-[#e2e8f0] flex items-center gap-1.5">
+<span>Bản đồ mặt bằng</span>
+</button>
+<button class="py-3 border-b-2 border-transparent text-[#94a3b8] hover:text-[#e2e8f0] flex items-center gap-1.5">
+<span>Nhật ký biển số</span>
+</button>
+</nav>
+<!-- Layout Sizers -->
+<div class="hidden md:flex items-center space-x-1 text-[#94a3b8] bg-[#1e293b] p-0.5 rounded-lg border border-[#334155]">
+<button class="p-1 rounded text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#334155] transition" title="Lưới 2x2">
+<i class="w-3.5 h-3.5" data-lucide="layout-grid"></i>
+</button>
+<button class="p-1 rounded bg-[#334155] text-[#e2e8f0] shadow-xs font-medium" title="Lưới 3x2">
+<i class="w-3.5 h-3.5" data-lucide="grid"></i>
+</button>
+</div>
+</div>
+<!-- Main Scrollable Area -->
+<main class="flex-1 overflow-y-auto p-5 md:p-6 space-y-5 bg-[#020617]">
+<!-- PAGE TITLE & SCOPE NOTE -->
+<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-[#1e293b] pb-3">
+<div>
+<h1 class="text-base font-bold text-[#e2e8f0] tracking-wide font-display uppercase">KHU VỰC 3.2: AN NINH SÂN NỀN &amp; LỐI PCCC</h1>
+<p class="text-xs text-[#94a3b8] mt-0.5">Giám sát thời gian thực sân nền, sảnh đón khách &amp; lối thoát nạn PCCC bằng AI Core (YOLOv8 + ByteTrack)</p>
+</div>
+<div class="flex items-center space-x-2 text-xs font-mono text-[#94a3b8]">
+<span class="inline-flex items-center gap-1.5 bg-[#0f172a] border border-[#1e293b] px-2.5 py-1 rounded-md">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+<span>AI Active</span>
+</span>
+<span class="inline-flex items-center gap-1.5 bg-[#0f172a] border border-[#1e293b] px-2.5 py-1 rounded-md">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+<span>4 Cảnh báo sân nền</span>
+</span>
+</div>
+</div>
+<!-- TOP KPI SUMMARY ROW (4 dark cards, 1px #1e293b border, rounded-xl) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- KPI Card 1: 6/6 CAMERA ONLINE -->
+<div class="bg-[#0f172a] rounded-xl border border-[#1e293b] p-4 hover:border-[#334155] transition flex flex-col justify-between">
+<div class="flex items-center justify-between mb-2">
+<span class="text-[11px] font-bold text-[#94a3b8] uppercase tracking-wider">Trạng thái camera</span>
+<div class="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
+<i class="w-4 h-4" data-lucide="video"></i>
+</div>
+</div>
+<div class="flex items-baseline justify-between">
+<span class="text-xl font-bold text-emerald-400 font-display">6/6 camera online</span>
+<span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+</div>
+<div class="mt-3 pt-2.5 border-t border-[#1e293b] flex items-center gap-1.5">
+<span class="px-2 py-0.5 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-[11px] font-medium truncate font-mono">
+Khu vực 3.2 • 100% truyền trực tiếp
+</span>
+</div>
+</div>
+<!-- KPI Card 2: VI PHẠM ĐỖ XE -->
+<div class="bg-[#0f172a] rounded-xl border border-[#1e293b] p-4 hover:border-[#334155] transition flex flex-col justify-between">
+<div class="flex items-center justify-between mb-2">
+<span class="text-[11px] font-bold text-[#94a3b8] uppercase tracking-wider">Hành lang xe chữa cháy (PCCC)</span>
+<div class="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center">
+<i class="w-4 h-4" data-lucide="alert-triangle"></i>
+</div>
+</div>
+<div class="flex items-baseline justify-between">
+<span class="text-xl font-bold text-amber-400 font-display">Vi phạm đỗ xe: 1</span>
+<span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+</div>
+<div class="mt-3 pt-2.5 border-t border-[#1e293b] flex items-center gap-1.5">
+<span class="px-2 py-0.5 rounded-md bg-amber-500/10 border border-amber-500/20 text-amber-300 text-[11px] font-medium truncate">
+Đỗ lấn lối PCCC Đông: 03:15 / 03:00
+</span>
+</div>
+</div>
+<!-- KPI Card 3: ĐỒ VẬT BỎ RƠI -->
+<div class="bg-[#0f172a] rounded-xl border border-[#1e293b] p-4 hover:border-[#334155] transition flex flex-col justify-between">
+<div class="flex items-center justify-between mb-2">
+<span class="text-[11px] font-bold text-[#94a3b8] uppercase tracking-wider">Phát hiện đồ vật bỏ rơi</span>
+<div class="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center">
+<i class="w-4 h-4" data-lucide="package"></i>
+</div>
+</div>
+<div class="flex items-baseline justify-between">
+<span class="text-xl font-bold text-amber-400 font-display">Đồ vật bỏ rơi: 1</span>
+<span class="w-2 h-2 rounded-full bg-amber-400"></span>
+</div>
+<div class="mt-3 pt-2.5 border-t border-[#1e293b] flex items-center gap-1.5">
+<span class="px-2 py-0.5 rounded-md bg-amber-500/10 border border-amber-500/20 text-amber-300 text-[11px] font-medium truncate">
+Vali bỏ quên tại công viên sân nền
+</span>
+</div>
+</div>
+<!-- KPI Card 4: TỤ TẬP / LẢNG VẢNG -->
+<div class="bg-[#0f172a] rounded-xl border border-[#1e293b] p-4 hover:border-[#334155] transition flex flex-col justify-between">
+<div class="flex items-center justify-between mb-2">
+<span class="text-[11px] font-bold text-[#94a3b8] uppercase tracking-wider">Trật tự &amp; An ninh sân nền</span>
+<div class="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center">
+<i class="w-4 h-4" data-lucide="users"></i>
+</div>
+</div>
+<div class="flex items-baseline justify-between">
+<span class="text-xl font-bold text-amber-400 font-display">Tụ tập / lảng vảng: 2</span>
+<span class="w-2 h-2 rounded-full bg-amber-400"></span>
+</div>
+<div class="mt-3 pt-2.5 border-t border-[#1e293b] flex items-center gap-1.5">
+<span class="px-2 py-0.5 rounded-md bg-amber-500/10 border border-amber-500/20 text-amber-300 text-[11px] font-medium truncate">
+1 nhóm tụ tập &amp; 1 đối tượng lảng vảng đêm
+</span>
+</div>
+</div>
+</div>
+<!-- MAIN SPLIT CONTENT: Left Area (68%) + Right Area (32%) -->
+<div class="flex flex-col xl:flex-row gap-5 items-start">
+<!-- LEFT AREA (68% width): 6 Camera Cards in a 3x2 Grid -->
+<div class="w-full xl:w-[68%] space-y-3.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center space-x-2.5">
+<h2 class="text-xs font-semibold text-[#e2e8f0] uppercase tracking-wider font-display">Giám sát hình ảnh trực tiếp</h2>
+<span class="text-[#334155]">|</span>
+<span class="text-xs text-[#94a3b8]">6 Kênh camera khu vực sân nền &amp; PCCC</span>
+</div>
+<div class="flex items-center space-x-2 text-xs font-mono text-[#94a3b8]">
+<span class="inline-flex items-center gap-1 bg-[#0f172a] border border-[#1e293b] px-2.5 py-1 rounded-md">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+<span>4 Cảnh báo</span>
+</span>
+<span class="inline-flex items-center gap-1 bg-[#0f172a] border border-[#1e293b] px-2.5 py-1 rounded-md">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+<span>2 Bình thường</span>
+</span>
+</div>
+</div>
+<!-- 3x2 Grid (6 Camera Cards) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+<!-- CAM 1: CAM-GR-01 Lối PCCC Đông -->
+<div class="bg-[#0f172a] rounded-xl border border-amber-500/50 overflow-hidden shadow-xs flex flex-col justify-between group hover:border-amber-400 transition">
+<div class="relative aspect-video bg-black overflow-hidden">
+<img alt="Lối PCCC Đông" class="w-full h-full object-cover group-hover:scale-[1.02] transition duration-300" src="../assets/img/gr-firelane.jpg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/40 pointer-events-none"></div>
+<!-- Top Left Badge: Severity CẢNH BÁO -->
+<div class="absolute top-2.5 left-2.5 bg-amber-500/90 text-black backdrop-blur-md px-2 py-0.5 rounded text-[10px] font-bold tracking-wide flex items-center space-x-1 shadow-sm">
+<span>⚠️ CẢNH BÁO</span>
+</div>
+<!-- Top Right Badge: Camera ID -->
+<div class="absolute top-2.5 right-2.5 bg-[#0f172a]/80 border border-[#334155] backdrop-blur-md px-2 py-0.5 rounded text-[10px] font-mono text-[#e2e8f0] font-semibold">
+CAM-GR-01
+</div>
+<!-- Bottom Metadata -->
+<div class="absolute bottom-2 inset-x-2.5 flex items-center justify-between text-white">
+<div class="flex items-center space-x-1.5 min-w-0">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-400 flex-shrink-0 animate-pulse"></span>
+<span class="text-[11px] font-medium truncate drop-shadow-xs">Lối PCCC Đông</span>
+</div>
+<span class="text-[10px] font-mono bg-red-500/80 px-1.5 py-0.2 rounded text-white font-bold">LIVE</span>
+</div>
+</div>
+<!-- Bottom Details & Action -->
+<div class="p-3 bg-[#0f172a] border-t border-[#1e293b] flex flex-col justify-between gap-2 text-xs">
+<div class="flex items-center justify-between">
+<span class="text-[10px] uppercase font-mono text-[#94a3b8]">Thời gian / Ngưỡng:</span>
+<span class="font-mono text-xs font-bold text-amber-400">03:15 / 03:00</span>
+</div>
+<div class="min-w-0 text-[11px] text-[#e2e8f0]">
+Đỗ lấn lối PCCC • <span class="font-mono font-semibold text-white">51H-123.45</span> • Toyota Cross
+</div>
+<div class="pt-1 flex justify-end">
+<button class="px-2.5 py-1 rounded bg-[#1e293b] hover:bg-[#334155] border border-[#334155] text-amber-300 font-medium text-[11px] transition flex items-center gap-1">
+<i class="w-3.5 h-3.5" data-lucide="eye"></i>
+<span>Xem sự cố</span>
+</button>
+</div>
+</div>
+</div>
+<!-- CAM 2: CAM-GR-02 Sảnh đón khách A -->
+<div class="bg-[#0f172a] rounded-xl border border-[#1e293b] overflow-hidden shadow-xs flex flex-col justify-between group hover:border-[#334155] transition">
+<div class="relative aspect-video bg-black overflow-hidden">
+<img alt="Sảnh đón khách A" class="w-full h-full object-cover group-hover:scale-[1.02] transition duration-300" src="../assets/img/gr-lobby.jpg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/40 pointer-events-none"></div>
+<div class="absolute top-2.5 left-2.5 bg-emerald-500/90 text-black backdrop-blur-md px-2 py-0.5 rounded text-[10px] font-bold tracking-wide flex items-center space-x-1 shadow-sm">
+<span>✓ BÌNH THƯỜNG</span>
+</div>
+<div class="absolute top-2.5 right-2.5 bg-[#0f172a]/80 border border-[#334155] backdrop-blur-md px-2 py-0.5 rounded text-[10px] font-mono text-[#e2e8f0] font-semibold">
+CAM-GR-02
+</div>
+<div class="absolute bottom-2 inset-x-2.5 flex items-center justify-between text-white">
+<div class="flex items-center space-x-1.5 min-w-0">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0"></span>
+<span class="text-[11px] font-medium truncate drop-shadow-xs">Sảnh đón khách A</span>
+</div>
+<span class="text-[10px] font-mono bg-red-500/80 px-1.5 py-0.2 rounded text-white font-bold">LIVE</span>
+</div>
+</div>
+<!-- Bottom Details & Action -->
+<div class="p-3 bg-[#0f172a] border-t border-[#1e293b] flex flex-col justify-between gap-2 text-xs">
+<div class="flex items-center justify-between">
+<span class="text-[10px] uppercase font-mono text-[#94a3b8]">Thời gian / Ngưỡng:</span>
+<span class="font-mono text-xs font-semibold text-emerald-400">01:10 / 03:00</span>
+</div>
+<div class="min-w-0 text-[11px] text-[#94a3b8]">
+Đang đón khách hợp lệ
+</div>
+<div class="pt-1 flex justify-end">
+<span class="px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-medium text-[11px]">
+✓ Hợp lệ
+</span>
+</div>
+</div>
+</div>
+<!-- CAM 3: CAM-ANPR-01 Cổng vào -->
+<div class="bg-[#0f172a] rounded-xl border border-[#1e293b] overflow-hidden shadow-xs flex flex-col justify-between group hover:border-[#334155] transition">
+<div class="relative aspect-video bg-black overflow-hidden">
+<img alt="Cổng vào ANPR" class="w-full h-full object-cover group-hover:scale-[1.02] transition duration-300" src="../assets/img/gr-anpr-gate.jpg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/40 pointer-events-none"></div>
+<div class="absolute top-2.5 left-2.5 bg-emerald-500/90 text-black backdrop-blur-md px-2 py-0.5 rounded text-[10px] font-bold tracking-wide flex items-center space-x-1 shadow-sm">
+<span>✓ BÌNH THƯỜNG</span>
+</div>
+<div class="absolute top-2.5 right-2.5 bg-[#0f172a]/80 border border-[#334155] backdrop-blur-md px-2 py-0.5 rounded text-[10px] font-mono text-[#e2e8f0] font-semibold">
+CAM-ANPR-01
+</div>
+<div class="absolute bottom-2 inset-x-2.5 flex items-center justify-between text-white">
+<div class="flex items-center space-x-1.5 min-w-0">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0"></span>
+<span class="text-[11px] font-medium truncate drop-shadow-xs">Cổng vào</span>
+</div>
+<span class="text-[10px] font-mono bg-red-500/80 px-1.5 py-0.2 rounded text-white font-bold">LIVE</span>
+</div>
+</div>
+<!-- Bottom Details & Action -->
+<div class="p-3 bg-[#0f172a] border-t border-[#1e293b] flex flex-col justify-between gap-2 text-xs">
+<div class="flex items-center justify-between">
+<span class="text-[10px] uppercase font-mono text-[#94a3b8]">Thời điểm quét:</span>
+<span class="font-mono text-xs font-semibold text-cyan-400">18:13:02</span>
+</div>
+<div class="min-w-0 text-[11px] text-[#e2e8f0]">
+ANPR <span class="font-mono font-semibold text-cyan-300">51K-888.99</span> • Cư dân A-12.05 • VÀO
+</div>
+<div class="pt-1 flex justify-end">
+<span class="px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 font-medium text-[11px]">
+✓ Đã nhận diện
+</span>
+</div>
+</div>
+</div>
+<!-- CAM 4: CAM-GR-03 Công viên sân nền -->
+<div class="bg-[#0f172a] rounded-xl border border-amber-500/50 overflow-hidden shadow-xs flex flex-col justify-between group hover:border-amber-400 transition">
+<div class="relative aspect-video bg-black overflow-hidden">
+<img alt="Công viên sân nền" class="w-full h-full object-cover group-hover:scale-[1.02] transition duration-300" src="../assets/img/gr-suitcase.jpg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/40 pointer-events-none"></div>
+<div class="absolute top-2.5 left-2.5 bg-amber-500/90 text-black backdrop-blur-md px-2 py-0.5 rounded text-[10px] font-bold tracking-wide flex items-center space-x-1 shadow-sm">
+<span>⚠️ CẢNH BÁO</span>
+</div>
+<div class="absolute top-2.5 right-2.5 bg-[#0f172a]/80 border border-[#334155] backdrop-blur-md px-2 py-0.5 rounded text-[10px] font-mono text-[#e2e8f0] font-semibold">
+CAM-GR-03
+</div>
+<div class="absolute bottom-2 inset-x-2.5 flex items-center justify-between text-white">
+<div class="flex items-center space-x-1.5 min-w-0">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-400 flex-shrink-0"></span>
+<span class="text-[11px] font-medium truncate drop-shadow-xs">Công viên sân nền</span>
+</div>
+<span class="text-[10px] font-mono bg-red-500/80 px-1.5 py-0.2 rounded text-white font-bold">LIVE</span>
+</div>
+</div>
+<!-- Bottom Details & Action -->
+<div class="p-3 bg-[#0f172a] border-t border-[#1e293b] flex flex-col justify-between gap-2 text-xs">
+<div class="flex items-center justify-between">
+<span class="text-[10px] uppercase font-mono text-[#94a3b8]">Thời gian / Ngưỡng:</span>
+<span class="font-mono text-xs font-bold text-amber-400">02:40 / 02:00</span>
+</div>
+<div class="min-w-0 text-[11px] text-[#e2e8f0]">
+Vali bỏ quên • cách người gần nhất &gt; 3 m
+</div>
+<div class="pt-1 flex justify-end">
+<button class="px-2.5 py-1 rounded bg-[#1e293b] hover:bg-[#334155] border border-[#334155] text-amber-300 font-medium text-[11px] transition flex items-center gap-1">
+<i class="w-3.5 h-3.5" data-lucide="eye"></i>
+<span>Xem sự cố</span>
+</button>
+</div>
+</div>
+</div>
+<!-- CAM 5: CAM-GR-04 Sân trung tâm -->
+<div class="bg-[#0f172a] rounded-xl border border-amber-500/50 overflow-hidden shadow-xs flex flex-col justify-between group hover:border-amber-400 transition">
+<div class="relative aspect-video bg-black overflow-hidden">
+<img alt="Sân trung tâm" class="w-full h-full object-cover group-hover:scale-[1.02] transition duration-300" src="../assets/img/gr-crowd-dusk.jpg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/40 pointer-events-none"></div>
+<div class="absolute top-2.5 left-2.5 bg-amber-500/90 text-black backdrop-blur-md px-2 py-0.5 rounded text-[10px] font-bold tracking-wide flex items-center space-x-1 shadow-sm">
+<span>⚠️ CẢNH BÁO</span>
+</div>
+<div class="absolute top-2.5 right-2.5 bg-[#0f172a]/80 border border-[#334155] backdrop-blur-md px-2 py-0.5 rounded text-[10px] font-mono text-[#e2e8f0] font-semibold">
+CAM-GR-04
+</div>
+<div class="absolute bottom-2 inset-x-2.5 flex items-center justify-between text-white">
+<div class="flex items-center space-x-1.5 min-w-0">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-400 flex-shrink-0"></span>
+<span class="text-[11px] font-medium truncate drop-shadow-xs">Sân trung tâm</span>
+</div>
+<span class="text-[10px] font-mono bg-red-500/80 px-1.5 py-0.2 rounded text-white font-bold">LIVE</span>
+</div>
+</div>
+<!-- Bottom Details & Action -->
+<div class="p-3 bg-[#0f172a] border-t border-[#1e293b] flex flex-col justify-between gap-2 text-xs">
+<div class="flex items-center justify-between">
+<span class="text-[10px] uppercase font-mono text-[#94a3b8]">Quy mô nhóm:</span>
+<span class="font-mono text-xs font-bold text-amber-400">Tụ tập: 9 người / ngưỡng ≥ 8</span>
+</div>
+<div class="min-w-0 text-[11px] text-[#e2e8f0]">
+Phát hiện đám đông bất thường tại sân trung tâm
+</div>
+<div class="pt-1 flex justify-end">
+<button class="px-2.5 py-1 rounded bg-[#1e293b] hover:bg-[#334155] border border-[#334155] text-amber-300 font-medium text-[11px] transition flex items-center gap-1">
+<i class="w-3.5 h-3.5" data-lucide="eye"></i>
+<span>Xem sự cố</span>
+</button>
+</div>
+</div>
+</div>
+<!-- CAM 6: CAM-GR-05 Góc khuất hàng rào Tây -->
+<div class="bg-[#0f172a] rounded-xl border border-amber-500/50 overflow-hidden shadow-xs flex flex-col justify-between group hover:border-amber-400 transition">
+<div class="relative aspect-video bg-black overflow-hidden">
+<img alt="Góc khuất hàng rào Tây" class="w-full h-full object-cover group-hover:scale-[1.02] transition duration-300" src="../assets/img/gr-west-fence.jpg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/40 pointer-events-none"></div>
+<div class="absolute top-2.5 left-2.5 bg-amber-500/90 text-black backdrop-blur-md px-2 py-0.5 rounded text-[10px] font-bold tracking-wide flex items-center space-x-1 shadow-sm">
+<span>⚠️ CẢNH BÁO</span>
+</div>
+<div class="absolute top-2.5 right-2.5 bg-[#0f172a]/80 border border-[#334155] backdrop-blur-md px-2 py-0.5 rounded text-[10px] font-mono text-[#e2e8f0] font-semibold">
+CAM-GR-05
+</div>
+<div class="absolute bottom-2 inset-x-2.5 flex items-center justify-between text-white">
+<div class="flex items-center space-x-1.5 min-w-0">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-400 flex-shrink-0"></span>
+<span class="text-[11px] font-medium truncate drop-shadow-xs">Góc khuất hàng rào Tây</span>
+</div>
+<span class="text-[10px] font-mono bg-red-500/80 px-1.5 py-0.2 rounded text-white font-bold">LIVE</span>
+</div>
+</div>
+<!-- Bottom Details & Action -->
+<div class="p-3 bg-[#0f172a] border-t border-[#1e293b] flex flex-col justify-between gap-2 text-xs">
+<div class="flex items-center justify-between">
+<span class="text-[10px] uppercase font-mono text-[#94a3b8]">Thời gian / Ngưỡng:</span>
+<span class="font-mono text-xs font-bold text-amber-400">09:30 / 05:00</span>
+</div>
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-[10px] font-mono">Khung giờ 22:00–05:30</span>
+<span class="text-[10px] font-mono text-[#94a3b8]">23:42:10</span>
+</div>
+<div class="min-w-0 text-[11px] text-[#e2e8f0]">
+Lảng vảng ban đêm • 1 người khả nghi
+</div>
+<div class="pt-1 flex justify-end">
+<button class="px-2.5 py-1 rounded bg-[#1e293b] hover:bg-[#334155] border border-[#334155] text-amber-300 font-medium text-[11px] transition flex items-center gap-1">
+<i class="w-3.5 h-3.5" data-lucide="eye"></i>
+<span>Xem sự cố</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- RIGHT AREA (32% width): DANH SÁCH VI PHẠM SÂN NỀN TRONG NGÀY -->
+<div class="w-full xl:w-[32%] flex flex-col gap-3.5 flex-shrink-0">
+<div class="bg-[#0f172a] rounded-xl border border-[#1e293b] p-4">
+<!-- Header -->
+<div class="flex items-center justify-between pb-3 border-b border-[#1e293b]">
+<div>
+<h3 class="text-xs font-bold text-[#e2e8f0] uppercase tracking-wider font-display">Vi phạm sân nền trong ngày</h3>
+<p class="text-[11px] text-[#94a3b8] font-mono mt-0.5">AI Core (YOLOv8 + ByteTrack) • 4 sự vụ</p>
+</div>
+<span class="px-2 py-0.5 rounded-md bg-amber-500/10 border border-amber-500/30 text-amber-400 font-mono text-[10px] font-bold">
+4 Cảnh báo
+</span>
+</div>
+<!-- Filter Chips with exact counts -->
+<div class="flex items-center gap-1.5 py-3 border-b border-[#1e293b] text-xs flex-wrap">
+<button class="px-2.5 py-1 rounded-md bg-blue-600 text-white font-medium text-[11px]">Tất cả (4)</button>
+<button class="px-2.5 py-1 rounded-md bg-[#1e293b] hover:bg-[#334155] text-[#94a3b8] hover:text-[#e2e8f0] text-[11px]">Đỗ PCCC (1)</button>
+<button class="px-2.5 py-1 rounded-md bg-[#1e293b] hover:bg-[#334155] text-[#94a3b8] hover:text-[#e2e8f0] text-[11px]">Bỏ quên (1)</button>
+<button class="px-2.5 py-1 rounded-md bg-[#1e293b] hover:bg-[#334155] text-[#94a3b8] hover:text-[#e2e8f0] text-[11px]">An ninh đêm (2)</button>
+</div>
+<!-- Vertical Timeline Feed -->
+<div class="divide-y divide-[#1e293b] space-y-3.5 pt-3">
+<!-- Item 1: CAM-GR-01 -->
+<div class="pt-1 space-y-2">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse flex-shrink-0"></span>
+<span class="font-mono text-xs font-bold text-amber-300 bg-[#1e293b] px-1.5 py-0.5 rounded border border-[#334155]">CAM-GR-01</span>
+<span class="text-[11px] font-semibold text-[#e2e8f0]">51H-123.45</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-blue-500/15 border border-blue-500/30 text-blue-300 font-mono text-[10px] font-semibold">
+Đang xử lý
+</span>
+</div>
+<div class="text-xs text-[#94a3b8] flex items-center justify-between">
+<span>Đỗ lấn lối PCCC Đông (03:15)</span>
+<span class="font-mono text-[10px] text-[#64748b]">14:32:40</span>
+</div>
+<div class="bg-[#1e293b]/60 rounded-lg p-2 border border-[#1e293b] text-[11px] text-[#94a3b8] flex items-center justify-between">
+<span>Phụ trách: <strong class="text-[#e2e8f0]">Bảo vệ Lê Văn Minh</strong></span>
+<button class="text-blue-400 hover:text-blue-300 text-[10px] font-medium flex items-center gap-0.5">
+<span>Chi tiết</span>
+<i class="w-3 h-3" data-lucide="chevron-right"></i>
+</button>
+</div>
+</div>
+<!-- Item 2: CAM-GR-03 -->
+<div class="pt-3 space-y-2">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-amber-400 flex-shrink-0"></span>
+<span class="font-mono text-xs font-bold text-amber-300 bg-[#1e293b] px-1.5 py-0.5 rounded border border-[#334155]">CAM-GR-03</span>
+<span class="text-[11px] font-semibold text-[#e2e8f0]">Vật thể #BAG-09</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-amber-500/15 border border-amber-500/30 text-amber-300 font-mono text-[10px] font-semibold">
+Mới
+</span>
+</div>
+<div class="text-xs text-[#94a3b8] flex items-center justify-between">
+<span>Vali bỏ quên tại công viên (02:40)</span>
+<span class="font-mono text-[10px] text-[#64748b]">14:21:10</span>
+</div>
+<div class="bg-[#1e293b]/60 rounded-lg p-2 border border-[#1e293b] text-[11px] text-[#94a3b8] flex items-center justify-between">
+<span>Khoảng cách người: &gt; 3 m</span>
+<button class="text-blue-400 hover:text-blue-300 text-[10px] font-medium flex items-center gap-0.5">
+<span>Chi tiết</span>
+<i class="w-3 h-3" data-lucide="chevron-right"></i>
+</button>
+</div>
+</div>
+<!-- Item 3: CAM-GR-04 -->
+<div class="pt-3 space-y-2">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-amber-400 flex-shrink-0"></span>
+<span class="font-mono text-xs font-bold text-amber-300 bg-[#1e293b] px-1.5 py-0.5 rounded border border-[#334155]">CAM-GR-04</span>
+<span class="text-[11px] font-semibold text-[#e2e8f0]">Đám đông #CROWD-03</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-amber-500/15 border border-amber-500/30 text-amber-300 font-mono text-[10px] font-semibold">
+Mới
+</span>
+</div>
+<div class="text-xs text-[#94a3b8] flex items-center justify-between">
+<span>Tụ tập 9 người sân trung tâm</span>
+<span class="font-mono text-[10px] text-[#64748b]">14:15:02</span>
+</div>
+<div class="bg-[#1e293b]/60 rounded-lg p-2 border border-[#1e293b] text-[11px] text-[#94a3b8] flex items-center justify-between">
+<span>Ngưỡng vượt: 9 / ≥ 8 người</span>
+<button class="text-blue-400 hover:text-blue-300 text-[10px] font-medium flex items-center gap-0.5">
+<span>Chi tiết</span>
+<i class="w-3 h-3" data-lucide="chevron-right"></i>
+</button>
+</div>
+</div>
+<!-- Item 4: CAM-GR-05 -->
+<div class="pt-3 space-y-2">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-amber-400 flex-shrink-0"></span>
+<span class="font-mono text-xs font-bold text-amber-300 bg-[#1e293b] px-1.5 py-0.5 rounded border border-[#334155]">CAM-GR-05</span>
+<span class="text-[11px] font-semibold text-[#e2e8f0]">Đối tượng #LOITER-01</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-blue-500/15 border border-blue-500/30 text-blue-300 font-mono text-[10px] font-semibold">
+Đang xử lý
+</span>
+</div>
+<div class="text-xs text-[#94a3b8] flex items-center justify-between">
+<span>Lảng vảng hàng rào Tây (09:30)</span>
+<span class="font-mono text-[10px] text-[#64748b]">23:42:10</span>
+</div>
+<div class="bg-[#1e293b]/60 rounded-lg p-2 border border-[#1e293b] text-[11px] text-[#94a3b8] flex items-center justify-between">
+<span>Khung giờ kiểm soát đêm</span>
+<button class="text-blue-400 hover:text-blue-300 text-[10px] font-medium flex items-center gap-0.5">
+<span>Chi tiết</span>
+<i class="w-3 h-3" data-lucide="chevron-right"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- Bottom Action: Xuất Excel (NO PDF) -->
+<div class="mt-4 pt-3 border-t border-[#1e293b] flex items-center justify-between">
+<button class="w-full py-2 bg-[#1e293b] hover:bg-[#334155] border border-[#334155] text-[#e2e8f0] rounded-lg font-medium text-xs flex items-center justify-center gap-2 transition" onclick="alert('Đang trích xuất dữ liệu vi phạm sang tệp Excel (.xlsx)...')">
+<i class="w-4 h-4 text-emerald-400" data-lucide="file-spreadsheet"></i>
+<span>Xuất Excel</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Status & System Bar (36px) -->
+<footer class="h-9 bg-[#0f172a] border-t border-[#1e293b] px-6 flex items-center justify-between text-xs text-[#94a3b8] flex-shrink-0">
+<div class="flex items-center space-x-3 overflow-hidden text-ellipsis whitespace-nowrap">
+<span class="flex items-center gap-1.5 text-[#e2e8f0]">
+<span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+<span>Kestrel API: <span class="font-medium text-emerald-400">Online</span></span>
+</span>
+<span class="text-[#334155]">•</span>
+<span>AI Core: <span class="font-mono text-[#e2e8f0]">18 ms/frame</span></span>
+<span class="text-[#334155]">•</span>
+<span>MediaMTX WebRTC: <span class="font-mono text-[#e2e8f0]">0.28s</span></span>
+<span class="text-[#334155]">•</span>
+<span>GPU RTX 4060 Ti: <span class="font-mono text-[#e2e8f0]">6.2 / 16 GB</span></span>
+</div>
+<div class="flex items-center space-x-2 flex-shrink-0">
+<span class="text-[#94a3b8]">Online 15/16</span>
+<span class="text-[#334155]">•</span>
+<span class="text-[#94a3b8]">Hiển thị 6 / 10 camera</span>
+<span class="text-[#334155]">•</span>
+<span class="font-mono text-[#e2e8f0]" id="live-clock">18:15:30 GMT+7</span>
+</div>
+</footer>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
+    });
+
+    function updateClock() {
+      const clockEl = document.getElementById('live-clock');
+      if (clockEl) {
+        const now = new Date();
+        clockEl.textContent = now.toTimeString().split(' ')[0] + ' GMT+7';
+      }
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
+
+<link rel="stylesheet" href="../assets/css/app.css"/>
+<script src="../assets/js/mock-db.js"></script>
+<script src="../assets/js/app.js"></script>
+</body></html>

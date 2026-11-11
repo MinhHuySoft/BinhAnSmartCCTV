@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bình An CCTV - Danh sách xe cư dân</title><link rel="icon" href="../assets/img/favicon.svg"/>
+<!-- Google Fonts: Space Grotesk, Inter, JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "secondary-container": "#00a572",
+            "on-primary": "#002a78",
+            "on-primary-fixed": "#00174b",
+            "surface-container-low": "#151b2d",
+            "on-error": "#690005",
+            "tertiary": "#ffb3ad",
+            "inverse-on-surface": "#2a3043",
+            "surface-container-high": "#23293c",
+            "on-surface-variant": "#c3c6d7",
+            "primary-fixed-dim": "#b4c5ff",
+            "surface-container-highest": "#2e3447",
+            "on-surface": "#dce1fb",
+            "surface": "#0c1324",
+            "tertiary-container": "#cf2c30",
+            "error-container": "#93000a",
+            "on-tertiary-fixed": "#410004",
+            "on-secondary-fixed": "#002113",
+            "surface-dim": "#0c1324",
+            "primary-container": "#2563eb",
+            "surface-container": "#191f31",
+            "surface-bright": "#33394c",
+            "background": "#0c1324",
+            "surface-variant": "#2e3447",
+            "surface-tint": "#b4c5ff",
+            "outline-variant": "#434655",
+            "on-secondary-fixed-variant": "#005236",
+            "inverse-primary": "#0053db",
+            "on-tertiary": "#68000a",
+            "primary-fixed": "#dbe1ff",
+            "tertiary-fixed": "#ffdad7",
+            "on-secondary-container": "#00311f",
+            "secondary-fixed-dim": "#4edea3",
+            "on-secondary": "#003824",
+            "tertiary-fixed-dim": "#ffb3ad",
+            "secondary": "#4edea3",
+            "primary": "#b4c5ff",
+            "error": "#ffb4ab",
+            "on-error-container": "#ffdad6",
+            "surface-container-lowest": "#070d1f",
+            "inverse-surface": "#dce1fb",
+            "outline": "#8d90a0",
+            "secondary-fixed": "#6ffbbe",
+            "on-primary-container": "#eeefff",
+            "on-tertiary-container": "#ffecea",
+            "on-primary-fixed-variant": "#003ea8",
+            "on-tertiary-fixed-variant": "#930013",
+            "on-background": "#dce1fb"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "margin-desktop": "1.5rem",
+            "gutter-desktop": "1rem",
+            "space-lg": "1rem",
+            "space-xl": "1.5rem",
+            "space-md": "0.75rem",
+            "margin": "1rem",
+            "space-sm": "0.5rem",
+            "gutter": "0.75rem",
+            "space-xs": "0.25rem"
+          },
+          "fontFamily": {
+            "display-lg-mobile": ["Space Grotesk"],
+            "mono-md": ["JetBrains Mono"],
+            "body-md": ["Inter"],
+            "mono-lg": ["JetBrains Mono"],
+            "body-lg": ["Inter"],
+            "headline-lg": ["Space Grotesk"],
+            "label-caps": ["JetBrains Mono"],
+            "display-lg": ["Space Grotesk"],
+            "mono-sm": ["JetBrains Mono"],
+            "body-sm": ["Inter"],
+            "headline-sm": ["Space Grotesk"],
+            "headline-md": ["Space Grotesk"]
+          },
+          "fontSize": {
+            "display-lg-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "mono-md": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "mono-lg": ["16px", { "lineHeight": "24px", "fontWeight": "500" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "label-caps": ["10px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "600" }],
+            "display-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "mono-sm": ["11px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "400" }],
+            "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "headline-sm": ["15px", { "lineHeight": "22px", "fontWeight": "600" }],
+            "headline-md": ["18px", { "lineHeight": "26px", "fontWeight": "600" }]
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 18px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+      vertical-align: middle;
+    }
+    /* Custom scrollbars */
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #070d1f;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #23293c;
+      border-radius: 2px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #434655;
+    }
+  </style>
+</head>
+<body class="bg-[#020617] text-[#e2e8f0] font-body-md text-body-md antialiased h-screen flex flex-col overflow-hidden select-none">
+<!-- ================= TOP HEADER (56px) ================= -->
+<header class="flex justify-between items-center w-full px-4 h-14 z-50 bg-[#0f172a] border-b border-[#1e293b] flex-shrink-0">
+<div class="flex items-center gap-4">
+<!-- Brand Logo Anchor -->
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#2563eb]" style="font-variation-settings: 'FILL' 1; font-size: 22px;">shield</span>
+<span class="font-headline-md text-headline-md font-bold tracking-tight text-[#f8fafc]">Bình An CCTV</span>
+<span class="font-label-caps text-label-caps text-[#64748b] bg-[#1e293b] px-1.5 py-0.5 rounded ml-1 border border-[#334155]">SOC CONSOLE</span>
+</div>
+<!-- Site selector pill -->
+<div class="flex items-center gap-2 bg-[#1e293b] border border-[#334155] px-3 py-1 rounded text-body-sm text-[#cbd5e1] hover:border-[#475569] cursor-pointer transition-colors">
+<span class="w-2 h-2 rounded-full bg-[#10b981] animate-pulse"></span>
+<span class="font-medium text-[#e2e8f0]">HQ - Khu phức hợp Đông Tây 2</span>
+<span class="font-mono-sm text-mono-sm text-[#64748b]">(Online 15/16)</span>
+<span class="material-symbols-outlined text-[#94a3b8] text-[16px]">arrow_drop_down</span>
+</div>
+</div>
+<!-- Center Search Bar -->
+<div class="w-96 relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[#94a3b8] text-[16px]">search</span>
+<input class="w-full bg-[#1e293b] border border-[#334155] rounded text-body-sm text-[#e2e8f0] placeholder-[#64748b] pl-9 pr-8 py-1.5 focus:outline-none focus:border-[#2563eb] transition-all" placeholder="Tìm kiếm biển số, căn hộ, chủ xe..." type="text"/>
+<kbd class="absolute right-2.5 top-1/2 -translate-y-1/2 font-mono-sm text-mono-sm text-[#64748b] bg-[#0f172a] px-1 rounded border border-[#334155]">⌘K</kbd>
+</div>
+<!-- Right HUD Info & Actions -->
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-2 bg-[#1e293b] px-3 py-1 rounded border border-[#334155]">
+<span class="material-symbols-outlined text-[#94a3b8] text-[16px]">apartment</span>
+<span class="font-mono-sm text-mono-sm text-[#94a3b8]">Trực ban BQL • <span class="text-[#e2e8f0] font-semibold">801 Căn hộ</span></span>
+</div>
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 rounded flex items-center justify-center text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1e293b] transition-colors relative" title="Thông báo">
+<span class="material-symbols-outlined text-[18px]">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-[#ef4444] rounded-full"></span>
+</button>
+<button class="w-8 h-8 rounded flex items-center justify-center text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1e293b] transition-colors" title="Cấu hình hệ thống">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+</button>
+<button class="w-8 h-8 rounded flex items-center justify-center text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1e293b] transition-colors" title="Trợ giúp">
+<span class="material-symbols-outlined text-[18px]">help</span>
+</button>
+</div>
+<div class="h-5 w-px bg-[#334155] mx-1"></div>
+<!-- User avatar -->
+<div class="flex items-center gap-2 pl-1 cursor-pointer">
+<div class="w-7 h-7 rounded bg-[#2563eb] text-white flex items-center justify-center font-headline-sm text-headline-sm font-bold shadow-sm">
+          SOC
+        </div>
+</div>
+</div>
+</header>
+<!-- ================= SUB-NAVIGATION BAR (36px) ================= -->
+<nav class="w-full bg-[#0f172a] border-b border-[#1e293b] px-4 flex items-center gap-1 overflow-x-auto flex-shrink-0 z-40">
+<a class="px-3 py-2 font-body-sm text-body-sm text-[#94a3b8] hover:text-[#e2e8f0] border-b-2 border-transparent transition-colors whitespace-nowrap flex items-center gap-1.5" href="#">
+<span>Tất cả camera</span>
+<span class="font-mono-sm text-mono-sm text-[#64748b] bg-[#1e293b] px-1 rounded">16</span>
+</a>
+<a class="px-3 py-2 font-body-sm text-body-sm text-[#94a3b8] hover:text-[#e2e8f0] border-b-2 border-transparent transition-colors whitespace-nowrap flex items-center gap-1.5" href="#">
+<span>Trạm sạc xe điện</span>
+<span class="font-mono-sm text-mono-sm text-[#34d399] bg-[rgba(16,185,129,0.12)] px-1 rounded">6</span>
+</a>
+<a class="px-3 py-2 font-body-sm text-body-sm text-[#94a3b8] hover:text-[#e2e8f0] border-b-2 border-transparent transition-colors whitespace-nowrap flex items-center gap-1.5" href="#">
+<span>Sân nền &amp; Lối PCCC</span>
+<span class="font-mono-sm text-mono-sm text-[#64748b] bg-[#1e293b] px-1 rounded">10</span>
+</a>
+<a class="px-3 py-2 font-body-sm text-body-sm text-[#94a3b8] hover:text-[#e2e8f0] border-b-2 border-transparent transition-colors whitespace-nowrap" href="#">
+      Bản đồ mặt bằng
+    </a>
+<a class="px-3 py-2 font-body-sm text-body-sm text-[#94a3b8] hover:text-[#e2e8f0] border-b-2 border-transparent transition-colors whitespace-nowrap" href="#">
+      Nhật ký biển số (ANPR)
+    </a>
+<a class="px-3 py-2 font-body-sm text-body-sm text-[#94a3b8] hover:text-[#e2e8f0] border-b-2 border-transparent transition-colors whitespace-nowrap" href="#">
+      Cấu hình vùng cấm
+    </a>
+<!-- ACTIVE TAB: Danh sách xe cư dân -->
+<a class="px-3 py-2 font-body-sm text-body-sm text-[#60a5fa] font-semibold border-b-2 border-[#2563eb] bg-[rgba(37,99,235,0.08)] whitespace-nowrap flex items-center gap-1.5" href="#">
+<span class="material-symbols-outlined text-[16px] text-[#60a5fa]" style="font-variation-settings: 'FILL' 1;">directions_car</span>
+<span>Danh sách xe cư dân</span>
+</a>
+<a class="px-3 py-2 font-body-sm text-body-sm text-[#94a3b8] hover:text-[#e2e8f0] border-b-2 border-transparent transition-colors whitespace-nowrap" href="#">
+      Báo cáo vận hành
+    </a>
+</nav>
+<!-- ================= MAIN BODY CONTAINER ================= -->
+<div class="flex flex-1 overflow-hidden">
+<!-- ================= LEFT RAIL (56px) ================= -->
+<aside class="w-14 bg-[#0f172a] border-r border-[#1e293b] flex flex-col justify-between items-center py-3 flex-shrink-0 z-30">
+<!-- Top Rail Icons -->
+<div class="flex flex-col items-center gap-2 w-full">
+<div class="w-full flex justify-center mb-1">
+<span class="font-label-caps text-label-caps text-[#64748b]">N01</span>
+</div>
+<button class="w-10 h-10 rounded flex items-center justify-center text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1e293b] transition-all" title="Matrix Video Feeds">
+<span class="material-symbols-outlined text-[20px]">videocam</span>
+</button>
+<button class="w-10 h-10 rounded flex items-center justify-center text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1e293b] transition-all" title="Zone Calibration">
+<span class="material-symbols-outlined text-[20px]">polyline</span>
+</button>
+<!-- Active Rail Tab (Vehicle / Rules) -->
+<button class="w-10 h-10 rounded flex items-center justify-center bg-[rgba(37,99,235,0.15)] text-[#60a5fa] border-l-2 border-[#2563eb] transition-all" title="Danh sách xe &amp; Quy tắc đỗ">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">rule</span>
+</button>
+<button class="w-10 h-10 rounded flex items-center justify-center text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1e293b] transition-all" title="Sensors &amp; Trạm sạc">
+<span class="material-symbols-outlined text-[20px]">sensors</span>
+</button>
+<button class="w-10 h-10 rounded flex items-center justify-center text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1e293b] transition-all" title="Audit Logs &amp; An ninh">
+<span class="material-symbols-outlined text-[20px]">shield</span>
+</button>
+</div>
+<!-- Bottom Rail Icons -->
+<div class="flex flex-col items-center gap-2 w-full">
+<button class="w-10 h-10 rounded flex items-center justify-center text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1e293b] transition-all" title="Diagnostics &amp; Terminal">
+<span class="material-symbols-outlined text-[20px]">terminal</span>
+</button>
+<button class="w-10 h-10 rounded flex items-center justify-center text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1e293b] transition-all" title="Cài đặt hệ thống">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+</div>
+</aside>
+<!-- ================= WORKSPACE CANVAS (#020617) ================= -->
+<main class="flex-1 flex flex-col min-w-0 bg-[#020617] overflow-hidden">
+<!-- TOOLBAR & HEADER STRIP -->
+<div class="px-5 py-3 border-b border-[#1e293b] bg-[#020617] flex flex-wrap items-center justify-between gap-3 flex-shrink-0">
+<div>
+<div class="flex items-center gap-2.5">
+<h1 class="font-headline-lg text-headline-lg font-bold text-[#f8fafc] tracking-tight">Danh sách xe cư dân</h1>
+<span class="bg-[rgba(37,99,235,0.12)] border border-[rgba(37,99,235,0.3)] text-[#93c5fd] font-mono-sm text-mono-sm px-2 py-0.5 rounded">
+              Phân loại động cơ EV/ICE nhận diện thị giác AI
+            </span>
+</div>
+<p class="font-body-sm text-body-sm text-[#94a3b8] mt-0.5">
+            Cơ sở dữ liệu căn cước động cơ cho camera AI phát hiện hành vi chiếm dụng chỗ sạc xe điện trái phép.
+          </p>
+</div>
+<!-- Telemetry Stats Pill & Main Action Buttons -->
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-2 bg-[#0f172a] border border-[#1e293b] px-3 py-1.5 rounded">
+<span class="font-mono-sm text-mono-sm text-[#cbd5e1] font-semibold">1.142 xe</span>
+<span class="text-[#334155]">•</span>
+<span class="font-mono-sm text-mono-sm text-[#34d399] font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">bolt</span> 295 xe điện (EV)
+            </span>
+<span class="text-[#334155]">•</span>
+<span class="font-mono-sm text-mono-sm text-[#fbbf24] font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">local_gas_station</span> 847 xe xăng (ICE)
+            </span>
+</div>
+<button class="bg-[#1e293b] hover:bg-[#334155] text-[#e2e8f0] border border-[#334155] font-body-sm text-body-sm font-medium px-3 py-1.5 rounded flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+<span>Xuất Excel</span>
+</button>
+<button class="bg-[#2563eb] hover:bg-[#1d4ed8] active:bg-[#1e40af] text-white font-body-sm text-body-sm font-medium px-3.5 py-1.5 rounded flex items-center gap-1.5 shadow-sm transition-colors">
+<span class="material-symbols-outlined text-[16px]">add</span>
+<span>+ Thêm xe</span>
+</button>
+</div>
+</div>
+<!-- FILTER CONTROLS BAR -->
+<div class="px-5 py-2.5 bg-[#0f172a] border-b border-[#1e293b] flex items-center justify-between gap-4 flex-shrink-0">
+<!-- Filter chips -->
+<div class="flex items-center gap-1.5">
+<button class="bg-[#1e293b] text-[#e2e8f0] border border-[#334155] font-mono-sm text-mono-sm px-2.5 py-1 rounded font-medium hover:border-[#60a5fa] transition-colors">
+            Tất cả <span class="text-[#94a3b8]">(1.142)</span>
+</button>
+<button class="bg-[rgba(16,185,129,0.12)] text-[#34d399] border border-[rgba(16,185,129,0.3)] font-mono-sm text-mono-sm px-2.5 py-1 rounded font-medium flex items-center gap-1 hover:bg-[rgba(16,185,129,0.2)] transition-colors">
+<span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">bolt</span>
+            Xe điện EV <span class="text-[#6ee7b7]">(295)</span>
+</button>
+<button class="bg-[rgba(245,158,11,0.1)] text-[#fbbf24] border border-[rgba(245,158,11,0.25)] font-mono-sm text-mono-sm px-2.5 py-1 rounded font-medium flex items-center gap-1 hover:bg-[rgba(245,158,11,0.18)] transition-colors">
+<span class="material-symbols-outlined text-[13px]">local_gas_station</span>
+            Xe xăng ICE <span class="text-[#fde68a]">(847)</span>
+</button>
+<button class="bg-[#1e293b] text-[#94a3b8] border border-[#334155] font-mono-sm text-mono-sm px-2.5 py-1 rounded font-medium hover:text-[#cbd5e1] transition-colors">
+            Ngừng hoạt động <span class="text-[#64748b]">(18)</span>
+</button>
+</div>
+<!-- Filter Input & quick options -->
+<div class="flex items-center gap-2">
+<div class="relative w-64">
+<span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-[#64748b] text-[15px]">filter_alt</span>
+<input class="w-full bg-[#1e293b] border border-[#334155] rounded text-body-sm text-[#e2e8f0] placeholder-[#64748b] pl-8 pr-3 py-1 focus:outline-none focus:border-[#2563eb]" placeholder="Tìm biển số, căn hộ..." type="text"/>
+</div>
+<button class="w-8 h-8 rounded bg-[#1e293b] border border-[#334155] flex items-center justify-center text-[#94a3b8] hover:text-[#e2e8f0]" title="Tải lại danh sách">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+</button>
+</div>
+</div>
+<!-- ================= 2-COLUMN SPLIT WORKSPACE ================= -->
+<div class="flex-1 flex overflow-hidden">
+<!-- ================= LEFT AREA: DATA TABLE ================= -->
+<div class="flex-1 flex flex-col min-w-0 bg-[#020617] border-r border-[#1e293b]">
+<!-- Scrollable Table Container -->
+<div class="flex-1 overflow-auto">
+<table class="w-full border-collapse text-left">
+<!-- Table Headers -->
+<thead class="sticky top-0 z-20 bg-[#1e293b] border-b border-[#334155]">
+<tr>
+<th class="py-2.5 px-4 font-label-caps text-label-caps uppercase text-[#94a3b8] tracking-wider font-semibold">
+                    BIỂN SỐ
+                  </th>
+<th class="py-2.5 px-4 font-label-caps text-label-caps uppercase text-[#94a3b8] tracking-wider font-semibold">
+                    LOẠI XE
+                  </th>
+<th class="py-2.5 px-4 font-label-caps text-label-caps uppercase text-[#94a3b8] tracking-wider font-semibold">
+                    ĐỘNG CƠ
+                  </th>
+<th class="py-2.5 px-4 font-label-caps text-label-caps uppercase text-[#94a3b8] tracking-wider font-semibold">
+                    CĂN HỘ
+                  </th>
+<th class="py-2.5 px-4 font-label-caps text-label-caps uppercase text-[#94a3b8] tracking-wider font-semibold">
+                    CHỦ XE
+                  </th>
+<th class="py-2.5 px-4 font-label-caps text-label-caps uppercase text-[#94a3b8] tracking-wider font-semibold">
+                    TRẠNG THÁI
+                  </th>
+<th class="py-2.5 px-4 font-label-caps text-label-caps uppercase text-[#94a3b8] tracking-wider font-semibold text-right">
+                    THAO TÁC
+                  </th>
+</tr>
+</thead>
+<!-- Table Rows -->
+<tbody class="divide-y divide-[#1e293b] font-body-sm text-body-sm">
+<!-- ROW 1 (SELECTED / ACTIVE ROW) -->
+<tr class="bg-[#15213d] hover:bg-[#1a284c] border-l-2 border-[#2563eb] transition-colors cursor-pointer group">
+<td class="py-3 px-4">
+<div class="flex items-center gap-2">
+<div class="bg-[#0f172a] border border-[#3b82f6] px-2 py-0.5 rounded shadow-sm">
+<span class="font-mono-lg text-mono-lg font-bold text-[#60a5fa] tracking-wider">51K-888.99</span>
+</div>
+<span class="font-mono-sm text-mono-sm text-[#94a3b8] group-hover:text-[#cbd5e1]">(51K88899)</span>
+</div>
+</td>
+<td class="py-3 px-4 text-[#e2e8f0]">
+<span class="inline-flex items-center gap-1.5 font-medium text-[#cbd5e1]">
+<span class="material-symbols-outlined text-[15px] text-[#94a3b8]">directions_car</span> Ô tô
+                    </span>
+</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1 bg-[rgba(16,185,129,0.15)] text-[#34d399] border border-[rgba(16,185,129,0.35)] font-mono-sm text-mono-sm px-2 py-0.5 rounded font-semibold">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">bolt</span> Xe điện (EV)
+                    </span>
+</td>
+<td class="py-3 px-4">
+<span class="font-mono-md text-mono-md font-semibold text-[#f8fafc] bg-[#1e293b] px-2 py-0.5 rounded border border-[#334155]">A-12.05</span>
+</td>
+<td class="py-3 px-4 font-medium text-[#e2e8f0]">
+                    Nguyễn Văn An
+                  </td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-2">
+<!-- Toggle switch ON -->
+<div class="w-8 h-4 bg-[#2563eb] rounded-full p-0.5 flex items-center justify-end cursor-pointer">
+<div class="w-3 h-3 bg-white rounded-full shadow-md"></div>
+</div>
+<span class="font-mono-sm text-mono-sm text-[#34d399]">Đang hoạt động</span>
+</div>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1 rounded bg-[#2563eb] text-white hover:bg-[#1d4ed8] transition-colors" title="Sửa thông tin">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+<button class="p-1 rounded text-[#94a3b8] hover:text-[#f87171] hover:bg-[#1e293b] transition-colors" title="Xóa xe">
+<span class="material-symbols-outlined text-[16px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 2 -->
+<tr class="hover:bg-[#1e293b] transition-colors cursor-pointer group">
+<td class="py-3 px-4">
+<div class="flex items-center gap-2">
+<div class="bg-[#0f172a] border border-[#334155] px-2 py-0.5 rounded shadow-sm">
+<span class="font-mono-lg text-mono-lg font-bold text-[#e2e8f0] tracking-wider">51K-678.12</span>
+</div>
+<span class="font-mono-sm text-mono-sm text-[#64748b] group-hover:text-[#94a3b8]">(51K67812)</span>
+</div>
+</td>
+<td class="py-3 px-4 text-[#e2e8f0]">
+<span class="inline-flex items-center gap-1.5 font-medium text-[#cbd5e1]">
+<span class="material-symbols-outlined text-[15px] text-[#94a3b8]">directions_car</span> Ô tô
+                    </span>
+</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1 bg-[rgba(16,185,129,0.15)] text-[#34d399] border border-[rgba(16,185,129,0.35)] font-mono-sm text-mono-sm px-2 py-0.5 rounded font-semibold">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">bolt</span> Xe điện (EV)
+                    </span>
+</td>
+<td class="py-3 px-4">
+<span class="font-mono-md text-mono-md font-semibold text-[#cbd5e1] bg-[#1e293b] px-2 py-0.5 rounded border border-[#334155]">B-03.07</span>
+</td>
+<td class="py-3 px-4 font-medium text-[#e2e8f0]">
+                    Lê Thùy Linh
+                  </td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-2">
+<div class="w-8 h-4 bg-[#2563eb] rounded-full p-0.5 flex items-center justify-end cursor-pointer">
+<div class="w-3 h-3 bg-white rounded-full shadow-md"></div>
+</div>
+<span class="font-mono-sm text-mono-sm text-[#34d399]">Đang hoạt động</span>
+</div>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="flex items-center justify-end gap-1 opacity-60 group-hover:opacity-100 transition-opacity">
+<button class="p-1 rounded text-[#94a3b8] hover:text-[#60a5fa] hover:bg-[#1e293b] transition-colors" title="Sửa">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+<button class="p-1 rounded text-[#94a3b8] hover:text-[#f87171] hover:bg-[#1e293b] transition-colors" title="Xóa">
+<span class="material-symbols-outlined text-[16px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 3 -->
+<tr class="hover:bg-[#1e293b] transition-colors cursor-pointer group">
+<td class="py-3 px-4">
+<div class="flex items-center gap-2">
+<div class="bg-[#0f172a] border border-[#334155] px-2 py-0.5 rounded shadow-sm">
+<span class="font-mono-lg text-mono-lg font-bold text-[#e2e8f0] tracking-wider">59A-456.78</span>
+</div>
+<span class="font-mono-sm text-mono-sm text-[#64748b] group-hover:text-[#94a3b8]">(59A45678)</span>
+</div>
+</td>
+<td class="py-3 px-4 text-[#e2e8f0]">
+<span class="inline-flex items-center gap-1.5 font-medium text-[#cbd5e1]">
+<span class="material-symbols-outlined text-[15px] text-[#94a3b8]">directions_car</span> Ô tô
+                    </span>
+</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1 bg-[rgba(245,158,11,0.15)] text-[#fbbf24] border border-[rgba(245,158,11,0.3)] font-mono-sm text-mono-sm px-2 py-0.5 rounded font-semibold">
+<span class="material-symbols-outlined text-[14px]">local_gas_station</span> Xe xăng (ICE)
+                    </span>
+</td>
+<td class="py-3 px-4">
+<span class="font-mono-md text-mono-md font-semibold text-[#cbd5e1] bg-[#1e293b] px-2 py-0.5 rounded border border-[#334155]">B-08.12</span>
+</td>
+<td class="py-3 px-4 font-medium text-[#e2e8f0]">
+                    Trần Đình Trọng
+                  </td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-2">
+<div class="w-8 h-4 bg-[#2563eb] rounded-full p-0.5 flex items-center justify-end cursor-pointer">
+<div class="w-3 h-3 bg-white rounded-full shadow-md"></div>
+</div>
+<span class="font-mono-sm text-mono-sm text-[#34d399]">Đang hoạt động</span>
+</div>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="flex items-center justify-end gap-1 opacity-60 group-hover:opacity-100 transition-opacity">
+<button class="p-1 rounded text-[#94a3b8] hover:text-[#60a5fa] hover:bg-[#1e293b] transition-colors" title="Sửa">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+<button class="p-1 rounded text-[#94a3b8] hover:text-[#f87171] hover:bg-[#1e293b] transition-colors" title="Xóa">
+<span class="material-symbols-outlined text-[16px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 4 -->
+<tr class="hover:bg-[#1e293b] transition-colors cursor-pointer group">
+<td class="py-3 px-4">
+<div class="flex items-center gap-2">
+<div class="bg-[#0f172a] border border-[#334155] px-2 py-0.5 rounded shadow-sm">
+<span class="font-mono-lg text-mono-lg font-bold text-[#e2e8f0] tracking-wider">59X2-345.67</span>
+</div>
+<span class="font-mono-sm text-mono-sm text-[#64748b] group-hover:text-[#94a3b8]">(59X234567)</span>
+</div>
+</td>
+<td class="py-3 px-4 text-[#e2e8f0]">
+<span class="inline-flex items-center gap-1.5 font-medium text-[#cbd5e1]">
+<span class="material-symbols-outlined text-[15px] text-[#94a3b8]">two_wheeler</span> Xe máy
+                    </span>
+</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1 bg-[rgba(16,185,129,0.15)] text-[#34d399] border border-[rgba(16,185,129,0.35)] font-mono-sm text-mono-sm px-2 py-0.5 rounded font-semibold">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">bolt</span> Xe điện (EV)
+                    </span>
+</td>
+<td class="py-3 px-4">
+<span class="font-mono-md text-mono-md font-semibold text-[#cbd5e1] bg-[#1e293b] px-2 py-0.5 rounded border border-[#334155]">A-07.11</span>
+</td>
+<td class="py-3 px-4 font-medium text-[#e2e8f0]">
+                    Hoàng Văn Nam
+                  </td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-2">
+<div class="w-8 h-4 bg-[#2563eb] rounded-full p-0.5 flex items-center justify-end cursor-pointer">
+<div class="w-3 h-3 bg-white rounded-full shadow-md"></div>
+</div>
+<span class="font-mono-sm text-mono-sm text-[#34d399]">Đang hoạt động</span>
+</div>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="flex items-center justify-end gap-1 opacity-60 group-hover:opacity-100 transition-opacity">
+<button class="p-1 rounded text-[#94a3b8] hover:text-[#60a5fa] hover:bg-[#1e293b] transition-colors" title="Sửa">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+<button class="p-1 rounded text-[#94a3b8] hover:text-[#f87171] hover:bg-[#1e293b] transition-colors" title="Xóa">
+<span class="material-symbols-outlined text-[16px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 5 (INACTIVE ROW) -->
+<tr class="bg-[rgba(15,23,42,0.4)] opacity-75 hover:bg-[#1e293b] transition-colors cursor-pointer group">
+<td class="py-3 px-4">
+<div class="flex items-center gap-2">
+<div class="bg-[#0f172a] border border-[#334155] px-2 py-0.5 rounded shadow-sm">
+<span class="font-mono-lg text-mono-lg font-bold text-[#94a3b8] tracking-wider">51G-246.80</span>
+</div>
+<span class="font-mono-sm text-mono-sm text-[#64748b]">(51G24680)</span>
+</div>
+</td>
+<td class="py-3 px-4 text-[#94a3b8]">
+<span class="inline-flex items-center gap-1.5 font-medium">
+<span class="material-symbols-outlined text-[15px] text-[#64748b]">directions_car</span> Ô tô
+                    </span>
+</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1 bg-[#1e293b] text-[#94a3b8] border border-[#334155] font-mono-sm text-mono-sm px-2 py-0.5 rounded font-medium">
+<span class="material-symbols-outlined text-[14px]">local_gas_station</span> Xe xăng (ICE)
+                    </span>
+</td>
+<td class="py-3 px-4">
+<span class="font-mono-md text-mono-md font-medium text-[#94a3b8] bg-[#1e293b] px-2 py-0.5 rounded border border-[#334155]">A-15.02</span>
+</td>
+<td class="py-3 px-4 font-medium text-[#94a3b8]">
+                    Phạm Quốc Hùng
+                  </td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-2">
+<!-- Toggle switch OFF -->
+<div class="w-8 h-4 bg-[#334155] rounded-full p-0.5 flex items-center justify-start cursor-pointer">
+<div class="w-3 h-3 bg-[#94a3b8] rounded-full shadow-md"></div>
+</div>
+<span class="font-mono-sm text-mono-sm text-[#64748b]">Ngừng</span>
+</div>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="flex items-center justify-end gap-1 opacity-60 group-hover:opacity-100 transition-opacity">
+<button class="p-1 rounded text-[#94a3b8] hover:text-[#60a5fa] hover:bg-[#1e293b] transition-colors" title="Sửa">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+<button class="p-1 rounded text-[#94a3b8] hover:text-[#f87171] hover:bg-[#1e293b] transition-colors" title="Xóa">
+<span class="material-symbols-outlined text-[16px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 6 -->
+<tr class="hover:bg-[#1e293b] transition-colors cursor-pointer group">
+<td class="py-3 px-4">
+<div class="flex items-center gap-2">
+<div class="bg-[#0f172a] border border-[#334155] px-2 py-0.5 rounded shadow-sm">
+<span class="font-mono-lg text-mono-lg font-bold text-[#e2e8f0] tracking-wider">29M1-789.10</span>
+</div>
+<span class="font-mono-sm text-mono-sm text-[#64748b] group-hover:text-[#94a3b8]">(29M178910)</span>
+</div>
+</td>
+<td class="py-3 px-4 text-[#e2e8f0]">
+<span class="inline-flex items-center gap-1.5 font-medium text-[#cbd5e1]">
+<span class="material-symbols-outlined text-[15px] text-[#94a3b8]">two_wheeler</span> Xe máy
+                    </span>
+</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1 bg-[rgba(16,185,129,0.15)] text-[#34d399] border border-[rgba(16,185,129,0.35)] font-mono-sm text-mono-sm px-2 py-0.5 rounded font-semibold">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">bolt</span> Xe điện (EV)
+                    </span>
+</td>
+<td class="py-3 px-4">
+<span class="font-mono-md text-mono-md font-semibold text-[#cbd5e1] bg-[#1e293b] px-2 py-0.5 rounded border border-[#334155]">B-12.04</span>
+</td>
+<td class="py-3 px-4 font-medium text-[#e2e8f0]">
+                    Vũ Thị Mai
+                  </td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-2">
+<div class="w-8 h-4 bg-[#2563eb] rounded-full p-0.5 flex items-center justify-end cursor-pointer">
+<div class="w-3 h-3 bg-white rounded-full shadow-md"></div>
+</div>
+<span class="font-mono-sm text-mono-sm text-[#34d399]">Đang hoạt động</span>
+</div>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="flex items-center justify-end gap-1 opacity-60 group-hover:opacity-100 transition-opacity">
+<button class="p-1 rounded text-[#94a3b8] hover:text-[#60a5fa] hover:bg-[#1e293b] transition-colors" title="Sửa">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+<button class="p-1 rounded text-[#94a3b8] hover:text-[#f87171] hover:bg-[#1e293b] transition-colors" title="Xóa">
+<span class="material-symbols-outlined text-[16px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 7 -->
+<tr class="hover:bg-[#1e293b] transition-colors cursor-pointer group">
+<td class="py-3 px-4">
+<div class="flex items-center gap-2">
+<div class="bg-[#0f172a] border border-[#334155] px-2 py-0.5 rounded shadow-sm">
+<span class="font-mono-lg text-mono-lg font-bold text-[#e2e8f0] tracking-wider">51F-654.32</span>
+</div>
+<span class="font-mono-sm text-mono-sm text-[#64748b] group-hover:text-[#94a3b8]">(51F65432)</span>
+</div>
+</td>
+<td class="py-3 px-4 text-[#e2e8f0]">
+<span class="inline-flex items-center gap-1.5 font-medium text-[#cbd5e1]">
+<span class="material-symbols-outlined text-[15px] text-[#94a3b8]">directions_car</span> Ô tô
+                    </span>
+</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1 bg-[rgba(245,158,11,0.15)] text-[#fbbf24] border border-[rgba(245,158,11,0.3)] font-mono-sm text-mono-sm px-2 py-0.5 rounded font-semibold">
+<span class="material-symbols-outlined text-[14px]">local_gas_station</span> Xe xăng (ICE)
+                    </span>
+</td>
+<td class="py-3 px-4">
+<span class="font-mono-md text-mono-md font-semibold text-[#cbd5e1] bg-[#1e293b] px-2 py-0.5 rounded border border-[#334155]">A-04.06</span>
+</td>
+<td class="py-3 px-4 font-medium text-[#e2e8f0]">
+                    Lê Hoàng Nam
+                  </td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-2">
+<div class="w-8 h-4 bg-[#2563eb] rounded-full p-0.5 flex items-center justify-end cursor-pointer">
+<div class="w-3 h-3 bg-white rounded-full shadow-md"></div>
+</div>
+<span class="font-mono-sm text-mono-sm text-[#34d399]">Đang hoạt động</span>
+</div>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="flex items-center justify-end gap-1 opacity-60 group-hover:opacity-100 transition-opacity">
+<button class="p-1 rounded text-[#94a3b8] hover:text-[#60a5fa] hover:bg-[#1e293b] transition-colors" title="Sửa">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+<button class="p-1 rounded text-[#94a3b8] hover:text-[#f87171] hover:bg-[#1e293b] transition-colors" title="Xóa">
+<span class="material-symbols-outlined text-[16px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- PAGINATION BAR (Footer of Table) -->
+<div class="px-4 py-2 bg-[#0f172a] border-t border-[#1e293b] flex items-center justify-between flex-shrink-0">
+<span class="font-body-sm text-body-sm text-[#94a3b8]">
+              Hiển thị <span class="text-[#e2e8f0] font-medium">1–7</span> trong tổng số <span class="font-mono-sm text-mono-sm text-[#e2e8f0] font-semibold">1.142</span> xe cư dân
+            </span>
+<div class="flex items-center gap-1">
+<button class="w-7 h-7 rounded bg-[#1e293b] border border-[#334155] flex items-center justify-center text-[#64748b] hover:text-[#e2e8f0] disabled:opacity-40" disabled="">
+<span class="material-symbols-outlined text-[16px]">chevron_left</span>
+</button>
+<button class="w-7 h-7 rounded bg-[#2563eb] text-white font-mono-sm text-mono-sm font-semibold flex items-center justify-center">
+                1
+              </button>
+<button class="w-7 h-7 rounded bg-[#1e293b] border border-[#334155] text-[#94a3b8] hover:text-[#e2e8f0] font-mono-sm text-mono-sm flex items-center justify-center">
+                2
+              </button>
+<button class="w-7 h-7 rounded bg-[#1e293b] border border-[#334155] text-[#94a3b8] hover:text-[#e2e8f0] font-mono-sm text-mono-sm flex items-center justify-center">
+                3
+              </button>
+<span class="text-[#64748b] px-1 font-mono-sm">...</span>
+<button class="w-7 h-7 rounded bg-[#1e293b] border border-[#334155] text-[#94a3b8] hover:text-[#e2e8f0] font-mono-sm text-mono-sm flex items-center justify-center">
+                164
+              </button>
+<button class="w-7 h-7 rounded bg-[#1e293b] border border-[#334155] flex items-center justify-center text-[#94a3b8] hover:text-[#e2e8f0]">
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- ================= RIGHT AREA: EDIT CARD (~380px FIXED) ================= -->
+<aside class="w-[380px] bg-[#0f172a] flex flex-col justify-between flex-shrink-0 z-20 overflow-y-auto">
+<div>
+<!-- Card Header -->
+<div class="px-5 py-3.5 border-b border-[#1e293b] bg-[#111c34] flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#60a5fa] text-[18px]">edit_note</span>
+<span class="font-headline-sm text-headline-sm font-bold tracking-tight text-[#f8fafc]">SỬA THÔNG TIN XE</span>
+</div>
+<span class="bg-[#1e293b] text-[#60a5fa] border border-[#334155] font-mono-sm text-mono-sm font-semibold px-2 py-0.5 rounded">
+                Căn A-12.05
+              </span>
+</div>
+<!-- Form Content -->
+<form class="p-5 space-y-4" onsubmit="event.preventDefault();">
+<!-- Biển số xe Field -->
+<div>
+<div class="flex justify-between items-center mb-1">
+<label class="font-label-caps text-label-caps uppercase text-[#94a3b8]">Biển số xe (ANPR)</label>
+<span class="font-mono-sm text-mono-sm text-[#34d399] flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[12px]">check_circle</span> Chuẩn biển số VN
+                  </span>
+</div>
+<div class="relative">
+<input class="w-full bg-[#1e293b] border border-[#3b82f6] rounded px-3 py-2 font-mono-lg text-mono-lg font-bold text-[#60a5fa] tracking-wider focus:outline-none focus:ring-1 focus:ring-[#2563eb]" type="text" value="51K-888.99"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-[#34d399] text-[18px]">verified</span>
+</div>
+<p class="font-mono-sm text-mono-sm text-[#64748b] mt-1">Dạng chuẩn hoá AI: 51K88899</p>
+</div>
+<!-- Loại xe Segmented Control -->
+<div>
+<label class="block font-label-caps text-label-caps uppercase text-[#94a3b8] mb-1">Loại phương tiện</label>
+<div class="grid grid-cols-2 gap-2 bg-[#1e293b] p-1 rounded border border-[#334155]">
+<button class="bg-[#2563eb] text-white py-1.5 px-3 rounded text-body-sm font-semibold flex items-center justify-center gap-1.5 shadow" type="button">
+<span class="material-symbols-outlined text-[16px]">directions_car</span>
+<span>Ô tô (Car)</span>
+</button>
+<button class="text-[#94a3b8] hover:text-[#e2e8f0] py-1.5 px-3 rounded text-body-sm font-medium flex items-center justify-center gap-1.5 hover:bg-[#23293c] transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">two_wheeler</span>
+<span>Xe máy (Motor)</span>
+</button>
+</div>
+</div>
+<!-- Phân loại Động cơ (Core Logic for EV Charging Guard) -->
+<div class="pt-1">
+<label class="block font-label-caps text-label-caps uppercase text-[#94a3b8] mb-1.5">
+                  Phân loại động cơ (Căn cước AI)
+                </label>
+<div class="space-y-2">
+<!-- Option EV Selected -->
+<label class="flex items-center justify-between p-2.5 rounded bg-[rgba(16,185,129,0.1)] border border-[rgba(16,185,129,0.4)] cursor-pointer">
+<div class="flex items-center gap-2.5">
+<input checked="" class="w-4 h-4 text-[#2563eb] bg-[#1e293b] border-[#475569] focus:ring-0" name="engine_type" type="radio" value="EV"/>
+<div>
+<div class="flex items-center gap-1.5 font-semibold text-[#34d399] text-body-sm">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">bolt</span>
+                          Xe điện (EV)
+                        </div>
+<span class="font-body-sm text-[11px] text-[#6ee7b7] block">Được phép đỗ sạc tại trụ sạc EV</span>
+</div>
+</div>
+<span class="font-mono-sm text-mono-sm text-[#34d399] bg-[rgba(16,185,129,0.2)] px-2 py-0.5 rounded font-bold">EV-OK</span>
+</label>
+<!-- Option ICE Unselected -->
+<label class="flex items-center justify-between p-2.5 rounded bg-[#1e293b] border border-[#334155] hover:border-[#475569] cursor-pointer transition-colors">
+<div class="flex items-center gap-2.5">
+<input class="w-4 h-4 text-[#2563eb] bg-[#1e293b] border-[#475569] focus:ring-0" name="engine_type" type="radio" value="ICE"/>
+<div>
+<div class="flex items-center gap-1.5 font-medium text-[#cbd5e1] text-body-sm">
+<span class="material-symbols-outlined text-[16px] text-[#fbbf24]">local_gas_station</span>
+                          Xe xăng / dầu (ICE)
+                        </div>
+<span class="font-body-sm text-[11px] text-[#94a3b8] block">Cảnh báo nếu đỗ tại vị trí có trụ sạc</span>
+</div>
+</div>
+<span class="font-mono-sm text-mono-sm text-[#94a3b8] bg-[#0f172a] px-2 py-0.5 rounded">ICE</span>
+</label>
+</div>
+<!-- Helper Note HUD Container -->
+<div class="mt-2.5 p-2 bg-[#1e293b] border-l-2 border-[#2563eb] rounded-r text-[11px] leading-relaxed text-[#94a3b8] flex items-start gap-1.5">
+<span class="material-symbols-outlined text-[#60a5fa] text-[15px] flex-shrink-0 mt-0.5">info</span>
+<span><strong>Ghi chú AI:</strong> Phân loại EV/ICE dùng trực tiếp bởi mô hình thị giác AI để phát hiện và gắn cờ xe xăng chiếm ô sạc qua camera giám sát bãi xe.</span>
+</div>
+</div>
+<!-- Căn hộ Field -->
+<div>
+<label class="block font-label-caps text-label-caps uppercase text-[#94a3b8] mb-1">Căn hộ sở hữu</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[#64748b] text-[16px]">domain</span>
+<input class="w-full bg-[#1e293b] border border-[#334155] rounded pl-9 pr-3 py-1.5 font-mono-md text-mono-md text-[#e2e8f0] focus:outline-none focus:border-[#2563eb]" type="text" value="A-12.05"/>
+</div>
+</div>
+<!-- Chủ xe Field -->
+<div>
+<label class="block font-label-caps text-label-caps uppercase text-[#94a3b8] mb-1">Họ tên chủ phương tiện</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[#64748b] text-[16px]">person</span>
+<input class="w-full bg-[#1e293b] border border-[#334155] rounded pl-9 pr-3 py-1.5 font-body-sm text-body-sm text-[#e2e8f0] focus:outline-none focus:border-[#2563eb]" type="text" value="Nguyễn Văn An"/>
+</div>
+</div>
+<!-- Trạng thái hoạt động Toggle -->
+<div class="pt-1 flex items-center justify-between p-3 rounded bg-[#1e293b] border border-[#334155]">
+<div>
+<span class="font-body-sm text-body-sm font-semibold text-[#e2e8f0] block">Trạng thái đăng ký</span>
+<span class="font-body-sm text-[11px] text-[#34d399]">Hồ sơ đang hoạt động hợp lệ</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-10 h-5 bg-[#2563eb] rounded-full p-0.5 flex items-center justify-end cursor-pointer">
+<div class="w-4 h-4 bg-white rounded-full shadow-md"></div>
+</div>
+</div>
+</div>
+</form>
+</div>
+<!-- Bottom Action Buttons Strip -->
+<div class="p-4 bg-[#111c34] border-t border-[#1e293b] flex items-center justify-between">
+<button class="text-[#f87171] hover:text-[#ef4444] hover:bg-[rgba(239,68,68,0.1)] px-2.5 py-1.5 rounded font-body-sm text-body-sm font-medium flex items-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">delete</span>
+<span>Xóa xe</span>
+</button>
+<div class="flex items-center gap-2">
+<button class="bg-[#1e293b] hover:bg-[#334155] text-[#cbd5e1] border border-[#334155] px-3 py-1.5 rounded font-body-sm text-body-sm font-medium transition-colors" type="button">
+                Hủy
+              </button>
+<button class="bg-[#2563eb] hover:bg-[#1d4ed8] active:bg-[#1e40af] text-white px-4 py-1.5 rounded font-body-sm text-body-sm font-semibold flex items-center gap-1.5 shadow-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">save</span>
+<span>Lưu thông tin</span>
+</button>
+</div>
+</div>
+</aside>
+</div>
+</main>
+</div>
+<!-- ================= BOTTOM STATUS BAR (36px) ================= -->
+<footer class="h-9 w-full bg-[#070d1f] border-t border-[#1e293b] px-4 flex items-center justify-between font-mono-sm text-mono-sm text-[#94a3b8] flex-shrink-0 z-50">
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10b981]"></span>
+<span>Kestrel API: <span class="text-[#34d399] font-medium">Online</span></span>
+</div>
+<span class="text-[#334155]">•</span>
+<div>AI Core: <span class="text-[#e2e8f0] font-medium">18 ms/frame</span></div>
+<span class="text-[#334155]">•</span>
+<div>MediaMTX WebRTC: <span class="text-[#e2e8f0] font-medium">0.28s</span></div>
+<span class="text-[#334155]">•</span>
+<div>GPU RTX 4060 Ti: <span class="text-[#60a5fa] font-medium">6.2 / 16 GB</span></div>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-1 text-[#34d399]">
+<span class="material-symbols-outlined text-[14px]">cloud_done</span>
+<span>Đã đồng bộ 1.142 biển số AI</span>
+</div>
+<span class="text-[#334155]">•</span>
+<div class="text-[#64748b]">19:22:10 GMT+7</div>
+</div>
+</footer>
+
+<link rel="stylesheet" href="../assets/css/app.css"/>
+<script src="../assets/js/mock-db.js"></script>
+<script src="../assets/js/app.js"></script>
+</body></html>

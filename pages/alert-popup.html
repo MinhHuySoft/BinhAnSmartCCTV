@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-[#020617] text-slate-100 antialiased dark" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bình An CCTV - Cảnh Báo Khẩn Cấp</title><link rel="icon" href="../assets/img/favicon.svg"/>
+<!-- Tailwind CSS CDN v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Inter, JetBrains Mono, Space Grotesk -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            display: ['Space Grotesk', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              bg: '#020617',
+              panel: '#0f172a',
+              card: '#1e293b',
+              border: '#334155',
+              subtle: '#1e293b'
+            }
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+    .timeline-ticks-dark {
+      background-size: 20px 100%;
+      background-image: linear-gradient(to right, #334155 1px, transparent 1px);
+    }
+    .timeline-minor-ticks-dark {
+      background-size: 5px 35%;
+      background-repeat: repeat-x;
+      background-position: bottom;
+      background-image: linear-gradient(to right, #1e293b 1px, transparent 1px);
+    }
+  </style>
+</head>
+<body class="h-full flex overflow-hidden text-sm bg-[#020617] text-slate-200 font-sans antialiased relative select-none">
+<!-- Left Persistent Icon Navigation Rail (Blurred SOC Background) -->
+<aside class="w-14 flex-shrink-0 bg-[#0b1329] border-r border-[#1e293b] flex flex-col items-center justify-between py-3.5 z-10 select-none opacity-40 blur-[1px]">
+<div class="flex flex-col items-center space-y-5 w-full">
+<div class="w-9 h-9 rounded-lg bg-blue-600/30 border border-blue-500/40 flex items-center justify-center text-blue-400">
+<span class="material-symbols-outlined text-xl">shield</span>
+</div>
+<nav class="flex flex-col space-y-1.5 w-full px-2">
+<div class="w-10 h-10 rounded-lg flex items-center justify-center bg-slate-800 text-blue-400">
+<span class="material-symbols-outlined text-lg">grid_view</span>
+</div>
+<div class="w-10 h-10 rounded-lg flex items-center justify-center text-rose-400 bg-rose-500/10 border border-rose-500/20">
+<span class="material-symbols-outlined text-lg">notifications_active</span>
+</div>
+<div class="w-10 h-10 rounded-lg flex items-center justify-center text-slate-500">
+<span class="material-symbols-outlined text-lg">bolt</span>
+</div>
+<div class="w-10 h-10 rounded-lg flex items-center justify-center text-slate-500">
+<span class="material-symbols-outlined text-lg">local_fire_department</span>
+</div>
+<div class="w-10 h-10 rounded-lg flex items-center justify-center text-slate-500">
+<span class="material-symbols-outlined text-lg">map</span>
+</div>
+<div class="w-10 h-10 rounded-lg flex items-center justify-center text-slate-500">
+<span class="material-symbols-outlined text-lg">directions_car</span>
+</div>
+</nav>
+</div>
+<div class="flex flex-col items-center space-y-3 w-full">
+<div class="w-7 h-7 rounded-full bg-slate-800 text-slate-300 text-[11px] font-mono font-semibold flex items-center justify-center border border-slate-700">
+        BA
+      </div>
+</div>
+</aside>
+<!-- Main Background Container (Dark SOC Operations Dashboard blurred under overlay) -->
+<div class="flex-1 flex flex-col h-full overflow-hidden min-w-0 bg-[#020617] relative">
+<!-- Top Header Bar (SOC Underlay) -->
+<header class="h-14 py-2.5 px-6 bg-[#0b1329] border-b border-[#1e293b] flex items-center justify-between flex-shrink-0 z-10 opacity-40 blur-[1px]">
+<div class="flex items-center space-x-3">
+<span class="font-bold text-slate-100 text-sm tracking-tight font-display">Bình An CCTV</span>
+<span class="text-slate-600">/</span>
+<div class="flex items-center space-x-1.5 text-xs font-medium text-slate-300 bg-slate-800/80 px-2.5 py-1 rounded border border-slate-700">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+<span>HQ - Khu phức hợp Đông Tây 2</span>
+</div>
+</div>
+<div class="text-xs font-mono text-slate-400">
+        AI Core (YOLOv8 + ByteTrack) • Đang giám sát Zone 3.1 &amp; 3.2
+      </div>
+</header>
+<!-- Sub-Navigation Bar (SOC Underlay) -->
+<div class="bg-[#0b1329] border-b border-[#1e293b] px-6 flex items-center justify-between flex-shrink-0 z-10 opacity-40 blur-[1px]">
+<nav class="flex space-x-6 text-xs font-medium py-2.5 text-slate-400">
+<span class="text-blue-400 font-semibold border-b-2 border-blue-500 pb-2.5">Tất cả camera (16)</span>
+<span class="text-rose-400 flex items-center gap-1">🚨 Cảnh báo sự cố (5)</span>
+<span>Trạm sạc xe điện (6)</span>
+<span>Sân nền &amp; Lối PCCC (10)</span>
+<span>Bản đồ mặt bằng</span>
+</nav>
+<div class="text-xs text-slate-400 font-mono">18:13:05 • 11/11/2026</div>
+</div>
+<!-- Blurred Grid View Mockup -->
+<main class="flex-1 p-6 grid grid-cols-4 gap-4 opacity-25 blur-sm pointer-events-none">
+<div class="bg-[#0f172a] rounded-lg border border-[#1e293b] aspect-video"></div>
+<div class="bg-[#0f172a] rounded-lg border border-[#1e293b] aspect-video"></div>
+<div class="bg-[#0f172a] rounded-lg border border-[#1e293b] aspect-video"></div>
+<div class="bg-[#0f172a] rounded-lg border border-[#1e293b] aspect-video"></div>
+<div class="bg-[#0f172a] rounded-lg border border-[#1e293b] aspect-video"></div>
+<div class="bg-[#0f172a] rounded-lg border border-[#1e293b] aspect-video"></div>
+<div class="bg-[#0f172a] rounded-lg border border-[#1e293b] aspect-video"></div>
+<div class="bg-[#0f172a] rounded-lg border border-[#1e293b] aspect-video"></div>
+</main>
+<!-- BACKDROP OVERLAY (Deep Dark Slate with Blur) -->
+<div class="absolute inset-0 bg-[#020617]/85 backdrop-blur-md z-30 transition-opacity"></div>
+<!-- ================= SINGLE EMERGENCY ALERT MODAL ("CẢNH BÁO KHẨN CẤP") ================= -->
+<div class="absolute inset-0 z-40 flex items-center justify-center p-3 sm:p-5 pointer-events-auto overflow-hidden">
+<div class="w-full max-w-6xl max-h-[92vh] bg-[#0f172a] rounded-2xl border border-[#334155] shadow-2xl flex flex-col min-h-0 overflow-hidden text-slate-200">
+<!-- 1. MODAL HEADER -->
+<header class="h-16 px-6 bg-[#0f172a] border-b border-[#1e293b] flex items-center justify-between flex-shrink-0">
+<!-- Left: Severity Badge + Title + Subtitle -->
+<div class="flex items-center space-x-3.5 min-w-0">
+<span class="bg-amber-500/15 border border-amber-500/30 text-amber-400 font-bold px-2.5 py-1 rounded text-xs tracking-wider flex-shrink-0 uppercase font-mono">
+              CẢNH BÁO
+            </span>
+<div class="min-w-0">
+<h1 class="font-bold text-slate-100 text-base sm:text-lg tracking-tight font-display truncate">
+                Đỗ xe trái phép quá 3 phút tại Lối PCCC Đông
+              </h1>
+<p class="font-mono text-xs text-slate-400 truncate mt-0.5">
+                CAM-GR-01 • Lối PCCC Đông • 18:13:05 • 11/11/2026 • AI Core (YOLOv8 + ByteTrack)
+              </p>
+</div>
+</div>
+<!-- Right: Browser Audio Warning Pill + Mute Button + Close -->
+<div class="flex items-center space-x-2.5 flex-shrink-0">
+<!-- Sound pill indicator -->
+<div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-medium bg-amber-500/10 border border-amber-500/30 text-amber-300" id="soundIndicator">
+<span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+<span id="soundText">🔊 Còi báo động đang phát</span>
+</div>
+<!-- Mute Alarm Audio Button -->
+<button class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 hover:border-slate-600 px-3 py-1.5 rounded-lg transition font-mono flex items-center gap-1.5" id="muteBtn" onclick="toggleMuteAudio()" title="Tắt tiếng chuông trình duyệt">
+<span class="material-symbols-outlined text-sm" id="muteIcon">volume_off</span>
+<span id="muteBtnText">Tắt tiếng</span>
+</button>
+<!-- Close Modal -->
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-100 hover:bg-slate-800 transition" onclick="handleCloseModal()" title="Đóng cửa sổ">
+<span class="material-symbols-outlined text-lg">close</span>
+</button>
+</div>
+</header>
+<!-- MODAL BODY: 2 COLUMNS (EVIDENCE 58% | WORKFLOW 42%) -->
+<div class="flex-1 flex flex-col lg:flex-row min-h-0 overflow-y-auto lg:overflow-hidden divide-y lg:divide-y-0 lg:divide-x divide-[#1e293b]">
+<!-- ================= LEFT COLUMN: EVIDENCE & TIMELINE (58%) ================= -->
+<div class="flex-1 lg:w-[58%] p-5 flex flex-col space-y-4 overflow-y-auto min-h-0">
+<!-- Snapshot Evidence Viewport with AI Bounding Box & ROI Polygon -->
+<div class="relative bg-black rounded-xl overflow-hidden border border-[#334155] aspect-video flex items-center justify-center flex-shrink-0 group">
+<!-- Real Snapshot Image -->
+<img alt="Bằng chứng camera vi phạm đỗ xe lối PCCC" class="w-full h-full object-cover" src="../assets/img/gr-firelane.jpg"/>
+<!-- Subtle vignette gradient -->
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30 pointer-events-none"></div>
+<!-- Top Left Source Tag -->
+<div class="absolute top-3 left-3 flex items-center gap-2 pointer-events-none">
+<span class="bg-[#0b1329]/80 backdrop-blur-md border border-slate-700/60 text-slate-300 text-[11px] font-mono px-2.5 py-1 rounded">
+                  CAM-GR-01 • LỐI PCCC ĐÔNG
+                </span>
+<span class="bg-rose-500/20 border border-rose-500/40 text-rose-400 font-mono text-[10px] font-bold px-2 py-1 rounded flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span> VI PHẠM
+                </span>
+</div>
+<!-- ROI Polygon Overlay (Amber dashed border for Fire Lane prohibited zone) -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none z-10" preserveaspectratio="none" viewbox="0 0 1000 600">
+<polygon fill="rgba(245, 158, 11, 0.12)" points="170,300 550,300 610,545 130,545" stroke="#f59e0b" stroke-dasharray="8,5" stroke-width="2"></polygon>
+<text fill="#fde68a" font-family="JetBrains Mono" font-size="12" font-weight="600" letter-spacing="0.5" x="185" y="325">
+                  ROI: VÙNG CẤM ĐỖ PCCC (TỐI ĐA 03:00)
+                </text>
+</svg>
+<!-- AI Detection Bounding Box around Vehicle (Red #ef4444) -->
+<div class="absolute left-[25%] top-[52%] w-[280px] h-[170px] border-2 border-rose-500 rounded-md pointer-events-none z-20 shadow-[0_0_20px_rgba(239,68,68,0.45)]">
+<!-- Vehicle Timer Pill -->
+<div class="absolute -top-6 left-0 bg-rose-600 text-white font-mono text-[10px] font-bold px-2 py-0.5 rounded shadow flex items-center gap-1 whitespace-nowrap">
+<span class="material-symbols-outlined text-[12px]">timer</span>
+<span>[Vi phạm] Dwell: 03:15</span>
+</div>
+</div>
+<!-- Bottom Info Chip -->
+<div class="absolute bottom-3 left-3 z-20 pointer-events-none">
+<span class="bg-slate-900/90 backdrop-blur-md border border-slate-700/80 text-slate-300 text-[11px] font-mono px-2.5 py-1 rounded flex items-center gap-1.5">
+<span class="material-symbols-outlined text-xs text-blue-400">auto_awesome</span>
+<span>Chụp tự động bởi AI Core • Độ tin cậy: 98.6%</span>
+</span>
+</div>
+</div>
+<!-- Middle: Event Clip Player Card (15s Event Clip) -->
+<div class="bg-[#1e293b] rounded-xl border border-[#334155] p-3.5 space-y-2.5 flex-shrink-0">
+<div class="flex items-center justify-between">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-base text-blue-400">smart_display</span>
+<span class="font-bold text-xs font-display tracking-tight text-slate-200">Clip sự kiện (15s)</span>
+<span class="bg-blue-500/10 border border-blue-500/30 text-blue-400 font-mono text-[10px] px-1.5 py-0.2 rounded">Trích xuất tự động</span>
+</div>
+<div class="flex items-center space-x-2 font-mono text-xs text-slate-400">
+<span class="text-slate-300">18:12:55 - 18:13:10</span>
+</div>
+</div>
+<!-- Sleek Clip Scrubbing Track -->
+<div class="relative w-full h-2.5 bg-slate-900 rounded-full overflow-hidden cursor-pointer">
+<div class="absolute left-0 top-0 bottom-0 w-[65%] bg-blue-500 rounded-full"></div>
+<div class="absolute left-[65%] top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full shadow border border-blue-600"></div>
+</div>
+<!-- Clip Transport Controls -->
+<div class="flex items-center justify-between text-xs pt-1">
+<div class="flex items-center space-x-2">
+<button class="w-7 h-7 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 flex items-center justify-center border border-slate-700 transition" id="clipPlayBtn" onclick="toggleClipPlay()">
+<span class="material-symbols-outlined text-base text-emerald-400" id="clipPlayIcon">play_arrow</span>
+</button>
+<span class="font-mono text-[11px] text-slate-400">00:09 / 00:15</span>
+</div>
+<div class="flex items-center space-x-1.5 font-mono text-[11px]">
+<span class="text-slate-400 text-[10px]">Tốc độ:</span>
+<span class="px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700 text-slate-200 font-semibold">1.0x</span>
+</div>
+</div>
+</div>
+<!-- Bottom: Event Scrubber Timeline -->
+<div class="bg-[#1e293b] rounded-xl border border-[#334155] p-3.5 space-y-2">
+<div class="flex items-center justify-between text-xs">
+<span class="font-semibold text-slate-300 text-xs flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-slate-400">timeline</span>
+<span>Dòng thời gian sự kiện đỗ xe</span>
+</span>
+<span class="font-mono text-[11px] text-slate-400">Bắt đầu tính giờ: 18:10:05</span>
+</div>
+<!-- Visual Timeline Bar with Segments -->
+<div class="relative w-full h-11 bg-slate-900 rounded-lg border border-slate-700/80 overflow-hidden select-none">
+<!-- Background ticks -->
+<div class="absolute inset-0 timeline-ticks-dark opacity-60"></div>
+<div class="absolute inset-0 timeline-minor-ticks-dark opacity-40"></div>
+<!-- Timeline Scale Labels -->
+<div class="absolute inset-x-2 top-1 flex justify-between text-[9px] font-mono text-slate-400 pointer-events-none">
+<span>18:10:05 (Vào vùng)</span>
+<span>18:11:00</span>
+<span>18:12:00</span>
+<span class="text-amber-400 font-semibold">18:13:05 (Hết 3p)</span>
+<span class="text-rose-400 font-bold">18:13:20 (Hiện tại)</span>
+</div>
+<!-- Amber segment: "Thời gian cho phép 03:00" from 18:10:05 to 18:13:05 -->
+<div class="absolute left-[5%] top-5 bottom-1.5 w-[75%] bg-amber-500/20 border-y border-amber-500/40 rounded-l flex items-center justify-center">
+<span class="text-[9px] font-mono font-medium text-amber-300">Thời gian cho phép 03:00 (18:10:05 - 18:13:05)</span>
+</div>
+<!-- Red segment: "Vi phạm" from 18:13:05 onward with marked trigger point -->
+<div class="absolute left-[80%] top-5 bottom-1.5 w-[16%] bg-rose-500/30 border border-rose-500 rounded-r flex items-center justify-center animate-pulse">
+<span class="text-[9px] font-mono font-bold text-rose-300">Vi phạm (+15s)</span>
+</div>
+<!-- Incident Trigger Point Needle at 18:13:05 -->
+<div class="absolute left-[80%] inset-y-0 w-0.5 bg-rose-500 z-10">
+<div class="w-2.5 h-2.5 bg-rose-500 rounded-full -ml-1 top-0 relative shadow-sm border border-slate-900" title="Thời điểm kích hoạt cảnh báo vi phạm"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- ================= RIGHT COLUMN: DETAILS & WORKFLOW (42%) ================= -->
+<div class="w-full lg:w-[42%] p-5 flex flex-col space-y-4 overflow-y-auto min-h-0 bg-[#0f172a]">
+<!-- SECTION 1: DETAILED METADATA GRID -->
+<div class="bg-[#1e293b] rounded-xl border border-[#334155] p-4 space-y-3.5 shadow-sm">
+<div class="flex items-center justify-between border-b border-slate-700/70 pb-2.5">
+<span class="text-xs font-semibold text-slate-300 uppercase tracking-wider font-display">
+                  Thông tin định danh vi phạm
+                </span>
+<span class="bg-blue-500/15 text-blue-400 border border-blue-500/30 px-2 py-0.5 rounded text-xs font-mono font-semibold" id="incidentStatusChip">
+                  Mới
+                </span>
+</div>
+<!-- License Plate Badge & Core Meta -->
+<div class="flex items-center gap-3.5">
+<!-- Standard Vietnamese License Plate Card -->
+<div class="w-28 h-14 bg-[#0f172a] rounded-md border border-[#334155] flex flex-col items-center justify-center px-2 shadow flex-shrink-0">
+<span class="text-[8px] font-mono text-slate-500 font-bold tracking-widest leading-none mb-0.5">VIETNAM</span>
+<span class="font-mono text-base font-extrabold text-[#e2e8f0] tracking-wider">51H-123.45</span>
+</div>
+<!-- Vehicle classification details -->
+<div class="min-w-0 flex-1 space-y-1">
+<div class="flex items-center justify-between text-xs">
+<span class="text-slate-400">Đối tượng:</span>
+<span class="text-slate-200 font-medium bg-slate-800 px-2 py-0.5 rounded text-[11px] border border-slate-700">Khách vãng lai</span>
+</div>
+<div class="flex items-center justify-between text-xs">
+<span class="text-slate-400">Thời gian đỗ:</span>
+<span class="text-rose-400 font-mono font-bold">03:15 / ngưỡng 03:00</span>
+</div>
+</div>
+</div>
+<!-- Rule Code & Location rows -->
+<div class="grid grid-cols-1 gap-2 pt-1 border-t border-slate-700/50 text-xs font-mono">
+<div class="flex items-center justify-between">
+<span class="text-slate-400">Quy tắc vi phạm:</span>
+<span class="text-amber-400 font-semibold">Đỗ xe trái phép (ILLEGAL_PARKING)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-slate-400">Vị trí camera:</span>
+<span class="text-slate-300">CAM-GR-01 (Khu vực 3.2 Sân nền)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-slate-400">Mã định danh sự cố:</span>
+<span class="text-slate-400">#EVT-20261111-0428</span>
+</div>
+</div>
+</div>
+<!-- SECTION 2: 3-STEP STATUS STEPPER -->
+<div class="bg-[#1e293b] rounded-xl border border-[#334155] p-3.5 space-y-2.5">
+<div class="text-[11px] font-mono text-slate-400 uppercase tracking-wider">
+                Quy trình xác minh &amp; xử lý:
+              </div>
+<div class="grid grid-cols-3 gap-2">
+<!-- Step 1: Mới -->
+<div class="flex flex-col items-center justify-center p-2 rounded-lg bg-blue-500/15 border border-blue-500/40 text-blue-300 text-center transition-all" id="step1Box">
+<div class="w-5 h-5 rounded-full bg-blue-500 text-white flex items-center justify-center text-[11px] font-bold mb-1" id="step1Icon">
+                    1
+                  </div>
+<span class="text-xs font-semibold">1. Mới</span>
+<span class="text-[9px] text-blue-400/80 font-mono" id="step1Sub">Chờ tiếp nhận</span>
+</div>
+<!-- Step 2: Đang xử lý -->
+<div class="flex flex-col items-center justify-center p-2 rounded-lg bg-slate-800/80 border border-slate-700 text-slate-400 text-center transition-all" id="step2Box">
+<div class="w-5 h-5 rounded-full bg-slate-700 text-slate-300 flex items-center justify-center text-[11px] font-bold mb-1" id="step2Icon">
+                    2
+                  </div>
+<span class="text-xs font-semibold">2. Đang xử lý</span>
+<span class="text-[9px] text-slate-500 font-mono" id="step2Sub">Chưa nhận</span>
+</div>
+<!-- Step 3: Đã xử lý -->
+<div class="flex flex-col items-center justify-center p-2 rounded-lg bg-slate-800/80 border border-slate-700 text-slate-400 text-center transition-all" id="step3Box">
+<div class="w-5 h-5 rounded-full bg-slate-700 text-slate-300 flex items-center justify-center text-[11px] font-bold mb-1" id="step3Icon">
+                    3
+                  </div>
+<span class="text-xs font-semibold">3. Đã xử lý</span>
+<span class="text-[9px] text-slate-500 font-mono" id="step3Sub">Chưa hoàn tất</span>
+</div>
+</div>
+</div>
+<!-- SECTION 3: INTERACTIVE ACTION CONTROLS & NOTES -->
+<div class="bg-[#1e293b] rounded-xl border border-[#334155] p-3.5 space-y-3 flex-1 flex flex-col justify-between">
+<div class="space-y-3">
+<!-- Primary Accept Button -->
+<button class="w-full py-2.5 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-medium transition flex items-center justify-center gap-2 shadow" id="acceptBtn" onclick="handleAcceptIncident()">
+<span class="material-symbols-outlined text-base">assignment_turned_in</span>
+<span id="acceptBtnLabel">Nhận xử lý sự cố</span>
+</button>
+<!-- Dynamic Handler Box (Revealed when clicked "Nhận xử lý") -->
+<div class="hidden p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-mono flex items-center gap-2" id="handlerBanner">
+<span class="material-symbols-outlined text-sm text-amber-400">person_pin</span>
+<span>Đang xử lý • Người nhận: <strong>Lê Văn Minh (Bảo vệ ca 2)</strong></span>
+</div>
+<!-- Form Textarea for Investigation Result Notes -->
+<div class="space-y-1">
+<label class="block text-xs font-medium text-slate-300">
+                    Ghi chú kết quả xử lý:
+                  </label>
+<textarea class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-xs text-slate-200 placeholder:text-slate-500 focus:outline-none focus:border-blue-500 transition resize-none" id="resultNote" placeholder="Nhập biên bản hoặc kết quả kiểm tra tại hiện trường..." rows="3"></textarea>
+</div>
+</div>
+<!-- Bottom Button Bar: Báo giả / Đóng / Hoàn tất -->
+<div class="flex items-center justify-between gap-2 pt-2 border-t border-slate-700/60 mt-2">
+<button class="border border-slate-700 hover:bg-slate-800 text-slate-300 py-2 px-3 rounded-lg text-xs font-medium transition flex items-center gap-1" onclick="handleFalseAlarm()">
+<span class="material-symbols-outlined text-sm text-slate-400">report_off</span>
+<span>Báo giả</span>
+</button>
+<div class="flex items-center space-x-2">
+<button class="hover:bg-slate-800 text-slate-400 hover:text-slate-200 py-2 px-3.5 rounded-lg text-xs transition border border-transparent" onclick="handleCloseModal()">
+                    Đóng
+                  </button>
+<button class="bg-emerald-600 hover:bg-emerald-700 text-white py-2 px-4 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 shadow" id="completeBtn" onclick="handleCompleteIncident()">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+<span>Hoàn tất</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Status Bar (Dark Mode) -->
+<footer class="h-8 bg-[#0b1329] border-t border-[#1e293b] px-6 flex items-center justify-between text-xs text-slate-500 flex-shrink-0 z-10 opacity-50 blur-[0.5px]">
+<div class="flex items-center space-x-4 font-mono text-[11px]">
+<span class="flex items-center gap-1.5 text-emerald-400">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+          AI Core (YOLOv8 + ByteTrack): Sẵn sàng
+        </span>
+<span class="text-slate-700">|</span>
+<span>Hệ thống giám sát trạm sạc &amp; sân nền (Zone 3.1 &amp; 3.2)</span>
+</div>
+<div class="font-mono text-[11px] text-slate-500">
+        Bình An CCTV SOC • v2.4.0
+      </div>
+</footer>
+</div>
+<!-- INTERACTIVE LOGIC JAVASCRIPT -->
+<script>
+    let isMuted = false;
+    let isPlayingClip = false;
+    let currentStep = 1; // 1: Mới, 2: Đang xử lý, 3: Đã xử lý
+
+    function toggleMuteAudio() {
+      const soundIndicator = document.getElementById('soundIndicator');
+      const soundText = document.getElementById('soundText');
+      const muteBtnText = document.getElementById('muteBtnText');
+      const muteIcon = document.getElementById('muteIcon');
+
+      isMuted = !isMuted;
+      if (isMuted) {
+        soundIndicator.className = "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-medium bg-slate-800 border border-slate-700 text-slate-400";
+        soundIndicator.innerHTML = '<span class="material-symbols-outlined text-sm text-slate-400">volume_off</span><span>Đã tắt tiếng còi</span>';
+        muteBtnText.textContent = "Bật tiếng";
+        muteIcon.textContent = "volume_up";
+      } else {
+        soundIndicator.className = "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-medium bg-amber-500/10 border border-amber-500/30 text-amber-300";
+        soundIndicator.innerHTML = '<span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span><span id="soundText">🔊 Còi báo động đang phát</span>';
+        muteBtnText.textContent = "Tắt tiếng";
+        muteIcon.textContent = "volume_off";
+      }
+    }
+
+    function toggleClipPlay() {
+      const icon = document.getElementById('clipPlayIcon');
+      isPlayingClip = !isPlayingClip;
+      if (isPlayingClip) {
+        icon.textContent = "pause";
+        icon.className = "material-symbols-outlined text-base text-amber-400";
+      } else {
+        icon.textContent = "play_arrow";
+        icon.className = "material-symbols-outlined text-base text-emerald-400";
+      }
+    }
+
+    function handleAcceptIncident() {
+      if (currentStep >= 2) return;
+      currentStep = 2;
+
+      // Update Stepper
+      const step1Box = document.getElementById('step1Box');
+      const step1Sub = document.getElementById('step1Sub');
+      const step2Box = document.getElementById('step2Box');
+      const step2Icon = document.getElementById('step2Icon');
+      const step2Sub = document.getElementById('step2Sub');
+      const handlerBanner = document.getElementById('handlerBanner');
+      const acceptBtn = document.getElementById('acceptBtn');
+      const acceptBtnLabel = document.getElementById('acceptBtnLabel');
+      const statusChip = document.getElementById('incidentStatusChip');
+
+      // Step 1 marked done
+      step1Box.className = "flex flex-col items-center justify-center p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-center transition-all";
+      step1Sub.textContent = "Đã xác nhận";
+      step1Sub.className = "text-[9px] text-emerald-400/80 font-mono";
+
+      // Step 2 active
+      step2Box.className = "flex flex-col items-center justify-center p-2 rounded-lg bg-amber-500/15 border border-amber-500/40 text-amber-300 text-center transition-all";
+      step2Icon.className = "w-5 h-5 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center text-[11px] font-bold mb-1";
+      step2Sub.textContent = "Đang xử lý";
+      step2Sub.className = "text-[9px] text-amber-400/80 font-mono";
+
+      // Status Chip update
+      statusChip.className = "bg-amber-500/15 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded text-xs font-mono font-semibold";
+      statusChip.textContent = "Đang xử lý";
+
+      // Show handler container
+      handlerBanner.classList.remove('hidden');
+
+      // Update button state
+      acceptBtn.className = "w-full py-2.5 px-4 bg-slate-800 text-slate-400 border border-slate-700 rounded-lg text-xs font-medium cursor-not-allowed flex items-center justify-center gap-2";
+      acceptBtnLabel.textContent = "Đã tiếp nhận xử lý";
+    }
+
+    function handleCompleteIncident() {
+      currentStep = 3;
+
+      const step2Box = document.getElementById('step2Box');
+      const step2Sub = document.getElementById('step2Sub');
+      const step3Box = document.getElementById('step3Box');
+      const step3Icon = document.getElementById('step3Icon');
+      const step3Sub = document.getElementById('step3Sub');
+      const statusChip = document.getElementById('incidentStatusChip');
+      const resultNote = document.getElementById('resultNote');
+
+      // Mark Step 2 Done
+      step2Box.className = "flex flex-col items-center justify-center p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-center transition-all";
+      step2Sub.textContent = "Hoàn tất";
+
+      // Mark Step 3 Active/Done
+      step3Box.className = "flex flex-col items-center justify-center p-2 rounded-lg bg-emerald-500/20 border border-emerald-500/50 text-emerald-300 text-center transition-all";
+      step3Icon.className = "w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[11px] font-bold mb-1";
+      step3Icon.innerHTML = '✓';
+      step3Sub.textContent = "Đã xử lý xong";
+      step3Sub.className = "text-[9px] text-emerald-400 font-mono";
+
+      // Status chip
+      statusChip.className = "bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded text-xs font-mono font-semibold";
+      statusChip.textContent = "Đã xử lý";
+
+      if (!resultNote.value.trim()) {
+        resultNote.value = "Bảo vệ Lê Văn Minh đã nhắc nhở chủ xe tại hiện trường. Xe 51H-123.45 đã di dời khỏi lối thoát hiểm PCCC an toàn lúc 18:14:30.";
+      }
+
+      // Auto mute audio
+      if (!isMuted) toggleMuteAudio();
+
+      alert("Xác nhận: Đã hoàn tất quy trình xử lý sự cố đỗ xe trái phép #EVT-20261111-0428!");
+    }
+
+    function handleFalseAlarm() {
+      const confirmFalse = confirm("Xác nhận đánh dấu sự cố này là BÁO GIẢ (False Positive)?");
+      if (confirmFalse) {
+        if (!isMuted) toggleMuteAudio();
+        const statusChip = document.getElementById('incidentStatusChip');
+        statusChip.className = "bg-slate-700/50 text-slate-300 border border-slate-600 px-2 py-0.5 rounded text-xs font-mono font-semibold";
+        statusChip.textContent = "Báo giả";
+        document.getElementById('resultNote').value = "Đã gắn nhãn báo giả: Vùng bóng râm hoặc phương tiện ưu tiên được cấp phép.";
+        alert("Đã cập nhật sự cố thành Báo Giả và gửi phản hồi để tinh chỉnh mô hình YOLOv8.");
+      }
+    }
+
+    function handleCloseModal() {
+      if (!isMuted) toggleMuteAudio();
+      alert("Đã đóng màn hình cảnh báo khẩn cấp. Trở về bảng điều khiển trung tâm SOC.");
+    }
+  </script>
+
+<link rel="stylesheet" href="../assets/css/app.css"/>
+<script src="../assets/js/mock-db.js"></script>
+<script src="../assets/js/app.js"></script>
+</body></html>

@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+
+<html class="h-full select-none dark" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SmartCCTV Core Server • .NET 10 LTS</title><link rel="icon" href="../assets/img/favicon.svg"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Inter & JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Consolas', 'monospace'],
+          },
+          colors: {
+            winbg: '#020617',
+            panel: '#0f172a',
+            surface: '#1e293b',
+            surfaceborder: '#334155',
+            brandblue: '#2563eb',
+            statusemerald: '#10b981',
+            statusamber: '#f59e0b',
+            statusred: '#ef4444',
+            statusslate: '#64748b'
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    /* Dark scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #090d16;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+
+    /* Windows 11 Titlebar button transitions (Dark) */
+    .win-caption-btn {
+      width: 46px;
+      height: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.12s ease;
+      color: #94a3b8;
+    }
+    .win-caption-btn:hover {
+      background-color: #1e293b;
+      color: #f1f5f9;
+    }
+    .win-caption-btn.win-close:hover {
+      background-color: #ef4444 !important;
+      color: #ffffff !important;
+    }
+
+    /* Table row selection style (Dark) */
+    .win-grid-row.selected {
+      background-color: #1e293b !important;
+      border-left: 3px solid #2563eb;
+    }
+
+    /* Yellow ROI Polygon */
+    .roi-polygon {
+      stroke: #facc15;
+      stroke-width: 2;
+      stroke-dasharray: 6 4;
+      fill: rgba(250, 204, 21, 0.12);
+    }
+  </style>
+</head>
+<body class="h-full flex flex-col font-sans text-xs text-[#e2e8f0] bg-[#020617] overflow-hidden antialiased select-none">
+<!-- ================= WINDOWS 11 TITLEBAR FRAME ================= -->
+<div class="h-8 bg-[#090d1a] border-b border-[#1e293b] flex items-center justify-between select-none flex-shrink-0 drag-region px-0 shadow-sm">
+<!-- App Icon & Window Title -->
+<div class="flex items-center space-x-2 pl-3">
+<div class="w-4 h-4 rounded bg-[#2563eb] flex items-center justify-center text-white shadow-xs">
+<span class="material-symbols-outlined text-[13px] leading-none">videocam</span>
+</div>
+<span class="font-semibold text-[#f1f5f9] text-[12px] tracking-tight">SmartCCTV Core Server • .NET 10 LTS</span>
+<span class="bg-[#1e293b] text-[#93c5fd] text-[10px] font-mono px-1.5 py-0.5 rounded border border-[#334155]">v10.0.0-release</span>
+</div>
+<!-- Right: Windows 11 Window Caption Controls -->
+<div class="flex items-center">
+<button class="win-caption-btn" title="Thu nhỏ (Minimize)">
+<svg height="1" viewbox="0 0 10 1" width="10"><path d="M0 0h10v1H0z" fill="currentColor"></path></svg>
+</button>
+<button class="win-caption-btn" title="Phóng to (Maximize)">
+<svg height="10" viewbox="0 0 10 10" width="10"><path d="M0 0v10h10V0H0zm9 9H1V1h8v8z" fill="currentColor"></path></svg>
+</button>
+<button class="win-caption-btn win-close" title="Đóng ứng dụng (Close)">
+<svg height="10" viewbox="0 0 10 10" width="10"><path d="M10 .7L9.3 0 5 4.3.7 0 0 .7 4.3 5 0 9.3l.7.7L5 5.7 9.3 10l.7-.7-4.3-4.3L10 .7z" fill="currentColor"></path></svg>
+</button>
+</div>
+</div>
+<!-- ================= TOP HEALTH STRIP CARDS ================= -->
+<div class="bg-[#0b1120] border-b border-[#1e293b] px-3 py-2 flex flex-col gap-1.5 flex-shrink-0">
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-2">
+<!-- Card 1: Kestrel API -->
+<div class="bg-[#0f172a] border border-[#1e293b] rounded px-2.5 py-1.5 flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-[10px] text-[#94a3b8] font-mono uppercase tracking-wider">Kestrel API</span>
+<span class="w-2 h-2 rounded-full bg-[#10b981]"></span>
+</div>
+<div class="text-[11px] font-mono font-semibold text-[#f1f5f9] truncate">http://0.0.0.0:5000</div>
+<div class="text-[10px] text-[#10b981] font-medium">Online</div>
+</div>
+<!-- Card 2: MediaMTX -->
+<div class="bg-[#0f172a] border border-[#1e293b] rounded px-2.5 py-1.5 flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-[10px] text-[#94a3b8] font-mono uppercase tracking-wider">MediaMTX</span>
+<span class="w-2 h-2 rounded-full bg-[#10b981]"></span>
+</div>
+<div class="text-[11px] font-mono font-semibold text-[#f1f5f9]">16 luồng WebRTC</div>
+<div class="text-[10px] text-[#10b981] font-medium">Online</div>
+</div>
+<!-- Card 3: SQL Server 2022 -->
+<div class="bg-[#0f172a] border border-[#1e293b] rounded px-2.5 py-1.5 flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-[10px] text-[#94a3b8] font-mono uppercase tracking-wider">SQL Server 2022</span>
+<span class="w-2 h-2 rounded-full bg-[#10b981]"></span>
+</div>
+<div class="text-[11px] font-mono font-semibold text-[#f1f5f9]">Kết nối OK</div>
+<div class="text-[10px] text-[#94a3b8]">Pool: 14/50</div>
+</div>
+<!-- Card 4: AI Core -->
+<div class="bg-[#0f172a] border border-[#1e293b] rounded px-2.5 py-1.5 flex flex-col justify-between col-span-2 md:col-span-2 lg:col-span-1">
+<div class="flex items-center justify-between">
+<span class="text-[10px] text-[#94a3b8] font-mono uppercase tracking-wider">AI Core</span>
+<span class="text-[10px] font-mono text-[#60a5fa]">ONNX GPU</span>
+</div>
+<div class="text-[11px] font-mono font-semibold text-[#f1f5f9] truncate">YOLOv8 + ByteTrack</div>
+<div class="text-[10px] text-[#10b981] font-mono">TB 18 ms/frame</div>
+</div>
+<!-- Card 5: GPU -->
+<div class="bg-[#0f172a] border border-[#1e293b] rounded px-2.5 py-1.5 flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-[10px] text-[#94a3b8] font-mono uppercase tracking-wider">GPU RTX 4060 Ti</span>
+<span class="text-[10px] font-mono text-[#a78bfa]">38% Load</span>
+</div>
+<div class="text-[11px] font-mono font-semibold text-[#f1f5f9]">6.2 / 16 GB VRAM</div>
+<div class="w-full bg-[#1e293b] h-1 rounded-full overflow-hidden mt-0.5">
+<div class="bg-[#818cf8] h-full" style="width: 38.7%"></div>
+</div>
+</div>
+<!-- Card 6: RAM -->
+<div class="bg-[#0f172a] border border-[#1e293b] rounded px-2.5 py-1.5 flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-[10px] text-[#94a3b8] font-mono uppercase tracking-wider">Bộ nhớ RAM</span>
+<span class="text-[10px] font-mono text-[#38bdf8]">33%</span>
+</div>
+<div class="text-[11px] font-mono font-semibold text-[#f1f5f9]">21.4 / 64 GB</div>
+<div class="w-full bg-[#1e293b] h-1 rounded-full overflow-hidden mt-0.5">
+<div class="bg-[#38bdf8] h-full" style="width: 33.4%"></div>
+</div>
+</div>
+<!-- Card 7: Storage RAID 1 -->
+<div class="bg-[#0f172a] border border-[#1e293b] rounded px-2.5 py-1.5 flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-[10px] text-[#94a3b8] font-mono uppercase tracking-wider">Lưu trữ RAID 1</span>
+<span class="text-[10px] font-mono text-[#fbbf24]">40%</span>
+</div>
+<div class="text-[11px] font-mono font-semibold text-[#f1f5f9]">1.6 / 4 TB</div>
+<div class="w-full bg-[#1e293b] h-1 rounded-full overflow-hidden mt-0.5">
+<div class="bg-[#f59e0b] h-full" style="width: 40%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- ================= MAIN SPLIT WORKSPACE ================= -->
+<div class="flex-1 flex min-h-0 p-2.5 gap-2.5 bg-[#020617]">
+<!-- ================= LEFT PANEL: 55% DATAGRIDVIEW CAMERA TABLE ================= -->
+<div class="w-[55%] flex flex-col bg-[#0f172a] rounded border border-[#1e293b] shadow-sm overflow-hidden">
+<!-- Toolbar -->
+<div class="px-3 py-2 bg-[#131c31] border-b border-[#1e293b] flex items-center justify-between">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-[#94a3b8] text-[17px]">grid_view</span>
+<span class="font-semibold text-[#f1f5f9] text-[12px]">Giám sát Luồng Camera (16 Kênh)</span>
+<span class="bg-[#1e293b] text-[#10b981] border border-[#334155] text-[10px] font-mono px-2 py-0.5 rounded font-semibold">
+          15/16 Online • 1 Offline (CAM-GR-07)
+        </span>
+</div>
+<div class="flex items-center space-x-2 text-[11px]">
+<div class="relative">
+<input class="h-6 w-36 text-[11px] bg-[#1e293b] border border-[#334155] text-[#e2e8f0] placeholder-[#64748b] rounded px-2 pr-6 focus:outline-none focus:border-[#2563eb]" id="camSearchInput" onkeyup="filterCameraGrid()" placeholder="Lọc camera..." type="text"/>
+<span class="material-symbols-outlined absolute right-1.5 top-1 text-[#64748b] text-[14px]">search</span>
+</div>
+<button class="h-6 px-2 bg-[#1e293b] hover:bg-[#334155] text-[#e2e8f0] rounded border border-[#334155] flex items-center gap-1 font-medium transition" onclick="refreshTableIndicator()">
+<span class="material-symbols-outlined text-[13px]">refresh</span>
+<span>Refresh</span>
+</button>
+</div>
+</div>
+<!-- Table Container -->
+<div class="flex-1 overflow-auto bg-[#0f172a]">
+<table class="w-full text-left border-collapse" id="cameraGridTable">
+<thead class="sticky top-0 bg-[#1e293b] border-b border-[#334155] z-10 text-[11px] font-semibold text-[#94a3b8] select-none">
+<tr>
+<th class="py-2 px-2.5 border-r border-[#334155] w-28 font-mono">ID</th>
+<th class="py-2 px-3 border-r border-[#334155]">Tên vị trí</th>
+<th class="py-2 px-2.5 border-r border-[#334155] w-28">Phân khu</th>
+<th class="py-2 px-2.5 border-r border-[#334155] w-36">Trạng thái</th>
+<th class="py-2 px-2.5 border-r border-[#334155] w-24 font-mono">Heartbeat</th>
+<th class="py-2 px-2.5 w-20 font-mono text-right pr-3">AI FPS</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#1e293b] text-[11px]">
+<!-- Row 1: CAM-EV-01 -->
+<tr class="win-grid-row cursor-pointer transition hover:bg-[#1e293b]/70" onclick="selectCameraRow(this, 'CAM-EV-01', 'Trạm sạc Xe máy 01', '3.1 Trạm sạc')">
+<td class="py-2 px-2.5 font-mono font-semibold text-[#60a5fa]">CAM-EV-01</td>
+<td class="py-2 px-3 font-medium text-[#f1f5f9]">Trạm sạc Xe máy 01</td>
+<td class="py-2 px-2.5 text-[#94a3b8]">3.1 Trạm sạc</td>
+<td class="py-2 px-2.5">
+<span class="inline-flex items-center gap-1 bg-red-950/60 text-[#ef4444] border border-red-800/60 px-1.5 py-0.5 rounded text-[10px] font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-[#ef4444] animate-pulse"></span>
+                Cảnh báo nhiệt
+              </span>
+</td>
+<td class="py-2 px-2.5 font-mono text-[#94a3b8]">3s trước</td>
+<td class="py-2 px-2.5 font-mono text-right pr-3 text-[#10b981] font-bold">5</td>
+</tr>
+<!-- Row 2: CAM-EV-02 -->
+<tr class="win-grid-row cursor-pointer transition hover:bg-[#1e293b]/70" onclick="selectCameraRow(this, 'CAM-EV-02', 'Trụ sạc Ô tô 02', '3.1 Trạm sạc')">
+<td class="py-2 px-2.5 font-mono font-semibold text-[#60a5fa]">CAM-EV-02</td>
+<td class="py-2 px-3 font-medium text-[#f1f5f9]">Trụ sạc Ô tô 02</td>
+<td class="py-2 px-2.5 text-[#94a3b8]">3.1 Trạm sạc</td>
+<td class="py-2 px-2.5">
+<span class="inline-flex items-center gap-1 bg-emerald-950/50 text-[#10b981] border border-emerald-800/60 px-1.5 py-0.5 rounded text-[10px] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10b981]"></span>
+                Online
+              </span>
+</td>
+<td class="py-2 px-2.5 font-mono text-[#94a3b8]">4s trước</td>
+<td class="py-2 px-2.5 font-mono text-right pr-3 text-[#10b981] font-bold">5</td>
+</tr>
+<!-- Row 3: CAM-EV-03 -->
+<tr class="win-grid-row cursor-pointer transition hover:bg-[#1e293b]/70" onclick="selectCameraRow(this, 'CAM-EV-03', 'Ô sạc Ô tô 03', '3.1 Trạm sạc')">
+<td class="py-2 px-2.5 font-mono font-semibold text-[#60a5fa]">CAM-EV-03</td>
+<td class="py-2 px-3 font-medium text-[#f1f5f9]">Ô sạc Ô tô 03</td>
+<td class="py-2 px-2.5 text-[#94a3b8]">3.1 Trạm sạc</td>
+<td class="py-2 px-2.5">
+<span class="inline-flex items-center gap-1 bg-amber-950/60 text-[#f59e0b] border border-amber-800/60 px-1.5 py-0.5 rounded text-[10px] font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-[#f59e0b]"></span>
+                Cảnh báo chiếm ô
+              </span>
+</td>
+<td class="py-2 px-2.5 font-mono text-[#94a3b8]">4s trước</td>
+<td class="py-2 px-2.5 font-mono text-right pr-3 text-[#10b981] font-bold">5</td>
+</tr>
+<!-- Row 4: CAM-EV-04 -->
+<tr class="win-grid-row cursor-pointer transition hover:bg-[#1e293b]/70" onclick="selectCameraRow(this, 'CAM-EV-04', 'Trạm sạc Xe máy 04', '3.1 Trạm sạc')">
+<td class="py-2 px-2.5 font-mono font-semibold text-[#60a5fa]">CAM-EV-04</td>
+<td class="py-2 px-3 font-medium text-[#f1f5f9]">Trạm sạc Xe máy 04</td>
+<td class="py-2 px-2.5 text-[#94a3b8]">3.1 Trạm sạc</td>
+<td class="py-2 px-2.5">
+<span class="inline-flex items-center gap-1 bg-emerald-950/50 text-[#10b981] border border-emerald-800/60 px-1.5 py-0.5 rounded text-[10px] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10b981]"></span>
+                Online
+              </span>
+</td>
+<td class="py-2 px-2.5 font-mono text-[#94a3b8]">5s trước</td>
+<td class="py-2 px-2.5 font-mono text-right pr-3 text-[#10b981] font-bold">5</td>
+</tr>
+<!-- Row 5: CAM-EV-05 -->
+<tr class="win-grid-row cursor-pointer transition hover:bg-[#1e293b]/70" onclick="selectCameraRow(this, 'CAM-EV-05', 'Trụ sạc Ô tô 05', '3.1 Trạm sạc')">
+<td class="py-2 px-2.5 font-mono font-semibold text-[#60a5fa]">CAM-EV-05</td>
+<td class="py-2 px-3 font-medium text-[#f1f5f9]">Trụ sạc Ô tô 05</td>
+<td class="py-2 px-2.5 text-[#94a3b8]">3.1 Trạm sạc</td>
+<td class="py-2 px-2.5">
+<span class="inline-flex items-center gap-1 bg-emerald-950/50 text-[#10b981] border border-emerald-800/60 px-1.5 py-0.5 rounded text-[10px] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10b981]"></span>
+                Online
+              </span>
+</td>
+<td class="py-2 px-2.5 font-mono text-[#94a3b8]">3s trước</td>
+<td class="py-2 px-2.5 font-mono text-right pr-3 text-[#10b981] font-bold">5</td>
+</tr>
+<!-- Row 6: CAM-EV-06 -->
+<tr class="win-grid-row cursor-pointer transition hover:bg-[#1e293b]/70" onclick="selectCameraRow(this, 'CAM-EV-06', 'Trạm sạc Xe máy 06', '3.1 Trạm sạc')">
+<td class="py-2 px-2.5 font-mono font-semibold text-[#60a5fa]">CAM-EV-06</td>
+<td class="py-2 px-3 font-medium text-[#f1f5f9]">Trạm sạc Xe máy 06</td>
+<td class="py-2 px-2.5 text-[#94a3b8]">3.1 Trạm sạc</td>
+<td class="py-2 px-2.5">
+<span class="inline-flex items-center gap-1 bg-emerald-950/50 text-[#10b981] border border-emerald-800/60 px-1.5 py-0.5 rounded text-[10px] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10b981]"></span>
+                Online
+              </span>
+</td>
+<td class="py-2 px-2.5 font-mono text-[#94a3b8]">4s trước</td>
+<td class="py-2 px-2.5 font-mono text-right pr-3 text-[#10b981] font-bold">5</td>
+</tr>
+<!-- Row 7: CAM-ANPR-01 -->
+<tr class="win-grid-row cursor-pointer transition hover:bg-[#1e293b]/70" onclick="selectCameraRow(this, 'CAM-ANPR-01', 'Cổng vào (ANPR)', '3.2 Sân nền')">
+<td class="py-2 px-2.5 font-mono font-semibold text-[#60a5fa]">CAM-ANPR-01</td>
+<td class="py-2 px-3 font-medium text-[#f1f5f9]">Cổng vào (ANPR)</td>
+<td class="py-2 px-2.5 text-[#94a3b8]">3.2 Sân nền</td>
+<td class="py-2 px-2.5">
+<span class="inline-flex items-center gap-1 bg-emerald-950/50 text-[#10b981] border border-emerald-800/60 px-1.5 py-0.5 rounded text-[10px] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10b981]"></span>
+                Online
+              </span>
+</td>
+<td class="py-2 px-2.5 font-mono text-[#94a3b8]">3s trước</td>
+<td class="py-2 px-2.5 font-mono text-right pr-3 text-[#10b981] font-bold">5</td>
+</tr>
+<!-- Row 8: CAM-ANPR-02 -->
+<tr class="win-grid-row cursor-pointer transition hover:bg-[#1e293b]/70" onclick="selectCameraRow(this, 'CAM-ANPR-02', 'Cổng ra (ANPR)', '3.2 Sân nền')">
+<td class="py-2 px-2.5 font-mono font-semibold text-[#60a5fa]">CAM-ANPR-02</td>
+<td class="py-2 px-3 font-medium text-[#f1f5f9]">Cổng ra (ANPR)</td>
+<td class="py-2 px-2.5 text-[#94a3b8]">3.2 Sân nền</td>
+<td class="py-2 px-2.5">
+<span class="inline-flex items-center gap-1 bg-emerald-950/50 text-[#10b981] border border-emerald-800/60 px-1.5 py-0.5 rounded text-[10px] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10b981]"></span>
+                Online
+              </span>
+</td>
+<td class="py-2 px-2.5 font-mono text-[#94a3b8]">3s trước</td>
+<td class="py-2 px-2.5 font-mono text-right pr-3 text-[#10b981] font-bold">5</td>
+</tr>
+<!-- Row 9: CAM-GR-01 (Selected Row) -->
+<tr class="win-grid-row selected cursor-pointer transition hover:bg-[#1e293b]/70" onclick="selectCameraRow(this, 'CAM-GR-01', 'Lối PCCC Đông', '3.2 Sân nền')">
+<td class="py-2 px-2.5 font-mono font-bold text-[#93c5fd]">CAM-GR-01</td>
+<td class="py-2 px-3">
+<div class="font-semibold text-white">Lối PCCC Đông</div>
+<div class="text-[10px] text-[#f59e0b]">Giám sát dừng đỗ sai ROI</div>
+</td>
+<td class="py-2 px-2.5 text-[#94a3b8]">3.2 Sân nền</td>
+<td class="py-2 px-2.5">
+<span class="inline-flex items-center gap-1 bg-amber-950/60 text-[#f59e0b] border border-amber-800/60 px-1.5 py-0.5 rounded text-[10px] font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-[#f59e0b] animate-pulse"></span>
+                Đang phân tích
+              </span>
+</td>
+<td class="py-2 px-2.5 font-mono text-[#94a3b8]">4s trước</td>
+<td class="py-2 px-2.5 font-mono text-right pr-3 text-[#10b981] font-bold">5</td>
+</tr>
+<!-- Row 10: CAM-GR-02 -->
+<tr class="win-grid-row cursor-pointer transition hover:bg-[#1e293b]/70" onclick="selectCameraRow(this, 'CAM-GR-02', 'Lối PCCC Tây', '3.2 Sân nền')">
+<td class="py-2 px-2.5 font-mono font-semibold text-[#60a5fa]">CAM-GR-02</td>
+<td class="py-2 px-3 font-medium text-[#f1f5f9]">Lối PCCC Tây</td>
+<td class="py-2 px-2.5 text-[#94a3b8]">3.2 Sân nền</td>
+<td class="py-2 px-2.5">
+<span class="inline-flex items-center gap-1 bg-emerald-950/50 text-[#10b981] border border-emerald-800/60 px-1.5 py-0.5 rounded text-[10px] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10b981]"></span>
+                Online
+              </span>
+</td>
+<td class="py-2 px-2.5 font-mono text-[#94a3b8]">4s trước</td>
+<td class="py-2 px-2.5 font-mono text-right pr-3 text-[#10b981] font-bold">5</td>
+</tr>
+<!-- Row 11: CAM-GR-03 -->
+<tr class="win-grid-row cursor-pointer transition hover:bg-[#1e293b]/70" onclick="selectCameraRow(this, 'CAM-GR-03', 'Sảnh đón khách Gate 1', '3.2 Sân nền')">
+<td class="py-2 px-2.5 font-mono font-semibold text-[#60a5fa]">CAM-GR-03</td>
+<td class="py-2 px-3 font-medium text-[#f1f5f9]">Sảnh đón khách Gate 1</td>
+<td class="py-2 px-2.5 text-[#94a3b8]">3.2 Sân nền</td>
+<td class="py-2 px-2.5">
+<span class="inline-flex items-center gap-1 bg-emerald-950/50 text-[#10b981] border border-emerald-800/60 px-1.5 py-0.5 rounded text-[10px] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10b981]"></span>
+                Online
+              </span>
+</td>
+<td class="py-2 px-2.5 font-mono text-[#94a3b8]">3s trước</td>
+<td class="py-2 px-2.5 font-mono text-right pr-3 text-[#10b981] font-bold">5</td>
+</tr>
+<!-- Row 12: CAM-GR-04 -->
+<tr class="win-grid-row cursor-pointer transition hover:bg-[#1e293b]/70" onclick="selectCameraRow(this, 'CAM-GR-04', 'Sảnh đón khách Gate 2', '3.2 Sân nền')">
+<td class="py-2 px-2.5 font-mono font-semibold text-[#60a5fa]">CAM-GR-04</td>
+<td class="py-2 px-3 font-medium text-[#f1f5f9]">Sảnh đón khách Gate 2</td>
+<td class="py-2 px-2.5 text-[#94a3b8]">3.2 Sân nền</td>
+<td class="py-2 px-2.5">
+<span class="inline-flex items-center gap-1 bg-emerald-950/50 text-[#10b981] border border-emerald-800/60 px-1.5 py-0.5 rounded text-[10px] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10b981]"></span>
+                Online
+              </span>
+</td>
+<td class="py-2 px-2.5 font-mono text-[#94a3b8]">4s trước</td>
+<td class="py-2 px-2.5 font-mono text-right pr-3 text-[#10b981] font-bold">5</td>
+</tr>
+<!-- Row 13: CAM-GR-05 -->
+<tr class="win-grid-row cursor-pointer transition hover:bg-[#1e293b]/70" onclick="selectCameraRow(this, 'CAM-GR-05', 'Đường nội khu Đông', '3.2 Sân nền')">
+<td class="py-2 px-2.5 font-mono font-semibold text-[#60a5fa]">CAM-GR-05</td>
+<td class="py-2 px-3 font-medium text-[#f1f5f9]">Đường nội khu Đông</td>
+<td class="py-2 px-2.5 text-[#94a3b8]">3.2 Sân nền</td>
+<td class="py-2 px-2.5">
+<span class="inline-flex items-center gap-1 bg-emerald-950/50 text-[#10b981] border border-emerald-800/60 px-1.5 py-0.5 rounded text-[10px] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10b981]"></span>
+                Online
+              </span>
+</td>
+<td class="py-2 px-2.5 font-mono text-[#94a3b8]">5s trước</td>
+<td class="py-2 px-2.5 font-mono text-right pr-3 text-[#10b981] font-bold">5</td>
+</tr>
+<!-- Row 14: CAM-GR-06 -->
+<tr class="win-grid-row cursor-pointer transition hover:bg-[#1e293b]/70" onclick="selectCameraRow(this, 'CAM-GR-06', 'Đường nội khu Tây', '3.2 Sân nền')">
+<td class="py-2 px-2.5 font-mono font-semibold text-[#60a5fa]">CAM-GR-06</td>
+<td class="py-2 px-3 font-medium text-[#f1f5f9]">Đường nội khu Tây</td>
+<td class="py-2 px-2.5 text-[#94a3b8]">3.2 Sân nền</td>
+<td class="py-2 px-2.5">
+<span class="inline-flex items-center gap-1 bg-emerald-950/50 text-[#10b981] border border-emerald-800/60 px-1.5 py-0.5 rounded text-[10px] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10b981]"></span>
+                Online
+              </span>
+</td>
+<td class="py-2 px-2.5 font-mono text-[#94a3b8]">4s trước</td>
+<td class="py-2 px-2.5 font-mono text-right pr-3 text-[#10b981] font-bold">5</td>
+</tr>
+<!-- Row 15: CAM-GR-07 (Offline) -->
+<tr class="win-grid-row cursor-pointer transition hover:bg-[#1e293b]/70 opacity-75" onclick="selectCameraRow(this, 'CAM-GR-07', 'Lối đi bộ Đông', '3.2 Sân nền')">
+<td class="py-2 px-2.5 font-mono font-semibold text-[#94a3b8]">CAM-GR-07</td>
+<td class="py-2 px-3 font-medium text-[#cbd5e1]">Lối đi bộ Đông</td>
+<td class="py-2 px-2.5 text-[#64748b]">3.2 Sân nền</td>
+<td class="py-2 px-2.5">
+<span class="inline-flex items-center gap-1 bg-slate-800/80 text-[#94a3b8] border border-slate-700 px-1.5 py-0.5 rounded text-[10px] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-[#64748b]"></span>
+                Offline
+              </span>
+</td>
+<td class="py-2 px-2.5 font-mono text-[#64748b]">12m trước</td>
+<td class="py-2 px-2.5 font-mono text-right pr-3 text-[#64748b] font-bold">0</td>
+</tr>
+<!-- Row 16: CAM-GR-08 -->
+<tr class="win-grid-row cursor-pointer transition hover:bg-[#1e293b]/70" onclick="selectCameraRow(this, 'CAM-GR-08', 'Công viên &amp; Sân chơi', '3.2 Sân nền')">
+<td class="py-2 px-2.5 font-mono font-semibold text-[#60a5fa]">CAM-GR-08</td>
+<td class="py-2 px-3 font-medium text-[#f1f5f9]">Công viên &amp; Sân chơi</td>
+<td class="py-2 px-2.5 text-[#94a3b8]">3.2 Sân nền</td>
+<td class="py-2 px-2.5">
+<span class="inline-flex items-center gap-1 bg-emerald-950/50 text-[#10b981] border border-emerald-800/60 px-1.5 py-0.5 rounded text-[10px] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10b981]"></span>
+                Online
+              </span>
+</td>
+<td class="py-2 px-2.5 font-mono text-[#94a3b8]">4s trước</td>
+<td class="py-2 px-2.5 font-mono text-right pr-3 text-[#10b981] font-bold">5</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer -->
+<div class="px-3 py-1.5 bg-[#131c31] border-t border-[#1e293b] flex items-center justify-between text-[11px] text-[#94a3b8]">
+<div class="flex items-center space-x-2">
+<span>Tổng số: <strong class="text-[#f1f5f9]">16 camera</strong></span>
+<span>•</span>
+<span class="text-[#10b981] font-semibold">15 Online</span>
+<span>•</span>
+<span class="text-[#ef4444] font-semibold">1 Offline</span>
+</div>
+<div class="font-mono text-[10px] text-[#94a3b8]">
+        Đang xem: <span class="font-bold text-[#60a5fa]" id="selectedCamBadge">CAM-GR-01 (3.2 Sân nền)</span>
+</div>
+</div>
+</div>
+<!-- ================= RIGHT PANEL: 45% LIVE DEBUGGER & LOG SPLIT ================= -->
+<div class="w-[45%] flex flex-col gap-2.5 min-h-0">
+<!-- TOP: LIVE AI DEBUGGER PANEL -->
+<div class="flex-[1.2] bg-[#0f172a] rounded border border-[#1e293b] shadow-sm flex flex-col min-h-0 overflow-hidden">
+<!-- Panel Header & Camera Picker Dropdown -->
+<div class="px-3 py-1.5 bg-[#131c31] border-b border-[#1e293b] flex items-center justify-between">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-[#38bdf8] text-[16px]">biotech</span>
+<span class="font-bold text-[#f1f5f9] text-[12px]">Live AI Debugger</span>
+</div>
+<div class="flex items-center space-x-2">
+<!-- Camera Dropdown -->
+<div class="relative">
+<select class="bg-[#1e293b] border border-[#334155] text-[#f1f5f9] text-[11px] font-medium rounded px-2 py-0.5 pr-6 appearance-none focus:outline-none focus:border-[#2563eb]" id="camSelect" onchange="handleCamSelectChange(this.value)">
+<option selected="" value="CAM-GR-01">CAM-GR-01 • Lối PCCC Đông</option>
+<option value="CAM-EV-01">CAM-EV-01 • Trạm sạc Xe máy 01</option>
+<option value="CAM-EV-02">CAM-EV-02 • Trụ sạc Ô tô 02</option>
+<option value="CAM-EV-03">CAM-EV-03 • Ô sạc Ô tô 03</option>
+<option value="CAM-ANPR-01">CAM-ANPR-01 • Cổng vào (ANPR)</option>
+<option value="CAM-GR-02">CAM-GR-02 • Lối PCCC Tây</option>
+</select>
+<span class="material-symbols-outlined absolute right-1 top-1 text-[#94a3b8] text-[14px] pointer-events-none">expand_more</span>
+</div>
+<!-- Snapshot / Inspect Button -->
+<button class="w-6 h-6 flex items-center justify-center bg-[#1e293b] hover:bg-[#334155] border border-[#334155] rounded text-[#94a3b8] hover:text-[#f1f5f9] transition" title="Lưu khung hình chẩn đoán">
+<span class="material-symbols-outlined text-[14px]">photo_camera</span>
+</button>
+</div>
+</div>
+<!-- Viewport with CCTV Background + Overlays -->
+<div class="flex-1 relative bg-slate-950 min-h-0 overflow-hidden flex items-center justify-center">
+<!-- CCTV Frame (Using provided image placeholder) -->
+<img alt="CCTV Stream Feed" class="w-full h-full object-cover opacity-85" src="../assets/img/gr-firelane.jpg"/>
+<!-- Scrim -->
+<div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/40 pointer-events-none"></div>
+<!-- Top-Left Telemetry Tag -->
+<div class="absolute top-2 left-2 bg-[#0f172a]/90 backdrop-blur-xs border border-[#334155] rounded px-2 py-1 text-[10px] font-mono text-[#e2e8f0] pointer-events-none shadow-sm">
+<div class="flex items-center space-x-2">
+<span class="text-[#10b981] font-bold">● LIVE INFERENCE</span>
+<span class="text-[#475569]">|</span>
+<span class="text-[#93c5fd]">720p • AI 5 FPS • Latency: 18.2ms</span>
+</div>
+<div class="text-[9.5px] text-[#94a3b8] mt-0.5">
+<span>Model: <strong class="text-[#f1f5f9]">YOLOv8x + ByteTrack • ONNX CUDA</strong></span>
+</div>
+</div>
+<!-- SVG Layer for Yellow Dashed ROI Polygon -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none">
+<!-- Yellow #facc15 dashed ROI Polygon over Fire Lane -->
+<polygon class="roi-polygon" points="80,180 340,150 490,260 120,290"></polygon>
+<text class="font-mono text-[10px] font-bold fill-[#facc15]" x="88" y="172">ROI #1: KHU VỰC CẤM ĐỖ PCCC (Dwell limit 180s)</text>
+</svg>
+<!-- Red Bounding Box over Car in Fire Lane -->
+<div class="absolute top-[38%] left-[28%] w-[34%] h-[40%] border-2 border-[#ef4444] rounded bg-[#ef4444]/15 flex flex-col justify-between p-1 shadow-lg pointer-events-none">
+<div class="flex items-center justify-between">
+<span class="bg-[#ef4444] text-white font-mono text-[9px] font-bold px-1.5 py-0.5 rounded shadow-xs">
+              [Car #14] Parking: 45s / 180s
+            </span>
+<span class="bg-black/75 text-[#fca5a5] font-mono text-[9px] px-1 rounded border border-[#ef4444]/60">
+              Conf: 94.8%
+            </span>
+</div>
+<div class="self-center flex items-center justify-center text-[#ef4444]/70">
+<span class="material-symbols-outlined text-[18px]">adjust</span>
+</div>
+<div class="text-[8.5px] font-mono text-white bg-black/70 px-1 py-0.5 rounded flex justify-between">
+<span class="text-[#fca5a5]">Class: Sedan</span>
+<span class="text-[#fca5a5]">TrackId: #14 (Dwell 45s)</span>
+</div>
+</div>
+<!-- Emerald Bounding Box over Person -->
+<div class="absolute top-[28%] right-[16%] w-[12%] h-[32%] border-2 border-[#10b981] rounded bg-[#10b981]/15 flex flex-col justify-between p-1 shadow-md pointer-events-none">
+<div class="flex items-center justify-between">
+<span class="bg-[#10b981] text-[#022c22] font-mono text-[8.5px] font-bold px-1 rounded">
+              [Person #7] 12s
+            </span>
+</div>
+<div class="text-[8px] font-mono text-[#a7f3d0] bg-black/70 px-1 py-0.5 rounded truncate">
+            Moving • 92%
+          </div>
+</div>
+<!-- Bottom Legend Bar -->
+<div class="absolute bottom-2 inset-x-2 flex items-center justify-between bg-[#0f172a]/90 backdrop-blur-xs border border-[#334155] px-2.5 py-1 rounded text-[10px] font-mono">
+<div class="flex items-center space-x-3 text-[#cbd5e1]">
+<span class="flex items-center gap-1">
+<span class="w-2.5 h-2.5 border border-[#facc15] border-dashed bg-[#facc15]/20 rounded-xs inline-block"></span>
+<span>ROI: FireLane_ZoneE</span>
+</span>
+<span class="flex items-center gap-1">
+<span class="w-2 h-2 bg-[#ef4444] rounded-xs inline-block"></span>
+<span>TrackId: Car #14</span>
+</span>
+<span class="flex items-center gap-1">
+<span class="w-2 h-2 bg-[#10b981] rounded-xs inline-block"></span>
+<span>TrackId: Person #7</span>
+</span>
+</div>
+<div class="text-[#94a3b8]">
+            Bộ đếm vi phạm: <strong class="text-[#f59e0b]">45s / 180s</strong>
+</div>
+</div>
+</div>
+</div>
+<!-- MIDDLE: STORAGE CLEANUP JOB CARD -->
+<div class="bg-[#0f172a] rounded border border-[#1e293b] p-2.5 shadow-sm flex items-center justify-between flex-shrink-0">
+<div class="flex items-center space-x-3">
+<div class="w-8 h-8 rounded bg-[#1e293b] border border-[#334155] flex items-center justify-center text-[#38bdf8]">
+<span class="material-symbols-outlined text-[18px]">auto_delete</span>
+</div>
+<div>
+<div class="flex items-center space-x-2">
+<span class="font-bold text-[#f1f5f9] text-[11.5px]">Dọn dẹp lưu trữ (StorageCleanupJob)</span>
+<span class="text-[10px] bg-[#1e293b] text-[#94a3b8] px-1.5 py-0.2 rounded border border-[#334155] font-mono">Chạy 02:00 hằng ngày</span>
+</div>
+<div class="text-[10.5px] text-[#94a3b8] mt-0.5">
+            Xóa ảnh/clip &gt; 60 ngày hoặc khi ổ &gt; 85% • <span class="text-[#cbd5e1]">Lần chạy gần nhất: 02:00 hôm nay • đã xóa 12.4 GB</span>
+</div>
+</div>
+</div>
+<button class="px-3 py-1 bg-[#2563eb] hover:bg-[#1d4ed8] active:bg-[#1e40af] text-white rounded text-[11px] font-semibold transition shadow-xs flex items-center gap-1" onclick="runCleanupNow()">
+<span class="material-symbols-outlined text-[14px]">play_arrow</span>
+<span>Chạy ngay</span>
+</button>
+</div>
+<!-- BOTTOM: LIVE SYSTEM EVENT LOG -->
+<div class="flex-1 bg-[#0f172a] rounded border border-[#1e293b] shadow-sm flex flex-col min-h-0 overflow-hidden">
+<!-- Log Header -->
+<div class="px-3 py-1.5 bg-[#131c31] border-b border-[#1e293b] flex items-center justify-between select-none">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-[#818cf8] text-[16px]">terminal</span>
+<span class="font-bold text-[#f1f5f9] text-[12px]">Nhật ký Hệ thống Thời gian thực (Live Event Stream)</span>
+</div>
+<div class="flex items-center space-x-2 text-[10.5px]">
+<label class="flex items-center space-x-1 text-[#94a3b8] cursor-pointer">
+<input checked="" class="rounded bg-[#1e293b] border-[#334155] text-[#2563eb] focus:ring-0 w-3 h-3" id="autoScrollCheck" type="checkbox"/>
+<span>Tự cuộn</span>
+</label>
+<button class="px-2 py-0.5 bg-[#1e293b] hover:bg-[#334155] text-[#cbd5e1] border border-[#334155] rounded text-[10px] transition" onclick="clearSystemLog()">
+            Xóa log
+          </button>
+</div>
+</div>
+<!-- Log Mono Stream -->
+<div class="flex-1 p-2.5 overflow-y-auto font-mono text-[11px] leading-relaxed bg-[#0a0f1d] space-y-1.5" id="logContainer">
+<!-- Exact Log Line 1 -->
+<div class="p-1 rounded bg-[#1e293b]/40 border border-[#334155]/60 flex items-start space-x-2">
+<span class="text-[#ef4444] font-bold select-none">[10:42:15]</span>
+<div class="flex-1 text-[#e2e8f0]">
+<span class="text-[#ef4444] font-semibold">POST /api/webhooks/thermal-alert</span>
+<span class="text-[#f1f5f9] font-bold">CAM-EV-01</span>
+<span class="bg-[#ef4444] text-white px-1 py-0.2 rounded font-bold">68.5°C</span>
+</div>
+<span class="text-[9px] bg-red-950 text-[#fca5a5] border border-red-800 px-1 rounded font-bold">THERMAL</span>
+</div>
+<!-- Exact Log Line 2 -->
+<div class="p-1 rounded bg-[#1e293b]/40 border border-[#334155]/60 flex items-start space-x-2">
+<span class="text-[#38bdf8] font-bold select-none">[10:42:18]</span>
+<div class="flex-1 text-[#e2e8f0]">
+<span class="text-[#38bdf8] font-semibold">POST /api/webhooks/anpr-event</span>
+<span class="bg-[#1e293b] px-1 py-0.2 rounded border border-[#334155] font-bold text-[#f1f5f9]">51K-888.99</span>
+<span class="text-[#10b981] font-semibold">VÀO</span>
+</div>
+<span class="text-[9px] bg-sky-950 text-[#7dd3fc] border border-sky-800 px-1 rounded font-bold">ANPR</span>
+</div>
+<!-- Exact Log Line 3 -->
+<div class="p-1 rounded bg-[#1e293b]/40 border border-[#334155]/60 flex items-start space-x-2">
+<span class="text-[#f59e0b] font-bold select-none">[10:42:20]</span>
+<div class="flex-1 text-[#e2e8f0]">
+<span class="text-[#f59e0b] font-semibold">POST /api/webhooks/ocpp-status</span>
+<span class="font-semibold text-[#f1f5f9]">CP-EV-05</span>
+<span class="text-[#94a3b8]">Finishing</span>
+</div>
+<span class="text-[9px] bg-amber-950 text-[#fcd34d] border border-amber-800 px-1 rounded font-bold">OCPP-RO</span>
+</div>
+<!-- Exact Log Line 4 -->
+<div class="p-1 rounded bg-[#1e293b]/40 border border-[#334155]/60 flex items-start space-x-2">
+<span class="text-[#f59e0b] font-bold select-none">[10:42:24]</span>
+<div class="flex-1 text-[#e2e8f0]">
+<span class="text-[#f59e0b] font-semibold">AI_Alerts #1042</span>
+<span class="text-rose-400 font-bold">ILLEGAL_PARKING</span>
+<span class="text-[#f1f5f9] font-bold">CAM-GR-01</span>
+</div>
+<span class="text-[9px] bg-rose-950 text-[#fda4af] border border-rose-800 px-1 rounded font-bold">AI_EVENT</span>
+</div>
+<!-- Exact Log Line 5 -->
+<div class="p-1 rounded bg-[#1e293b]/40 border border-[#334155]/60 flex items-start space-x-2">
+<span class="text-[#10b981] font-bold select-none">[10:42:25]</span>
+<div class="flex-1 text-[#e2e8f0]">
+<span class="text-[#10b981] font-semibold">SignalR ReceiveNewAlert</span>
+<span class="text-[#94a3b8]">→</span>
+<span class="text-[#f1f5f9] font-semibold">6 clients</span>
+</div>
+<span class="text-[9px] bg-emerald-950 text-[#6ee7b7] border border-emerald-800 px-1 rounded font-bold">SIGNALR</span>
+</div>
+</div>
+<!-- Log Footer -->
+<div class="px-3 py-1 bg-[#131c31] border-t border-[#1e293b] flex items-center justify-between text-[10.5px] text-[#94a3b8]">
+<div class="flex items-center space-x-2">
+<span class="w-2 h-2 rounded-full bg-[#10b981]"></span>
+<span>Logger: Serilog .NET 10 LTS (File: logs/core-2025.log)</span>
+</div>
+<span class="font-mono text-[#64748b]">Event Buffer: 5 / 1000</span>
+</div>
+</div>
+</div>
+</div>
+<!-- ================= WINDOWS 11 STATUS STRIP FOOTER ================= -->
+<div class="h-6 bg-[#090d1a] border-t border-[#1e293b] px-3 flex items-center justify-between text-[11px] text-[#94a3b8] select-none flex-shrink-0 font-mono">
+<!-- Content: Kestrel :5000 • SignalR 6 kết nối • MediaMTX 0.28s • AI 18 ms/frame • PID: 14280 • RAM: 21.4 / 64 GB • Serilog .NET 10 LTS • 19:23:45 GMT+7 -->
+<div class="flex items-center space-x-3">
+<span class="text-[#e2e8f0] font-semibold">Kestrel :5000</span>
+<span class="text-[#334155]">•</span>
+<span>SignalR 6 kết nối</span>
+<span class="text-[#334155]">•</span>
+<span>MediaMTX 0.28s</span>
+<span class="text-[#334155]">•</span>
+<span class="text-[#10b981]">AI 18 ms/frame</span>
+<span class="text-[#334155]">•</span>
+<span>PID: 14280</span>
+<span class="text-[#334155]">•</span>
+<span>RAM: 21.4 / 64 GB</span>
+<span class="text-[#334155]">•</span>
+<span>Serilog .NET 10 LTS</span>
+</div>
+<div class="flex items-center space-x-2 text-[#cbd5e1] font-semibold" id="sysClock">
+    19:23:45 GMT+7
+  </div>
+</div>
+<!-- ================= JAVASCRIPT ================= -->
+<script>
+  // Clock update
+  function updateClock() {
+    const now = new Date();
+    const timeStr = now.toTimeString().split(' ')[0] + ' GMT+7';
+    const el = document.getElementById('sysClock');
+    if (el) el.textContent = timeStr;
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  // Select camera row in table
+  function selectCameraRow(rowElement, camCode, camName, zone) {
+    const rows = document.querySelectorAll('.win-grid-row');
+    rows.forEach(r => r.classList.remove('selected'));
+    rowElement.classList.add('selected');
+
+    document.getElementById('selectedCamBadge').textContent = `${camCode} (${zone})`;
+    
+    // Sync dropdown if option exists
+    const camSelect = document.getElementById('camSelect');
+    for (let i = 0; i < camSelect.options.length; i++) {
+      if (camSelect.options[i].value === camCode) {
+        camSelect.selectedIndex = i;
+        break;
+      }
+    }
+
+    appendLog(`Chuyển góc quan sát Live AI Debugger sang ${camCode} - ${camName} (${zone})`);
+  }
+
+  // Handle dropdown change
+  function handleCamSelectChange(camCode) {
+    const rows = document.querySelectorAll('#cameraGridTable tbody tr');
+    rows.forEach(r => {
+      const code = r.querySelector('td')?.textContent?.trim();
+      if (code === camCode) {
+        r.click();
+      }
+    });
+  }
+
+  // Filter camera table
+  function filterCameraGrid() {
+    const val = document.getElementById('camSearchInput').value.toLowerCase();
+    const rows = document.querySelectorAll('#cameraGridTable tbody tr');
+    rows.forEach(row => {
+      const text = row.textContent.toLowerCase();
+      row.style.display = text.includes(val) ? '' : 'none';
+    });
+  }
+
+  // Append log entry
+  function appendLog(text) {
+    const logContainer = document.getElementById('logContainer');
+    const div = document.createElement('div');
+    const now = new Date();
+    const timeStr = now.toTimeString().split(' ')[0];
+    div.className = "p-1 rounded bg-[#1e293b]/40 border border-[#334155]/60 flex items-start space-x-2";
+    div.innerHTML = `
+      <span class="text-[#94a3b8] font-bold select-none">[${timeStr}]</span>
+      <div class="flex-1 text-[#e2e8f0]">${text}</div>
+      <span class="text-[9px] bg-[#1e293b] text-[#cbd5e1] border border-[#334155] px-1 rounded font-bold">INFO</span>
+    `;
+    logContainer.appendChild(div);
+
+    const autoScroll = document.getElementById('autoScrollCheck').checked;
+    if (autoScroll) {
+      logContainer.scrollTop = logContainer.scrollHeight;
+    }
+  }
+
+  // Clear log
+  function clearSystemLog() {
+    const logContainer = document.getElementById('logContainer');
+    const now = new Date();
+    const timeStr = now.toTimeString().split(' ')[0];
+    logContainer.innerHTML = `
+      <div class="p-1 text-[#64748b] italic text-[10.5px]">
+        [${timeStr}] Nhật ký đã được xóa bởi kỹ sư vận hành.
+      </div>
+    `;
+  }
+
+  // Storage cleanup action
+  function runCleanupNow() {
+    appendLog("Tiến trình StorageCleanupJob được kích hoạt thủ công...");
+    setTimeout(() => {
+      appendLog("StorageCleanupJob hoàn thành: đã quét phân vùng /data/recordings, giải phóng 3.2 GB ảnh/clip lưu trữ tạm.");
+    }, 1200);
+  }
+
+  function refreshTableIndicator() {
+    appendLog("Đã làm mới thông số kết nối và heartbeat toàn bộ 16 camera ONVIF/RTSP.");
+  }
+</script>
+
+<link rel="stylesheet" href="../assets/css/app.css"/>
+<script src="../assets/js/mock-db.js"></script>
+<script src="../assets/js/app.js"></script>
+</body></html>

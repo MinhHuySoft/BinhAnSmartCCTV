@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aegis Residential SOC - Cấu hình Vùng cấm đỗ &amp; Thiết lập luật AI</title><link rel="icon" href="../assets/img/favicon.svg"/>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      line-height: 1;
+      display: inline-block;
+      vertical-align: middle;
+    }
+  </style>
+<!-- Tailwind Script -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-error-container": "#ffdad6",
+            "tertiary-fixed": "#ffdad7",
+            "surface-container-highest": "#2e3447",
+            "on-primary-fixed": "#00174b",
+            "inverse-on-surface": "#2a3043",
+            "on-secondary-fixed-variant": "#005236",
+            "on-tertiary": "#68000a",
+            "secondary-fixed": "#6ffbbe",
+            "surface-bright": "#33394c",
+            "secondary-container": "#00a572",
+            "surface-tint": "#b4c5ff",
+            "inverse-surface": "#dce1fb",
+            "tertiary-fixed-dim": "#ffb3ad",
+            "on-tertiary-fixed": "#410004",
+            "on-secondary-container": "#00311f",
+            "surface-container-low": "#151b2d",
+            "on-secondary": "#003824",
+            "tertiary-container": "#cf2c30",
+            "background": "#020617",
+            "outline-variant": "#334155",
+            "surface-dim": "#0c1324",
+            "on-secondary-fixed": "#002113",
+            "on-tertiary-container": "#ffecea",
+            "error-container": "#93000a",
+            "primary": "#b4c5ff",
+            "tertiary": "#ffb3ad",
+            "surface-variant": "#1e293b",
+            "primary-container": "#2563eb",
+            "surface-container": "#0f172a",
+            "outline": "#475569",
+            "surface-container-high": "#1e293b",
+            "primary-fixed-dim": "#b4c5ff",
+            "on-surface-variant": "#94a3b8",
+            "on-primary-container": "#ffffff",
+            "on-primary": "#002a78",
+            "inverse-primary": "#0053db",
+            "primary-fixed": "#dbe1ff",
+            "on-tertiary-fixed-variant": "#930013",
+            "on-primary-fixed-variant": "#003ea8",
+            "error": "#ef4444",
+            "secondary": "#10b981",
+            "surface-container-lowest": "#020617",
+            "on-background": "#e2e8f0",
+            "on-surface": "#e2e8f0",
+            "surface": "#0f172a",
+            "secondary-fixed-dim": "#4edea3",
+            "on-error": "#690005"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "fontFamily": {
+            "body-md": ["Inter", "sans-serif"],
+            "mono-md": ["JetBrains Mono", "monospace"],
+            "display-lg-mobile": ["Space Grotesk", "sans-serif"],
+            "label-caps": ["JetBrains Mono", "monospace"],
+            "mono-sm": ["JetBrains Mono", "monospace"],
+            "headline-sm": ["Space Grotesk", "sans-serif"],
+            "headline-lg": ["Space Grotesk", "sans-serif"],
+            "body-lg": ["Inter", "sans-serif"],
+            "mono-lg": ["JetBrains Mono", "monospace"],
+            "display-lg": ["Space Grotesk", "sans-serif"],
+            "body-sm": ["Inter", "sans-serif"],
+            "headline-md": ["Space Grotesk", "sans-serif"]
+          },
+          "fontSize": {
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "mono-md": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+            "display-lg-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "label-caps": ["10px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "600" }],
+            "mono-sm": ["11px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "400" }],
+            "headline-sm": ["15px", { "lineHeight": "22px", "fontWeight": "600" }],
+            "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "mono-lg": ["16px", { "lineHeight": "24px", "fontWeight": "500" }],
+            "display-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "headline-md": ["18px", { "lineHeight": "26px", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-[#020617] text-on-surface font-body-md antialiased h-screen flex flex-col overflow-hidden select-none">
+<!-- TOP APP BAR (56px) -->
+<header class="flex justify-between items-center w-full px-4 h-14 z-50 bg-surface-container border-b border-outline-variant shrink-0">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary-container/20 border border-primary-container/40 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">security</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md font-bold tracking-tight text-on-surface">Bình An CCTV</span>
+<span class="font-label-caps text-[9px] uppercase tracking-wider text-secondary">Aegis Residential SOC</span>
+</div>
+</div>
+<div class="h-5 w-px bg-outline-variant"></div>
+<!-- Site Context -->
+<div class="flex items-center gap-2 px-2.5 py-1 rounded bg-surface-variant border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant text-[16px]">domain</span>
+<span class="font-mono-sm text-mono-sm text-on-surface">Site: HQ - Khu phức hợp Đông Tây 2</span>
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-secondary"></span>
+</div>
+<!-- Header Navigation Links -->
+<nav class="hidden lg:flex items-center gap-1 ml-2">
+<a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/40 rounded transition-colors" href="#">Live Feeds</a>
+<a class="px-3 py-1.5 font-body-sm text-body-sm font-semibold rounded bg-primary-container/15 text-primary border border-primary-container/30" href="#">Cấu hình Vùng cấm đỗ</a>
+<a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/40 rounded transition-colors" href="#">Rule Engine</a>
+<a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/40 rounded transition-colors" href="#">Incident Triage</a>
+</nav>
+</div>
+<!-- Header Trailing Actions -->
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#020617] border border-outline-variant">
+<span class="inline-block w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-mono-sm text-mono-sm text-on-surface-variant">Zone 3.1 &amp; 3.2</span>
+</div>
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 rounded flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors" title="Thông báo">
+<span class="material-symbols-outlined text-[18px]">notifications</span>
+</button>
+<button class="w-8 h-8 rounded flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors" title="Hiệu chỉnh">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+</button>
+<button class="w-8 h-8 rounded flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors" title="Trợ giúp">
+<span class="material-symbols-outlined text-[18px]">help</span>
+</button>
+</div>
+<div class="h-5 w-px bg-outline-variant"></div>
+<button class="flex items-center gap-2 px-3 py-1.5 rounded bg-primary-container hover:bg-blue-600 text-white font-body-sm text-body-sm font-medium transition-all active:scale-95 shadow-sm">
+<span class="material-symbols-outlined text-[16px]">cloud_upload</span>
+<span>Deploy Config</span>
+</button>
+<div class="flex items-center gap-2 pl-1">
+<div class="w-7 h-7 rounded bg-surface-variant border border-outline flex items-center justify-center text-primary font-mono-sm font-semibold">
+          OP
+        </div>
+</div>
+</div>
+</header>
+<!-- MAIN WRAPPER (Rail + Three Column Workspace) -->
+<div class="flex-1 flex overflow-hidden">
+<!-- LEFT RAIL (56px / w-14) -->
+<aside class="flex flex-col justify-between items-center w-14 py-2 border-r border-outline-variant shrink-0 bg-[#070d1f] z-40">
+<div class="flex flex-col items-center gap-4 w-full">
+<!-- Node status -->
+<div class="flex flex-col items-center">
+<span class="font-label-caps text-[9px] uppercase tracking-wider text-secondary">NODE 01</span>
+<span class="font-mono-sm text-[8px] text-secondary">ONLINE</span>
+</div>
+<div class="w-8 h-px bg-outline-variant"></div>
+<!-- Rail Navigation tabs -->
+<div class="flex flex-col gap-1.5 w-full items-center">
+<button class="w-10 h-10 rounded flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors" title="Matrix">
+<span class="material-symbols-outlined text-[18px]">videocam</span>
+<span class="font-label-caps text-[8px] mt-0.5">Matrix</span>
+</button>
+<button class="w-10 h-10 rounded flex flex-col items-center justify-center bg-primary-container/20 text-primary border-l-2 border-primary-container" title="Calibration">
+<span class="material-symbols-outlined text-[18px]">polyline</span>
+<span class="font-label-caps text-[8px] mt-0.5 font-semibold">Calib</span>
+</button>
+<button class="w-10 h-10 rounded flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors" title="Rules">
+<span class="material-symbols-outlined text-[18px]">rule</span>
+<span class="font-label-caps text-[8px] mt-0.5">Rules</span>
+</button>
+<button class="w-10 h-10 rounded flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors" title="Sensors">
+<span class="material-symbols-outlined text-[18px]">sensors</span>
+<span class="font-label-caps text-[8px] mt-0.5">Sensors</span>
+</button>
+<button class="w-10 h-10 rounded flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors" title="Audit Logs">
+<span class="material-symbols-outlined text-[18px]">shield</span>
+<span class="font-label-caps text-[8px] mt-0.5">Logs</span>
+</button>
+</div>
+</div>
+<!-- Rail Footer actions -->
+<div class="flex flex-col items-center gap-2 w-full">
+<button class="w-9 h-9 rounded flex items-center justify-center text-error bg-error/10 hover:bg-error/20 border border-error/30 transition-colors" title="Quick Alert">
+<span class="material-symbols-outlined text-[18px]">e911_emergency</span>
+</button>
+<button class="w-9 h-9 rounded flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors" title="Settings">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+</button>
+<button class="w-9 h-9 rounded flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors" title="Diagnostics">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+</button>
+</div>
+</aside>
+<!-- CONTENT WORKSPACE: THREE-COLUMN LAYOUT -->
+<main class="flex-1 flex overflow-hidden bg-[#020617]">
+<!-- COLUMN 1: CAMERA DIRECTORY & SELECTION (w-72 / 280px) -->
+<section class="w-72 border-r border-outline-variant bg-[#0f172a] flex flex-col shrink-0">
+<!-- Directory Header & Search -->
+<div class="p-3 border-b border-outline-variant space-y-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">videocam</span>
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Danh bạ Camera</h2>
+</div>
+<span class="font-mono-sm text-mono-sm text-on-surface-variant bg-[#1e293b] px-2 py-0.5 rounded border border-outline-variant">13 nodes</span>
+</div>
+<div class="relative">
+<input class="w-full bg-[#1e293b] border border-outline-variant rounded px-2.5 py-1.5 pl-8 text-on-surface placeholder:text-outline font-body-sm text-body-sm focus:outline-none focus:border-primary-container" placeholder="Tìm kiếm camera hoặc vị trí..." type="text" value=""/>
+<span class="material-symbols-outlined text-outline absolute left-2 top-2 text-[16px]">search</span>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-label-caps text-label-caps pt-1">
+<span>DANH SÁCH KHU VỰC 3.1 &amp; 3.2</span>
+<span class="text-secondary font-mono-sm">ACTIVE: CAM-GR-01</span>
+</div>
+</div>
+<!-- Camera List Stream -->
+<div class="flex-1 overflow-y-auto divide-y divide-outline-variant/40 custom-scroll">
+<!-- CAM-EV-01 -->
+<div class="p-2.5 hover:bg-[#1e293b] transition-colors cursor-pointer group flex items-start gap-2.5">
+<span class="material-symbols-outlined text-outline group-hover:text-primary text-[18px] mt-0.5">nest_cam_indoor</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-mono-sm text-mono-sm font-medium text-on-surface">CAM-EV-01</span>
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-secondary"></span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Trạm sạc Xe máy 01</p>
+</div>
+</div>
+<!-- CAM-EV-02 -->
+<div class="p-2.5 hover:bg-[#1e293b] transition-colors cursor-pointer group flex items-start gap-2.5">
+<span class="material-symbols-outlined text-outline group-hover:text-primary text-[18px] mt-0.5">nest_cam_indoor</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-mono-sm text-mono-sm font-medium text-on-surface">CAM-EV-02</span>
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-secondary"></span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Trụ sạc Ô tô 02</p>
+</div>
+</div>
+<!-- CAM-EV-03 -->
+<div class="p-2.5 hover:bg-[#1e293b] transition-colors cursor-pointer group flex items-start gap-2.5">
+<span class="material-symbols-outlined text-outline group-hover:text-primary text-[18px] mt-0.5">nest_cam_indoor</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-mono-sm text-mono-sm font-medium text-on-surface">CAM-EV-03</span>
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-secondary"></span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Ô sạc Ô tô 03</p>
+</div>
+</div>
+<!-- CAM-EV-04 -->
+<div class="p-2.5 hover:bg-[#1e293b] transition-colors cursor-pointer group flex items-start gap-2.5">
+<span class="material-symbols-outlined text-outline group-hover:text-primary text-[18px] mt-0.5">nest_cam_indoor</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-mono-sm text-mono-sm font-medium text-on-surface">CAM-EV-04</span>
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-secondary"></span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Trạm sạc Xe máy 04</p>
+</div>
+</div>
+<!-- CAM-EV-05 -->
+<div class="p-2.5 hover:bg-[#1e293b] transition-colors cursor-pointer group flex items-start gap-2.5">
+<span class="material-symbols-outlined text-outline group-hover:text-primary text-[18px] mt-0.5">nest_cam_indoor</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-mono-sm text-mono-sm font-medium text-on-surface">CAM-EV-05</span>
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-secondary"></span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Trụ sạc Ô tô 05</p>
+</div>
+</div>
+<!-- CAM-EV-06 -->
+<div class="p-2.5 hover:bg-[#1e293b] transition-colors cursor-pointer group flex items-start gap-2.5">
+<span class="material-symbols-outlined text-outline group-hover:text-primary text-[18px] mt-0.5">nest_cam_indoor</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-mono-sm text-mono-sm font-medium text-on-surface">CAM-EV-06</span>
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-secondary"></span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Trạm sạc Xe máy 06</p>
+</div>
+</div>
+<!-- CAM-ANPR-01 -->
+<div class="p-2.5 hover:bg-[#1e293b] transition-colors cursor-pointer group flex items-start gap-2.5">
+<span class="material-symbols-outlined text-outline group-hover:text-primary text-[18px] mt-0.5">videocam</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-mono-sm text-mono-sm font-medium text-on-surface">CAM-ANPR-01</span>
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-secondary"></span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Cổng vào</p>
+</div>
+</div>
+<!-- CAM-ANPR-02 -->
+<div class="p-2.5 hover:bg-[#1e293b] transition-colors cursor-pointer group flex items-start gap-2.5">
+<span class="material-symbols-outlined text-outline group-hover:text-primary text-[18px] mt-0.5">videocam</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-mono-sm text-mono-sm font-medium text-on-surface">CAM-ANPR-02</span>
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-secondary"></span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Cổng ra</p>
+</div>
+</div>
+<!-- CAM-GR-01 (ACTIVE / SELECTED) -->
+<div class="p-2.5 bg-[#1e293b] border-l-2 border-primary-container transition-colors cursor-pointer flex items-start gap-2.5 relative">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5">videocam</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-mono-sm text-mono-sm font-bold text-primary">CAM-GR-01</span>
+<span class="inline-block w-2 h-2 rounded-full bg-secondary shadow-[0_0_8px_#10b981]"></span>
+</div>
+<p class="font-body-sm text-body-sm font-medium text-on-surface truncate">Lối PCCC Đông</p>
+<div class="mt-1 flex items-center gap-1.5">
+<span class="px-1.5 py-0.2 rounded bg-primary-container/20 text-primary font-mono-sm text-[10px]">2 Luật hoạt động</span>
+</div>
+</div>
+</div>
+<!-- CAM-GR-02 -->
+<div class="p-2.5 hover:bg-[#1e293b] transition-colors cursor-pointer group flex items-start gap-2.5">
+<span class="material-symbols-outlined text-outline group-hover:text-primary text-[18px] mt-0.5">videocam</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-mono-sm text-mono-sm font-medium text-on-surface">CAM-GR-02</span>
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-secondary"></span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Sảnh đón khách A</p>
+</div>
+</div>
+<!-- CAM-GR-03 -->
+<div class="p-2.5 hover:bg-[#1e293b] transition-colors cursor-pointer group flex items-start gap-2.5">
+<span class="material-symbols-outlined text-outline group-hover:text-primary text-[18px] mt-0.5">videocam</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-mono-sm text-mono-sm font-medium text-on-surface">CAM-GR-03</span>
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-secondary"></span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Công viên sân nền</p>
+</div>
+</div>
+<!-- CAM-GR-04 -->
+<div class="p-2.5 hover:bg-[#1e293b] transition-colors cursor-pointer group flex items-start gap-2.5">
+<span class="material-symbols-outlined text-outline group-hover:text-primary text-[18px] mt-0.5">videocam</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-mono-sm text-mono-sm font-medium text-on-surface">CAM-GR-04</span>
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-secondary"></span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Sân trung tâm</p>
+</div>
+</div>
+<!-- CAM-GR-05 -->
+<div class="p-2.5 hover:bg-[#1e293b] transition-colors cursor-pointer group flex items-start gap-2.5">
+<span class="material-symbols-outlined text-outline group-hover:text-primary text-[18px] mt-0.5">videocam</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-mono-sm text-mono-sm font-medium text-on-surface">CAM-GR-05</span>
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-secondary"></span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Góc khuất hàng rào Tây</p>
+</div>
+</div>
+</div>
+</section>
+<!-- COLUMN 2: CENTER INTERACTIVE POLYGON CANVAS (flex-1) -->
+<section class="flex-1 flex flex-col min-w-0 bg-[#020617] border-r border-outline-variant overflow-hidden">
+<!-- Canvas Top Toolbar & Metadata -->
+<div class="h-11 px-4 bg-[#0f172a] border-b border-outline-variant flex items-center justify-between shrink-0">
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">CAM-GR-01</span>
+<span class="text-outline">/</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Lối PCCC Đông (Zone 3.1)</span>
+</div>
+<div class="h-4 w-px bg-outline-variant"></div>
+<div class="flex items-center gap-1.5 px-2 py-0.5 rounded bg-[#1e293b] text-on-surface-variant font-mono-sm text-[11px] border border-outline-variant">
+<span class="material-symbols-outlined text-[13px] text-secondary">verified</span>
+<span>Ảnh chụp mới nhất • 14:32:05 • 720p</span>
+</div>
+</div>
+<!-- Canvas Action Tools -->
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-primary-container text-white font-body-sm text-body-sm font-medium hover:bg-blue-600 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[16px]">polyline</span>
+<span>Vẽ vùng</span>
+</button>
+<button class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#1e293b] hover:bg-[#334155] text-on-surface font-body-sm text-body-sm border border-outline-variant transition-colors">
+<span class="material-symbols-outlined text-[16px]">point_scan</span>
+<span>Xóa điểm</span>
+</button>
+<button class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#1e293b] hover:bg-[#334155] text-on-surface font-body-sm text-body-sm border border-outline-variant transition-colors">
+<span class="material-symbols-outlined text-[16px]">refresh</span>
+<span>Chụp lại ảnh</span>
+</button>
+</div>
+</div>
+<!-- Video Frame Canvas Container -->
+<div class="flex-1 p-3.5 flex flex-col justify-center items-center overflow-hidden relative">
+<div class="relative w-full max-w-5xl h-full flex flex-col justify-center items-center">
+<!-- Canvas HUD viewport wrapper -->
+<div class="relative w-full max-h-[82%] aspect-[1.34] rounded border border-outline-variant bg-[#0f172a] shadow-2xl overflow-hidden group select-none">
+<!-- CCTV Surveillance Still Frame Image -->
+<img alt="CCTV snapshot" class="w-full h-full object-cover filter contrast-[1.05] brightness-95" src="../assets/img/gr-firelane.jpg"/>
+<!-- Dark tactical grid and crosshair overlay -->
+<div class="absolute inset-0 pointer-events-none bg-[radial-gradient(#334155_1px,transparent_1px)] [background-size:24px_24px] opacity-25"></div>
+<!-- Interactive ROI Polygon SVG Overlay (Yellow #facc15 dashed polygon over the fire lane) -->
+<svg class="absolute inset-0 w-full h-full pointer-events-auto" preserveaspectratio="none" viewbox="0 0 1000 746">
+<defs>
+<lineargradient id="polyGradient" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#facc15" stop-opacity="0.28"></stop>
+<stop offset="100%" stop-color="#facc15" stop-opacity="0.08"></stop>
+</lineargradient>
+</defs>
+<!-- Yellow #facc15 dashed polygon matching normalized [0.12, 0.34], [0.58, 0.34], [0.62, 0.81], [0.08, 0.81] -->
+<!-- Scaled to 1000x746: P1(120, 253.6), P2(580, 253.6), P3(620, 604.2), P4(80, 604.2) -->
+<polygon class="cursor-crosshair transition-all" fill="url(#polyGradient)" points="120,254 580,254 620,604 80,604" stroke="#facc15" stroke-dasharray="6,4" stroke-width="2.5"></polygon>
+<!-- Polygon Interactive Control Vertices (Handles) -->
+<circle class="cursor-pointer hover:scale-150 transition-transform" cx="120" cy="254" fill="#facc15" r="5" stroke="#020617" stroke-width="2"></circle>
+<circle class="cursor-pointer hover:scale-150 transition-transform" cx="580" cy="254" fill="#facc15" r="5" stroke="#020617" stroke-width="2"></circle>
+<circle class="cursor-pointer hover:scale-150 transition-transform" cx="620" cy="604" fill="#facc15" r="5" stroke="#020617" stroke-width="2"></circle>
+<circle class="cursor-pointer hover:scale-150 transition-transform" cx="80" cy="604" fill="#facc15" r="5" stroke="#020617" stroke-width="2"></circle>
+<!-- Label floating on ROI -->
+<g transform="translate(130, 280)">
+<rect fill="#020617" fill-opacity="0.85" height="22" rx="3" stroke="#facc15" stroke-width="1" width="168" x="0" y="0"></rect>
+<text fill="#facc15" font-family="JetBrains Mono" font-size="11" font-weight="600" x="6" y="15">ROI_01: LỐI PCCC ĐÔNG</text>
+</g>
+</svg>
+<!-- Top Left Overlay HUD details -->
+<div class="absolute top-2.5 left-2.5 flex items-center gap-2 pointer-events-none">
+<span class="px-2 py-0.5 rounded bg-[#020617]/85 border border-[#334155] font-mono-sm text-mono-sm text-on-surface">CAM-GR-01 // ZONE-3.1</span>
+<span class="px-2 py-0.5 rounded bg-secondary/15 border border-secondary/30 font-mono-sm text-mono-sm text-secondary flex items-center gap-1">
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                  AI SYNCED
+                </span>
+</div>
+<!-- Top Right AI Engine Indicator -->
+<div class="absolute top-2.5 right-2.5 pointer-events-none">
+<span class="px-2.5 py-0.5 rounded bg-[#020617]/85 border border-outline-variant font-mono-sm text-mono-sm text-on-surface-variant">
+                  AI Core (YOLOv8 + ByteTrack)
+                </span>
+</div>
+<!-- Bottom interactive helper overlay hint -->
+<div class="absolute bottom-2.5 left-1/2 -translate-x-1/2 px-3 py-1 rounded bg-[#020617]/90 border border-outline-variant backdrop-blur-sm pointer-events-none">
+<span class="font-body-sm text-body-sm text-[#facc15] font-medium flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px]">info</span>
+                  Click để thêm đỉnh • Double-click để đóng vùng
+                </span>
+</div>
+</div>
+<!-- Normalized Coordinates Strip (JetBrains Mono) -->
+<div class="w-full mt-2.5 p-2 rounded bg-[#0f172a] border border-outline-variant flex items-center justify-between">
+<div class="flex items-center gap-2 min-w-0">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase shrink-0">Tọa độ chuẩn hóa (ROI):</span>
+<span class="font-mono-sm text-mono-sm text-primary tracking-wide truncate">
+                  [0.12, 0.34] • [0.58, 0.34] • [0.62, 0.81] • [0.08, 0.81]
+                </span>
+</div>
+<div class="flex items-center gap-2 shrink-0">
+<button class="font-mono-sm text-mono-sm text-on-surface-variant hover:text-on-surface flex items-center gap-1 hover:bg-[#1e293b] px-2 py-0.5 rounded transition-colors" title="Sao chép tọa độ">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+<span>Sao chép</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- COLUMN 3: RIGHT PANEL - RULE EDITOR & EXISTING RULES (w-96 / 384px) -->
+<section class="w-96 bg-[#0f172a] flex flex-col shrink-0 overflow-y-auto custom-scroll">
+<!-- Header: Thiết lập luật -->
+<div class="p-3.5 border-b border-outline-variant flex items-center justify-between bg-[#0f172a] sticky top-0 z-10">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">tune</span>
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Thiết lập luật</h2>
+</div>
+<span class="font-mono-sm text-[11px] text-secondary bg-secondary/10 px-2 py-0.5 rounded border border-secondary/25">Camera GR-01</span>
+</div>
+<div class="p-4 space-y-4 flex-1">
+<!-- Field: Tên luật -->
+<div class="space-y-1.5">
+<label class="block font-body-sm text-body-sm font-medium text-on-surface">Tên luật</label>
+<input class="w-full bg-[#1e293b] border border-outline-variant rounded px-3 py-1.5 text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary-container" type="text" value="Cấm đỗ lối PCCC Đông"/>
+</div>
+<!-- Field: Loại luật (SINGLE-select dropdown with exactly 9 options) -->
+<div class="space-y-1.5">
+<label class="block font-body-sm text-body-sm font-medium text-on-surface">Loại luật</label>
+<div class="relative">
+<select class="w-full bg-[#1e293b] border border-outline-variant rounded px-3 py-2 text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary-container appearance-none pr-8">
+<option value="OVERHEAT">Quá nhiệt (OVERHEAT)</option>
+<option value="SMOKE_FIRE">Khói &amp; lửa sớm (SMOKE_FIRE)</option>
+<option value="VEHICLE_FALL">Xe ngã đổ / va chạm (VEHICLE_FALL)</option>
+<option value="EV_SLOT_MISUSE">Chiếm dụng ô sạc (EV_SLOT_MISUSE)</option>
+<option value="ANPR_TRACKING">Nhận diện biển số (ANPR_TRACKING)</option>
+<option selected="" value="ILLEGAL_PARKING">Đỗ xe trái phép (ILLEGAL_PARKING)</option>
+<option value="ABANDONED_OBJECT">Đồ vật bỏ rơi (ABANDONED_OBJECT)</option>
+<option value="CROWD_DETECTION">Tụ tập đông người (CROWD_DETECTION)</option>
+<option value="NIGHT_LOITERING">Lảng vảng ban đêm (NIGHT_LOITERING)</option>
+</select>
+<span class="material-symbols-outlined text-on-surface-variant pointer-events-none absolute right-2.5 top-2.5 text-[18px]">expand_more</span>
+</div>
+<p class="font-mono-sm text-[10px] text-on-surface-variant">Phát hiện phương tiện dừng/đỗ vượt ngưỡng thời gian tại ROI</p>
+</div>
+<!-- Field: Thời gian cho phép (giây) = 180 -->
+<div class="space-y-1.5">
+<div class="flex items-center justify-between">
+<label class="font-body-sm text-body-sm font-medium text-on-surface">Thời gian cho phép (giây)</label>
+<span class="font-mono-sm text-[11px] text-primary">3 phút</span>
+</div>
+<div class="relative">
+<input class="w-full bg-[#1e293b] border border-outline-variant rounded px-3 py-1.5 text-on-surface font-mono-md text-mono-md focus:outline-none focus:border-primary-container" type="number" value="180"/>
+<span class="font-mono-sm text-[11px] text-on-surface-variant absolute right-3 top-2">sec</span>
+</div>
+</div>
+<!-- Conditional Fields Section (Greyed out with helper texts) -->
+<div class="pt-2 border-t border-outline-variant/60 space-y-3">
+<span class="font-label-caps text-label-caps uppercase text-outline">Tham số điều kiện nâng cao</span>
+<!-- Conditional: Ngưỡng nhiệt độ (°C) -->
+<div class="space-y-1 opacity-50 cursor-not-allowed">
+<div class="flex items-center justify-between">
+<label class="font-body-sm text-body-sm text-on-surface-variant">Ngưỡng nhiệt độ (°C)</label>
+<span class="font-mono-sm text-[10px] text-outline">Chỉ dùng cho Quá nhiệt</span>
+</div>
+<input class="w-full bg-[#1e293b]/60 border border-outline-variant/50 rounded px-3 py-1.5 text-on-surface-variant font-mono-md text-mono-md cursor-not-allowed" disabled="" type="number" value="60"/>
+</div>
+<!-- Conditional: Số người tối đa -->
+<div class="space-y-1 opacity-50 cursor-not-allowed">
+<div class="flex items-center justify-between">
+<label class="font-body-sm text-body-sm text-on-surface-variant">Số người tối đa</label>
+<span class="font-mono-sm text-[10px] text-outline">Chỉ dùng cho Tụ tập</span>
+</div>
+<input class="w-full bg-[#1e293b]/60 border border-outline-variant/50 rounded px-3 py-1.5 text-on-surface-variant font-mono-md text-mono-md cursor-not-allowed" disabled="" type="number" value="8"/>
+</div>
+<!-- Conditional: Mã trụ sạc OCPP -->
+<div class="space-y-1 opacity-50 cursor-not-allowed">
+<div class="flex items-center justify-between">
+<label class="font-body-sm text-body-sm text-on-surface-variant">Mã trụ sạc OCPP</label>
+<span class="font-mono-sm text-[10px] text-outline">Chỉ dùng cho Chiếm dụng ô sạc</span>
+</div>
+<input class="w-full bg-[#1e293b]/60 border border-outline-variant/50 rounded px-3 py-1.5 text-on-surface-variant font-mono-md text-mono-md cursor-not-allowed" disabled="" type="text" value="CP-EV-03"/>
+</div>
+<!-- Conditional: Khung giờ hiệu lực -->
+<div class="space-y-1 opacity-50 cursor-not-allowed">
+<div class="flex items-center justify-between">
+<label class="font-body-sm text-body-sm text-on-surface-variant">Khung giờ hiệu lực</label>
+<span class="font-mono-sm text-[10px] text-outline">Chỉ dùng cho Lảng vảng ban đêm</span>
+</div>
+<input class="w-full bg-[#1e293b]/60 border border-outline-variant/50 rounded px-3 py-1.5 text-on-surface-variant font-body-sm text-body-sm cursor-not-allowed" disabled="" type="text" value="22:00 đến 05:30"/>
+</div>
+</div>
+<!-- Toggle: Bật luật -->
+<div class="pt-2 flex items-center justify-between p-2.5 rounded bg-[#1e293b] border border-outline-variant">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">Bật luật</span>
+<span class="font-mono-sm text-[10px] text-secondary">Trạng thái: Đang kích hoạt</span>
+</div>
+<!-- Custom Styled Switch (Checked/Active) -->
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-9 h-5 bg-outline rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<!-- Primary Actions -->
+<div class="flex items-center gap-2 pt-1">
+<button class="flex-1 bg-primary-container hover:bg-blue-600 text-white font-body-sm text-body-sm font-medium py-2 px-3 rounded transition-all shadow active:scale-95 flex items-center justify-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">save</span>
+<span>Lưu cấu hình</span>
+</button>
+<button class="bg-[#1e293b] hover:bg-[#334155] text-on-surface font-body-sm text-body-sm py-2 px-4 rounded border border-outline-variant transition-colors">
+              Hủy
+            </button>
+</div>
+<!-- Toast Notification: Đã lưu và áp dụng ngay (hot-reload) -->
+<div class="p-2.5 rounded bg-secondary/10 border border-secondary/30 flex items-center gap-2 text-secondary">
+<span class="material-symbols-outlined text-[18px] shrink-0">bolt</span>
+<span class="font-body-sm text-body-sm font-medium">Đã lưu và áp dụng ngay (hot-reload)</span>
+</div>
+<!-- SECTION: LUẬT TRÊN CAMERA NÀY -->
+<div class="pt-3 border-t border-outline-variant space-y-2.5">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-[13px] font-bold text-on-surface">Luật trên camera này</h3>
+<span class="font-mono-sm text-[11px] text-on-surface-variant">2 cấu hình</span>
+</div>
+<div class="space-y-2">
+<!-- Rule Item 1 -->
+<div class="p-2.5 rounded bg-[#1e293b] border border-outline-variant space-y-2">
+<div class="flex items-start justify-between gap-2">
+<div class="flex-1 min-w-0">
+<p class="font-body-sm text-body-sm font-semibold text-on-surface truncate">Cấm đỗ lối PCCC Đông</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-label-caps text-[9px] px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-400 border border-amber-500/30">
+                        ILLEGAL_PARKING
+                      </span>
+<span class="font-mono-sm text-mono-sm text-on-surface-variant">180s</span>
+</div>
+</div>
+<!-- Switch Toggle -->
+<label class="relative inline-flex items-center cursor-pointer shrink-0 mt-0.5">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-7 h-4 bg-outline rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[1px] after:left-[1px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3.5 after:w-3.5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+</div>
+<!-- Rule Item 2 -->
+<div class="p-2.5 rounded bg-[#1e293b] border border-outline-variant space-y-2">
+<div class="flex items-start justify-between gap-2">
+<div class="flex-1 min-w-0">
+<p class="font-body-sm text-body-sm font-semibold text-on-surface truncate">Đồ vật bỏ rơi lối PCCC</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-label-caps text-[9px] px-1.5 py-0.5 rounded bg-primary-container/20 text-primary border border-primary-container/40">
+                        ABANDONED_OBJECT
+                      </span>
+<span class="font-mono-sm text-mono-sm text-on-surface-variant">120s</span>
+</div>
+</div>
+<!-- Switch Toggle -->
+<label class="relative inline-flex items-center cursor-pointer shrink-0 mt-0.5">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-7 h-4 bg-outline rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[1px] after:left-[1px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3.5 after:w-3.5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+<!-- TACTICAL SOC FOOTER (36px / h-9) -->
+<footer class="h-9 px-4 bg-[#070d1f] border-t border-outline-variant flex items-center justify-between text-on-surface-variant font-mono-sm text-mono-sm shrink-0 z-50">
+<!-- Left Engine Telemetry Readout -->
+<div class="flex items-center gap-2 truncate">
+<span class="flex items-center gap-1.5 text-secondary">
+<span class="inline-block w-2 h-2 rounded-full bg-secondary"></span>
+<span class="text-on-surface">Kestrel API: Online</span>
+</span>
+<span class="text-outline">•</span>
+<span class="text-on-surface">AI Core: <span class="text-primary font-medium">18 ms/frame</span></span>
+<span class="text-outline">•</span>
+<span class="text-on-surface">MediaMTX WebRTC: <span class="text-secondary font-medium">0.28s</span></span>
+<span class="text-outline">•</span>
+<span class="text-on-surface">GPU RTX 4060 Ti: <span class="text-primary font-medium">6.2 / 16 GB</span></span>
+</div>
+<!-- Right Live Stats and Clock -->
+<div class="flex items-center gap-4 shrink-0">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-secondary">cloud_done</span>
+<span>Mesh Cluster: 13/13 Online</span>
+</div>
+<div class="h-3 w-px bg-outline-variant"></div>
+<div class="flex items-center gap-1.5 text-on-surface">
+<span class="material-symbols-outlined text-[14px] text-outline">schedule</span>
+<span id="live-clock">14:32:48 GMT+7</span>
+</div>
+</div>
+</footer>
+<!-- Light Vanilla Script for Clock Realtime Update -->
+<script>
+    function updateClock() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      const clockEl = document.getElementById('live-clock');
+      if (clockEl) {
+        clockEl.textContent = `${hours}:${minutes}:${seconds} GMT+7`;
+      }
+    }
+    setInterval(updateClock, 1000);
+  </script>
+
+<link rel="stylesheet" href="../assets/css/app.css"/>
+<script src="../assets/js/mock-db.js"></script>
+<script src="../assets/js/app.js"></script>
+</body></html>

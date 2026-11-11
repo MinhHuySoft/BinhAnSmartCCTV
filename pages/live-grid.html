@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-slate-950 text-slate-100 antialiased" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bình An CCTV - Autonomous Operations Console (Dark)</title><link rel="icon" href="../assets/img/favicon.svg"/>
+<!-- Tailwind CSS CDN v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<!-- Google Fonts: Space Grotesk, Inter, JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            slate: {
+              850: '#0f172a',
+              900: '#0f172a',
+              950: '#020617',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            display: ['Space Grotesk', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #020617; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #475569; }
+  </style>
+</head>
+<body class="h-full flex overflow-hidden text-sm bg-[#020617] text-[#e2e8f0]">
+<!-- Left Rail Icon Navigation (56px Minimalist Verkada Style) -->
+<aside class="w-14 flex-shrink-0 bg-[#0f172a] border-r border-[#1e293b] flex flex-col items-center justify-between py-3.5 z-30 select-none">
+<div class="flex flex-col items-center space-y-5 w-full">
+<!-- Minimalist Verkada / Bình An Symbol -->
+<a class="w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center text-white hover:bg-blue-500 transition-colors shadow-sm" href="#" title="Bình An CCTV Command">
+<svg class="w-4 h-4 fill-white" viewbox="0 0 24 24">
+<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+</svg>
+</a>
+<!-- Primary Sidebar Navigation Icons -->
+<nav class="flex flex-col space-y-1.5 w-full px-2">
+<button class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1e293b]" title="Bảng điều khiển tổng quan">
+<i class="w-4 h-4" data-lucide="layout-dashboard"></i>
+</button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors bg-[rgba(37,99,235,0.15)] text-[#60a5fa] font-medium" title="Lưới Camera Trực Tiếp">
+<i class="w-4 h-4" data-lucide="video"></i>
+</button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1e293b]" title="Nhật ký biển số">
+<i class="w-4 h-4" data-lucide="scan"></i>
+</button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1e293b]" title="Cảnh báo sự cố">
+<i class="w-4 h-4" data-lucide="shield-alert"></i>
+</button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1e293b]" title="Bản đồ mặt bằng">
+<i class="w-4 h-4" data-lucide="map"></i>
+</button>
+</nav>
+</div>
+<!-- User & Settings Footer -->
+<div class="flex flex-col items-center space-y-3 w-full">
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-[#64748b] hover:text-[#e2e8f0] hover:bg-[#1e293b] transition" title="Cài đặt hệ thống">
+<i class="w-4 h-4" data-lucide="settings"></i>
+</button>
+<div class="w-7 h-7 rounded-full bg-[#1e293b] text-blue-400 text-[11px] font-semibold flex items-center justify-center cursor-pointer border border-[#334155]" title="BQL: Nguyễn Văn An (801 căn hộ)">
+        BA
+      </div>
+</div>
+</aside>
+<!-- Main Content Layout -->
+<div class="flex-1 flex flex-col h-full overflow-hidden min-w-0 bg-[#020617]">
+<!-- Top Header Bar (56px) -->
+<header class="h-14 py-2.5 px-6 bg-[#0f172a] border-b border-[#1e293b] flex items-center justify-between flex-shrink-0 z-20">
+<!-- Left: Logo Title & Dropdown Site Selection -->
+<div class="flex items-center space-x-3">
+<div class="flex items-center space-x-2">
+<span class="font-display font-bold text-[#e2e8f0] text-sm tracking-tight">Bình An CCTV</span>
+<i class="w-3.5 h-3.5 text-[#64748b]" data-lucide="chevron-right"></i>
+<button class="flex items-center space-x-1.5 text-xs font-medium text-[#e2e8f0] hover:text-white bg-[#1e293b] hover:bg-[#334155] px-2.5 py-1.5 rounded-md transition-colors border border-[#334155]">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+<span>HQ - Khu phức hợp Đông Tây 2</span>
+<i class="w-3.5 h-3.5 text-[#94a3b8] ml-1" data-lucide="chevron-down"></i>
+</button>
+</div>
+</div>
+<!-- Center: Minimal Search Bar -->
+<div class="flex-1 max-w-md mx-6">
+<div class="relative w-full">
+<i class="w-3.5 h-3.5 text-[#64748b] absolute left-3 top-2.5" data-lucide="search"></i>
+<input class="w-full bg-[#1e293b] border border-[#334155] text-xs rounded-lg pl-9 pr-3 py-1.5 focus:bg-[#0f172a] focus:outline-none focus:border-blue-500 transition placeholder:text-[#64748b] text-[#e2e8f0]" placeholder="Tìm camera, biển số xe, vị trí sự cố..." type="text"/>
+</div>
+</div>
+<!-- Right: Action & Operator -->
+<div class="flex items-center space-x-3">
+<button class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-[#2563eb] hover:bg-blue-600 text-white transition shadow-sm">
+<i class="w-3.5 h-3.5" data-lucide="plus"></i>
+<span>Quản lý Camera</span>
+</button>
+<div class="h-4 w-px bg-[#1e293b]"></div>
+<div class="flex items-center space-x-2 pl-1">
+<div class="text-right hidden sm:block">
+<div class="text-xs font-medium text-[#e2e8f0]">Trực ban BQL</div>
+<div class="text-[10px] text-[#94a3b8]">16 Camera AI</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Sub-Navigation Tabs Bar -->
+<div class="bg-[#0f172a] border-b border-[#1e293b] px-6 flex items-center justify-between flex-shrink-0">
+<nav class="flex text-xs font-medium space-x-4" id="secondary-tabs">
+<button class="py-3 border-b-2 border-blue-500 text-white flex items-center gap-1.5 font-semibold" id="tab-all" onclick="switchCategory('all')">
+<span>Tất cả camera</span>
+<span class="bg-[#1e293b] text-[#94a3b8] rounded px-1.5 py-0.5 text-[10px] font-mono border border-[#334155]">16</span>
+</button>
+<button class="py-3 border-b-2 border-transparent text-[#94a3b8] hover:text-[#e2e8f0] flex items-center gap-1.5" id="tab-alert" onclick="switchCategory('alert')">
+<span>Cảnh báo sự cố</span>
+<span class="bg-rose-950/70 text-rose-300 border border-rose-800/60 rounded px-1.5 py-0.5 text-[10px] font-mono font-semibold">5</span>
+</button>
+<button class="py-3 border-b-2 border-transparent text-[#94a3b8] hover:text-[#e2e8f0] flex items-center gap-1.5" id="tab-ev" onclick="switchCategory('ev')">
+<span>Trạm sạc xe điện</span>
+<span class="bg-[#1e293b] text-[#94a3b8] rounded px-1.5 py-0.5 text-[10px] font-mono border border-[#334155]">6</span>
+</button>
+<button class="py-3 border-b-2 border-transparent text-[#94a3b8] hover:text-[#e2e8f0] flex items-center gap-1.5" id="tab-traffic" onclick="switchCategory('traffic')">
+<span>Sân nền &amp; Lối PCCC</span>
+<span class="bg-[#1e293b] text-[#94a3b8] rounded px-1.5 py-0.5 text-[10px] font-mono border border-[#334155]">10</span>
+</button>
+<button class="py-3 border-b-2 border-transparent text-[#94a3b8] hover:text-[#e2e8f0] flex items-center gap-1.5" id="tab-gis">
+<span>Bản đồ mặt bằng</span>
+</button>
+<button class="py-3 border-b-2 border-transparent text-[#94a3b8] hover:text-[#e2e8f0] flex items-center gap-1.5" id="tab-anpr" onclick="switchCategory('anpr')">
+<span>Nhật ký biển số</span>
+</button>
+</nav>
+<!-- Status Legend & Layout Mode Switches -->
+<div class="hidden lg:flex items-center space-x-4">
+<div class="flex items-center space-x-3 text-[11px] text-[#94a3b8]">
+<div class="flex items-center space-x-1.5">
+<span class="w-2 h-2 rounded-full bg-[#10b981]"></span>
+<span>Bình thường</span>
+</div>
+<div class="flex items-center space-x-1.5">
+<span class="w-2 h-2 rounded-full bg-[#f59e0b]"></span>
+<span>Cảnh báo</span>
+</div>
+<div class="flex items-center space-x-1.5">
+<span class="w-2 h-2 rounded-full bg-[#ef4444]"></span>
+<span>Khẩn cấp</span>
+</div>
+<div class="flex items-center space-x-1.5">
+<span class="w-2 h-2 rounded-full bg-[#64748b]"></span>
+<span>Mất kết nối</span>
+</div>
+</div>
+<div class="h-4 w-px bg-[#1e293b]"></div>
+<div class="flex items-center space-x-1 text-[#64748b] bg-[#1e293b] p-0.5 rounded-lg border border-[#334155]">
+<button class="p-1 rounded text-[#94a3b8] hover:text-white hover:bg-[#334155] transition" title="Lưới 2x2">
+<i class="w-3.5 h-3.5" data-lucide="layout-grid"></i>
+</button>
+<button class="p-1 rounded bg-[#0f172a] text-[#60a5fa] border border-[#334155] font-semibold" title="Lưới 4 Camera ngang">
+<i class="w-3.5 h-3.5" data-lucide="grid"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- Main Live Feeds Content (Scrollable Workspace) -->
+<main class="flex-1 overflow-y-auto p-6 space-y-7 bg-[#020617]">
+<!-- ================= SECTION 1: TRẠM SẠC XE ĐIỆN ================= -->
+<section class="space-y-3.5" id="sec-ev">
+<!-- Section Header Bar -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#1e293b] pb-2.5">
+<div>
+<div class="flex items-center space-x-2.5">
+<h2 class="font-display text-xs font-bold text-[#e2e8f0] uppercase tracking-wider">KHU VỰC 3.1: TRẠM SẠC XE ĐIỆN</h2>
+</div>
+<p class="text-xs text-[#94a3b8] mt-0.5">Giám sát nhiệt độ pin FLIR Bi-Spectrum, ngã đổ xe &amp; đỗ xe sai quy định</p>
+</div>
+<!-- Summary Status Pills (Dark Translucent) -->
+<div class="flex items-center gap-2 flex-wrap text-xs font-medium">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-950/40 text-emerald-300 border border-emerald-800/50 text-[11px]">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+<span>1 An toàn</span>
+</span>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-rose-950/50 text-rose-300 border border-rose-800/60 text-[11px] font-semibold animate-pulse">
+<span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+<span>1 Quá nhiệt</span>
+</span>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-950/40 text-amber-300 border border-amber-800/50 text-[11px]">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+<span>1 Xe xăng chiếm chỗ</span>
+</span>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-950/40 text-amber-300 border border-amber-800/50 text-[11px]">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+<span>1 Xe ngã đổ</span>
+</span>
+</div>
+</div>
+<!-- Row 1: 4 Camera Cards (16:9 Aspect Ratio) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Card 1 (KHẨN CẤP - CAM-EV-01) -->
+<div class="group bg-[#0f172a] rounded-lg border border-rose-500/80 hover:border-rose-400 overflow-hidden shadow-lg transition duration-200 flex flex-col ring-1 ring-rose-500/20">
+<div class="relative aspect-video bg-black overflow-hidden">
+<img alt="Trạm sạc Xe máy 01" class="w-full h-full object-cover brightness-90 group-hover:scale-[1.02] transition duration-300" src="../assets/img/ev-scooter-heat.jpg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/40 pointer-events-none"></div>
+<!-- Top Left: Red Pill Badge -->
+<div class="absolute top-2.5 left-2.5 bg-rose-950/80 border border-rose-700/80 text-rose-200 backdrop-blur-md px-2 py-0.5 rounded text-[10px] font-semibold tracking-wide flex items-center space-x-1 shadow-sm animate-pulse">
+<span>🔥 KHẨN CẤP: Quá nhiệt 68.5°C / 60°C</span>
+</div>
+<!-- Top Right: Maximize Button -->
+<div class="absolute top-2.5 right-2.5 opacity-0 group-hover:opacity-100 transition">
+<button class="w-6 h-6 rounded bg-black/70 backdrop-blur-md flex items-center justify-center text-white hover:bg-black/90 border border-white/10" onclick="alert('Phóng to luồng CAM-EV-01')">
+<i class="w-3.5 h-3.5" data-lucide="maximize-2"></i>
+</button>
+</div>
+<!-- Bottom Overlay -->
+<div class="absolute bottom-2 inset-x-2.5 flex items-center justify-between text-white">
+<div class="flex items-center space-x-1.5 min-w-0">
+<span class="w-1.5 h-1.5 rounded-full bg-rose-500 flex-shrink-0 animate-ping"></span>
+<span class="text-[11px] font-medium tracking-tight truncate drop-shadow-sm">CAM-EV-01 • Trạm sạc Xe máy 01</span>
+</div>
+<span class="text-[10px] font-mono text-slate-400 drop-shadow-sm flex-shrink-0">Live</span>
+</div>
+</div>
+<!-- Footer Strip -->
+<div class="p-2.5 bg-[#0f172a] border-t border-[#1e293b] flex items-center justify-between gap-1 text-[11px] flex-1">
+<span class="text-rose-400 font-semibold truncate">VinFast Klara • Vượt ngưỡng nhiệt</span>
+<button class="px-2 py-1 rounded bg-rose-950/60 hover:bg-rose-900/80 border border-rose-700/70 text-rose-200 text-[10px] font-semibold flex-shrink-0 transition" onclick="alert('Chi tiết sự cố quá nhiệt tại CAM-EV-01')">Xem sự cố</button>
+</div>
+</div>
+<!-- Card 2 (Bình thường - CAM-EV-02) -->
+<div class="group bg-[#0f172a] rounded-lg border border-[#1e293b] hover:border-[#334155] overflow-hidden shadow-lg transition duration-200 flex flex-col">
+<div class="relative aspect-video bg-black overflow-hidden">
+<img alt="Trụ sạc Ô tô 02" class="w-full h-full object-cover brightness-90 group-hover:scale-[1.02] transition duration-300" src="../assets/img/ev-car-charging.jpg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/40 pointer-events-none"></div>
+<!-- Top Right Controls -->
+<div class="absolute top-2.5 right-2.5 opacity-0 group-hover:opacity-100 transition">
+<button class="w-6 h-6 rounded bg-black/70 backdrop-blur-md flex items-center justify-center text-white hover:bg-black/90 border border-white/10" onclick="alert('Phóng to luồng CAM-EV-02')">
+<i class="w-3.5 h-3.5" data-lucide="maximize-2"></i>
+</button>
+</div>
+<!-- Bottom Overlay -->
+<div class="absolute bottom-2 inset-x-2.5 flex items-center justify-between text-white">
+<div class="flex items-center space-x-1.5 min-w-0">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0"></span>
+<span class="text-[11px] font-medium tracking-tight truncate drop-shadow-sm">CAM-EV-02 • Trụ sạc Ô tô 02</span>
+</div>
+<span class="text-[10px] font-mono text-slate-400 drop-shadow-sm flex-shrink-0">Live</span>
+</div>
+</div>
+<!-- Footer Strip -->
+<div class="p-2.5 bg-[#0f172a] border-t border-[#1e293b] flex items-center justify-between text-[11px] flex-1">
+<span class="text-[#94a3b8] truncate">Xe 51K-678.12 • OCPP: Đang sạc</span>
+<span class="px-2 py-0.5 rounded bg-emerald-950/40 border border-emerald-800/40 text-emerald-400 font-medium text-[10px] flex-shrink-0">✓ An toàn</span>
+</div>
+</div>
+<!-- Card 3 (CẢNH BÁO - CAM-EV-03) -->
+<div class="group bg-[#0f172a] rounded-lg border border-amber-600/70 hover:border-amber-500 overflow-hidden shadow-lg transition duration-200 flex flex-col ring-1 ring-amber-500/10">
+<div class="relative aspect-video bg-black overflow-hidden">
+<img alt="Ô sạc Ô tô 03" class="w-full h-full object-cover brightness-90 group-hover:scale-[1.02] transition duration-300" src="../assets/img/ev-ice-car.jpg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/40 pointer-events-none"></div>
+<!-- Top Left: Amber Pill Badge -->
+<div class="absolute top-2.5 left-2.5 bg-amber-950/80 border border-amber-700/80 text-amber-200 backdrop-blur-md px-2 py-0.5 rounded text-[10px] font-semibold tracking-wide flex items-center space-x-1 shadow-sm">
+<span>⚠️ Xe xăng chiếm ô sạc: 14 phút</span>
+</div>
+<!-- Top Right Controls -->
+<div class="absolute top-2.5 right-2.5 opacity-0 group-hover:opacity-100 transition">
+<button class="w-6 h-6 rounded bg-black/70 backdrop-blur-md flex items-center justify-center text-white hover:bg-black/90 border border-white/10" onclick="alert('Phóng to luồng CAM-EV-03')">
+<i class="w-3.5 h-3.5" data-lucide="maximize-2"></i>
+</button>
+</div>
+<!-- Bottom Overlay -->
+<div class="absolute bottom-2 inset-x-2.5 flex items-center justify-between text-white">
+<div class="flex items-center space-x-1.5 min-w-0">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-400 flex-shrink-0"></span>
+<span class="text-[11px] font-medium tracking-tight truncate drop-shadow-sm">CAM-EV-03 • Ô sạc Ô tô 03</span>
+</div>
+<span class="text-[10px] font-mono text-slate-400 drop-shadow-sm flex-shrink-0">Live</span>
+</div>
+</div>
+<!-- Footer Strip -->
+<div class="p-2.5 bg-[#0f172a] border-t border-[#1e293b] flex items-center justify-between gap-1 text-[11px] flex-1">
+<span class="text-amber-400 font-medium truncate">Xe xăng 59A-456.78 • không có trong DS xe điện</span>
+<button class="px-2 py-1 rounded bg-amber-950/50 hover:bg-amber-900/70 border border-amber-700/60 text-amber-200 text-[10px] font-semibold flex-shrink-0 transition" onclick="alert('Chi tiết cảnh báo xe chiếm chỗ!')">Xem sự cố</button>
+</div>
+</div>
+<!-- Card 4 (CẢNH BÁO - CAM-EV-04) -->
+<div class="group bg-[#0f172a] rounded-lg border border-amber-600/70 hover:border-amber-500 overflow-hidden shadow-lg transition duration-200 flex flex-col ring-1 ring-amber-500/10">
+<div class="relative aspect-video bg-black overflow-hidden">
+<img alt="Trạm sạc Xe máy 04" class="w-full h-full object-cover brightness-90 group-hover:scale-[1.02] transition duration-300" src="../assets/img/ev-fallen-bike.jpg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/40 pointer-events-none"></div>
+<!-- Top Left: Amber Pill Badge -->
+<div class="absolute top-2.5 left-2.5 bg-amber-950/80 border border-amber-700/80 text-amber-200 backdrop-blur-md px-2 py-0.5 rounded text-[10px] font-semibold tracking-wide flex items-center space-x-1 shadow-sm">
+<span>⚠️ Xe máy bị ngã đổ</span>
+</div>
+<!-- Top Right Controls -->
+<div class="absolute top-2.5 right-2.5 opacity-0 group-hover:opacity-100 transition">
+<button class="w-6 h-6 rounded bg-black/70 backdrop-blur-md flex items-center justify-center text-white hover:bg-black/90 border border-white/10" onclick="alert('Phóng to luồng CAM-EV-04')">
+<i class="w-3.5 h-3.5" data-lucide="maximize-2"></i>
+</button>
+</div>
+<!-- Bottom Overlay -->
+<div class="absolute bottom-2 inset-x-2.5 flex items-center justify-between text-white">
+<div class="flex items-center space-x-1.5 min-w-0">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-400 flex-shrink-0"></span>
+<span class="text-[11px] font-medium tracking-tight truncate drop-shadow-sm">CAM-EV-04 • Trạm sạc Xe máy 04</span>
+</div>
+<span class="text-[10px] font-mono text-slate-400 drop-shadow-sm flex-shrink-0">Live</span>
+</div>
+</div>
+<!-- Footer Strip -->
+<div class="p-2.5 bg-[#0f172a] border-t border-[#1e293b] flex items-center justify-between gap-1 text-[11px] flex-1">
+<span class="text-amber-400 font-medium truncate">Phát hiện xe ngã đổ tại trụ sạc</span>
+<button class="px-2 py-1 rounded bg-amber-950/50 hover:bg-amber-900/70 border border-amber-700/60 text-amber-200 text-[10px] font-semibold flex-shrink-0 transition" onclick="alert('Chi tiết sự cố ngã xe!')">Xem sự cố</button>
+</div>
+</div>
+</div>
+</section>
+<!-- ================= SECTION 2: AN NINH SÂN NỀN & GIAO THÔNG NỘI KHU ================= -->
+<section class="space-y-3.5 pt-2" id="sec-traffic">
+<!-- Section Header Bar -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#1e293b] pb-2.5">
+<div>
+<div class="flex items-center space-x-2.5">
+<h2 class="font-display text-xs font-bold text-[#e2e8f0] uppercase tracking-wider">KHU VỰC 3.2: AN NINH SÂN NỀN &amp; GIAO THÔNG NỘI KHU</h2>
+</div>
+<p class="text-xs text-[#94a3b8] mt-0.5">Giám sát lối xe chữa cháy, sảnh đón khách, hành lý bỏ quên &amp; tụ tập đêm</p>
+</div>
+<div class="text-xs text-[#94a3b8]">
+<span class="font-mono text-[#cbd5e1]">Sảnh đón tối đa 03:00 • Lối PCCC tối đa 03:00</span>
+</div>
+</div>
+<!-- Row 2: 4 Camera Cards (16:9 Aspect Ratio) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Card 5 (CẢNH BÁO Amber - CAM-GR-01) -->
+<div class="group bg-[#0f172a] rounded-lg border border-amber-600/70 hover:border-amber-500 overflow-hidden shadow-lg transition duration-200 flex flex-col ring-1 ring-amber-500/10">
+<div class="relative aspect-video bg-black overflow-hidden">
+<img alt="Lối PCCC Đông" class="w-full h-full object-cover brightness-90 group-hover:scale-[1.02] transition duration-300" src="../assets/img/gr-firelane.jpg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/40 pointer-events-none"></div>
+<!-- Top Left: Amber Badge -->
+<div class="absolute top-2.5 left-2.5 bg-amber-950/80 border border-amber-700/80 text-amber-200 backdrop-blur-md px-2 py-0.5 rounded text-[10px] font-semibold tracking-wide flex items-center space-x-1 shadow-sm">
+<span>⚠️ Đỗ lấn lối PCCC: 03:15 / 03:00</span>
+</div>
+<!-- Top Right Controls -->
+<div class="absolute top-2.5 right-2.5 opacity-0 group-hover:opacity-100 transition">
+<button class="w-6 h-6 rounded bg-black/70 backdrop-blur-md flex items-center justify-center text-white hover:bg-black/90 border border-white/10" onclick="alert('Phóng to luồng CAM-GR-01')">
+<i class="w-3.5 h-3.5" data-lucide="maximize-2"></i>
+</button>
+</div>
+<!-- Bottom Overlay -->
+<div class="absolute bottom-2 inset-x-2.5 flex items-center justify-between text-white">
+<div class="flex items-center space-x-1.5 min-w-0">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-400 flex-shrink-0 animate-ping"></span>
+<span class="text-[11px] font-medium tracking-tight truncate drop-shadow-sm">CAM-GR-01 • Lối PCCC Đông</span>
+</div>
+<span class="text-[10px] font-mono text-slate-400 drop-shadow-sm flex-shrink-0">Live</span>
+</div>
+</div>
+<!-- Footer Strip -->
+<div class="p-2.5 bg-[#0f172a] border-t border-[#1e293b] flex items-center justify-between gap-1 text-[11px] flex-1">
+<span class="text-amber-400 font-medium truncate">Toyota Cross (51H-123.45) vi phạm</span>
+<button class="px-2 py-1 rounded bg-amber-950/50 hover:bg-amber-900/70 border border-amber-700/60 text-amber-200 text-[10px] font-semibold flex-shrink-0 transition" onclick="alert('Chi tiết vi phạm dừng đỗ CAM-GR-01!')">Xem sự cố</button>
+</div>
+</div>
+<!-- Card 6 (Bình thường - CAM-GR-02) -->
+<div class="group bg-[#0f172a] rounded-lg border border-[#1e293b] hover:border-[#334155] overflow-hidden shadow-lg transition duration-200 flex flex-col">
+<div class="relative aspect-video bg-black overflow-hidden">
+<img alt="Sảnh đón khách A" class="w-full h-full object-cover brightness-90 group-hover:scale-[1.02] transition duration-300" src="../assets/img/gr-lobby.jpg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/40 pointer-events-none"></div>
+<!-- Top Right Controls -->
+<div class="absolute top-2.5 right-2.5 opacity-0 group-hover:opacity-100 transition">
+<button class="w-6 h-6 rounded bg-black/70 backdrop-blur-md flex items-center justify-center text-white hover:bg-black/90 border border-white/10" onclick="alert('Phóng to luồng CAM-GR-02')">
+<i class="w-3.5 h-3.5" data-lucide="maximize-2"></i>
+</button>
+</div>
+<!-- Bottom Overlay -->
+<div class="absolute bottom-2 inset-x-2.5 flex items-center justify-between text-white">
+<div class="flex items-center space-x-1.5 min-w-0">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0"></span>
+<span class="text-[11px] font-medium tracking-tight truncate drop-shadow-sm">CAM-GR-02 • Sảnh đón khách A</span>
+</div>
+<span class="text-[10px] font-mono text-slate-400 drop-shadow-sm flex-shrink-0">Live</span>
+</div>
+</div>
+<!-- Footer Strip -->
+<div class="p-2.5 bg-[#0f172a] border-t border-[#1e293b] flex items-center justify-between text-[11px] flex-1">
+<span class="text-[#94a3b8] truncate">Đang đón khách: 01:10 / 03:00</span>
+<span class="px-2 py-0.5 rounded bg-emerald-950/40 border border-emerald-800/40 text-emerald-400 font-medium text-[10px] flex-shrink-0">✓ Hợp lệ</span>
+</div>
+</div>
+<!-- Card 7 (Bình thường ANPR - CAM-ANPR-01) -->
+<div class="group bg-[#0f172a] rounded-lg border border-[#1e293b] hover:border-[#334155] overflow-hidden shadow-lg transition duration-200 flex flex-col">
+<div class="relative aspect-video bg-black overflow-hidden">
+<img alt="Cổng chính" class="w-full h-full object-cover brightness-90 group-hover:scale-[1.02] transition duration-300" src="../assets/img/gr-anpr-gate.jpg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/40 pointer-events-none"></div>
+<!-- Top Left: Emerald Pill Badge -->
+<div class="absolute top-2.5 left-2.5 bg-emerald-950/80 border border-emerald-700/80 text-emerald-300 backdrop-blur-md px-2 py-0.5 rounded text-[10px] font-mono font-medium tracking-wide flex items-center space-x-1 shadow-sm">
+<span>✓ Cư dân 51K-888.99 • A-12.05 • VÀO</span>
+</div>
+<!-- Top Right Controls -->
+<div class="absolute top-2.5 right-2.5 opacity-0 group-hover:opacity-100 transition">
+<button class="w-6 h-6 rounded bg-black/70 backdrop-blur-md flex items-center justify-center text-white hover:bg-black/90 border border-white/10" onclick="alert('Phóng to luồng CAM-ANPR-01')">
+<i class="w-3.5 h-3.5" data-lucide="maximize-2"></i>
+</button>
+</div>
+<!-- Bottom Overlay -->
+<div class="absolute bottom-2 inset-x-2.5 flex items-center justify-between text-white">
+<div class="flex items-center space-x-1.5 min-w-0">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0"></span>
+<span class="text-[11px] font-medium tracking-tight truncate drop-shadow-sm">CAM-ANPR-01 • Cổng chính</span>
+</div>
+<span class="text-[10px] font-mono text-slate-400 drop-shadow-sm flex-shrink-0">Live</span>
+</div>
+</div>
+<!-- Footer Strip -->
+<div class="p-2.5 bg-[#0f172a] border-t border-[#1e293b] flex items-center justify-between text-[11px] flex-1">
+<span class="text-emerald-400 font-medium truncate">Đã đối khớp DS cư dân</span>
+<span class="px-2 py-0.5 rounded bg-emerald-950/40 border border-emerald-800/40 text-emerald-400 font-medium text-[10px] flex-shrink-0">✓ Hợp lệ</span>
+</div>
+</div>
+<!-- Card 8 (CẢNH BÁO - CAM-GR-03) -->
+<div class="group bg-[#0f172a] rounded-lg border border-amber-600/70 hover:border-amber-500 overflow-hidden shadow-lg transition duration-200 flex flex-col ring-1 ring-amber-500/10">
+<div class="relative aspect-video bg-black overflow-hidden">
+<img alt="Công viên sân nền" class="w-full h-full object-cover brightness-90 group-hover:scale-[1.02] transition duration-300" src="../assets/img/gr-suitcase.jpg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/40 pointer-events-none"></div>
+<!-- Top Left: Amber Badge -->
+<div class="absolute top-2.5 left-2.5 bg-amber-950/80 border border-amber-700/80 text-amber-200 backdrop-blur-md px-2 py-0.5 rounded text-[10px] font-semibold tracking-wide flex items-center space-x-1 shadow-sm">
+<span>⚠️ Vali bỏ quên: 02:40 / 02:00</span>
+</div>
+<!-- Top Right Controls -->
+<div class="absolute top-2.5 right-2.5 opacity-0 group-hover:opacity-100 transition">
+<button class="w-6 h-6 rounded bg-black/70 backdrop-blur-md flex items-center justify-center text-white hover:bg-black/90 border border-white/10" onclick="alert('Phóng to luồng CAM-GR-03')">
+<i class="w-3.5 h-3.5" data-lucide="maximize-2"></i>
+</button>
+</div>
+<!-- Bottom Overlay -->
+<div class="absolute bottom-2 inset-x-2.5 flex items-center justify-between text-white">
+<div class="flex items-center space-x-1.5 min-w-0">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-400 flex-shrink-0"></span>
+<span class="text-[11px] font-medium tracking-tight truncate drop-shadow-sm">CAM-GR-03 • Công viên sân nền</span>
+</div>
+<span class="text-[10px] font-mono text-slate-400 drop-shadow-sm flex-shrink-0">Live</span>
+</div>
+</div>
+<!-- Footer Strip -->
+<div class="p-2.5 bg-[#0f172a] border-t border-[#1e293b] flex items-center justify-between text-[11px] flex-1">
+<span class="text-amber-400 font-medium truncate">Vật thể không người trông coi</span>
+<button class="px-2 py-1 rounded bg-amber-950/50 hover:bg-amber-900/70 border border-amber-700/60 text-amber-200 text-[10px] font-semibold flex-shrink-0 transition" onclick="alert('Chi tiết đồ vật bỏ quên CAM-GR-03!')">Xem sự cố</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Floating Map/Grid Switch Button (Bottom Right) -->
+<div class="fixed bottom-12 right-6 z-20 flex items-center shadow-2xl rounded-full overflow-hidden bg-[#0f172a] border border-[#1e293b]">
+<button class="px-3.5 py-1.5 text-xs font-semibold text-white bg-blue-600 flex items-center space-x-1.5 border-r border-[#1e293b]" onclick="switchCategory('all')">
+<i class="w-3.5 h-3.5 text-white" data-lucide="grid"></i>
+<span>Lưới (Grid)</span>
+</button>
+<button class="px-3.5 py-1.5 text-xs font-medium text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1e293b] flex items-center space-x-1.5 transition" onclick="alert('Chuyển sang chế độ Bản đồ mặt bằng Floor Plan')">
+<i class="w-3.5 h-3.5 text-[#64748b]" data-lucide="map"></i>
+<span>Bản đồ (Map)</span>
+</button>
+</div>
+</main>
+<!-- Bottom Status & System Health Bar (36px) -->
+<footer class="h-9 bg-[#0f172a] border-t border-[#1e293b] px-6 flex items-center justify-between text-xs text-[#94a3b8] flex-shrink-0">
+<div class="flex items-center space-x-3 text-[11px]">
+<span class="flex items-center gap-1.5 text-[#e2e8f0]">
+<span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          Kestrel API: <span class="font-medium text-emerald-400">Online</span>
+</span>
+<span class="text-[#334155]">•</span>
+<span>AI Core (YOLOv8 + ByteTrack): <span class="text-[#e2e8f0] font-mono">18 ms/frame</span></span>
+<span class="text-[#334155]">•</span>
+<span>MediaMTX WebRTC: <span class="text-[#cbd5e1] font-mono">0.28s</span></span>
+<span class="text-[#334155]">•</span>
+<span>GPU RTX 4060 Ti: <span class="text-[#cbd5e1] font-mono">6.2 / 16 GB</span></span>
+</div>
+<div class="flex items-center space-x-2 text-[11px]">
+<span class="text-[#64748b]">Online 15/16</span>
+<span class="text-[#334155]">•</span>
+<span class="text-[#94a3b8]">Hiển thị 8 / 16 camera</span>
+<span class="text-[#334155]">•</span>
+<span class="font-mono text-[#cbd5e1]" id="live-clock">10:45:12 GMT+7</span>
+</div>
+</footer>
+</div>
+<!-- Interactive Logic -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
+    });
+
+    function updateClock() {
+      const clockEl = document.getElementById('live-clock');
+      if (clockEl) {
+        const now = new Date();
+        clockEl.textContent = now.toTimeString().split(' ')[0] + ' GMT+7';
+      }
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    function switchCategory(cat) {
+      const secEv = document.getElementById('sec-ev');
+      const secTraffic = document.getElementById('sec-traffic');
+      const tabs = ['all', 'alert', 'ev', 'traffic', 'anpr'];
+      
+      tabs.forEach(t => {
+        const el = document.getElementById('tab-' + t);
+        if (el) {
+          el.className = "py-3 border-b-2 border-transparent text-[#94a3b8] hover:text-[#e2e8f0] flex items-center gap-1.5";
+        }
+      });
+
+      const activeTab = document.getElementById('tab-' + cat);
+      if (activeTab) {
+        activeTab.className = "py-3 border-b-2 border-blue-500 text-white flex items-center gap-1.5 font-semibold";
+      }
+
+      if (cat === 'all' || cat === 'alert') {
+        secEv.style.display = 'block';
+        secTraffic.style.display = 'block';
+      } else if (cat === 'ev') {
+        secEv.style.display = 'block';
+        secTraffic.style.display = 'none';
+      } else if (cat === 'traffic' || cat === 'anpr') {
+        secEv.style.display = 'none';
+        secTraffic.style.display = 'block';
+      }
+    }
+  </script>
+
+<link rel="stylesheet" href="../assets/css/app.css"/>
+<script src="../assets/js/mock-db.js"></script>
+<script src="../assets/js/app.js"></script>
+</body></html>

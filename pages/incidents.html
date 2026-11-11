@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-[#020617] text-[#e2e8f0] antialiased" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bình An CCTV - Trung Tâm Điều Hành &amp; Giám Sát</title><link rel="icon" href="../assets/img/favicon.svg"/>
+<!-- Tailwind CSS CDN v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<!-- Google Fonts: Space Grotesk, Inter, JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "surface": "#0f172a",
+          "surface-container": "#1e293b",
+          "surface-container-high": "#232d42",
+          "surface-container-highest": "#334155",
+          "surface-container-low": "#0b1222",
+          "surface-container-lowest": "#020617",
+          "background": "#020617",
+          "on-surface": "#e2e8f0",
+          "on-surface-variant": "#94a3b8",
+          "on-background": "#e2e8f0",
+          "outline": "#334155",
+          "outline-variant": "#1e293b",
+          "primary": "#3b82f6",
+          "primary-container": "#1d4ed8",
+          "on-primary": "#ffffff",
+          "secondary": "#10b981",
+          "secondary-container": "#047857",
+          "on-secondary": "#ffffff",
+          "error": "#ef4444",
+          "error-container": "#7f1d1d",
+          "on-error": "#ffffff"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "gutter": "1rem",
+          "space-xl": "1.5rem",
+          "space-md": "0.75rem",
+          "margin": "1.5rem",
+          "margin-sm": "1rem",
+          "space-xs": "0.25rem",
+          "space-lg": "1rem",
+          "space-sm": "0.5rem"
+        },
+        "fontFamily": {
+          "sans": ["Inter", "sans-serif"],
+          "mono": ["JetBrains Mono", "monospace"],
+          "heading": ["Space Grotesk", "sans-serif"]
+        }
+      }
+    }
+  };
+</script>
+<style>
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #020617; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #475569; }
+</style>
+<meta content="web_dashboard" name="shell-type"/></head>
+<body class="h-full flex overflow-hidden text-sm bg-[#020617] text-[#e2e8f0] font-sans antialiased">
+<!-- Left Rail Icon Navigation (56px Minimalist Console Style) -->
+<aside class="w-14 flex-shrink-0 bg-[#0f172a] border-r border-[#1e293b] flex flex-col items-center justify-between py-3.5 z-30 select-none">
+<div class="flex flex-col items-center space-y-5 w-full">
+<a class="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white hover:opacity-90 transition shadow-sm" href="#" title="Bình An CCTV">
+<svg class="w-4 h-4 fill-white" viewbox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+</a>
+<nav class="flex flex-col space-y-2 w-full px-2">
+<button class="w-10 h-10 rounded-xl flex items-center justify-center text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1e293b] transition" title="Bảng điều khiển">
+<span class="material-symbols-outlined text-[20px]">grid_view</span>
+</button>
+<button class="w-10 h-10 rounded-xl flex items-center justify-center bg-blue-600/15 text-[#60a5fa] border border-blue-500/30 transition shadow-sm" title="Hàng đợi sự cố (Khẩn cấp)">
+<span class="material-symbols-outlined text-[20px]">notifications_active</span>
+</button>
+<button class="w-10 h-10 rounded-xl flex items-center justify-center text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1e293b] transition" title="Trạm sạc xe điện">
+<span class="material-symbols-outlined text-[20px]">bolt</span>
+</button>
+<button class="w-10 h-10 rounded-xl flex items-center justify-center text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1e293b] transition" title="PCCC &amp; Sân nền">
+<span class="material-symbols-outlined text-[20px]">local_fire_department</span>
+</button>
+<button class="w-10 h-10 rounded-xl flex items-center justify-center text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1e293b] transition" title="Nhận diện biển số">
+<span class="material-symbols-outlined text-[20px]">directions_car</span>
+</button>
+<button class="w-10 h-10 rounded-xl flex items-center justify-center text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1e293b] transition" title="Bản đồ mặt bằng">
+<span class="material-symbols-outlined text-[20px]">map</span>
+</button>
+</nav>
+</div>
+<div class="flex flex-col items-center space-y-3 w-full">
+<button class="w-8 h-8 rounded-xl flex items-center justify-center text-[#64748b] hover:text-[#e2e8f0] hover:bg-[#1e293b] transition" title="Cài đặt hệ thống">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+</button>
+<div class="w-7 h-7 rounded-full bg-blue-600/20 text-[#60a5fa] border border-blue-500/30 text-[11px] font-semibold font-mono flex items-center justify-center cursor-pointer" title="BQL: Lê Văn Minh">BA</div>
+</div>
+</aside>
+<!-- Main Content Layout -->
+<div class="flex-1 flex flex-col h-full overflow-hidden min-w-0 bg-[#020617]">
+<!-- Top Header Bar (56px) -->
+<header class="h-14 py-2.5 px-6 bg-[#0f172a] border-b border-[#1e293b] flex items-center justify-between flex-shrink-0 z-20">
+<div class="flex items-center space-x-3">
+<div class="flex items-center space-x-2">
+<span class="font-bold text-[#e2e8f0] text-sm tracking-tight font-heading">Bình An CCTV</span>
+<span class="text-[#64748b] text-xs">›</span>
+<button class="flex items-center space-x-1.5 text-xs font-medium text-[#e2e8f0] bg-[#1e293b] hover:bg-[#334155] px-2.5 py-1.5 rounded-lg transition-colors border border-[#334155]">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+<span>HQ - Khu phức hợp Đông Tây 2</span>
+<span class="material-symbols-outlined text-[14px] text-[#94a3b8]">expand_more</span>
+</button>
+</div>
+</div>
+<div class="flex-1 max-w-md mx-6">
+<div class="relative w-full">
+<span class="material-symbols-outlined text-[16px] text-[#64748b] absolute left-3 top-2">search</span>
+<input class="w-full bg-[#1e293b] border border-[#334155] text-xs text-[#e2e8f0] rounded-lg pl-9 pr-3 py-1.5 focus:bg-[#0f172a] focus:border-blue-500 focus:outline-none transition placeholder:text-[#64748b]" placeholder="Tìm camera, biển số xe, sự cố..." type="text"/>
+</div>
+</div>
+<div class="flex items-center space-x-3">
+<button class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-blue-600 hover:bg-blue-700 text-white transition shadow-sm">
+<span class="material-symbols-outlined text-[15px]">add</span>
+<span>+ Quản lý Camera</span>
+</button>
+<div class="h-4 w-px bg-[#1e293b]"></div>
+<div class="flex items-center space-x-2 pl-1">
+<div class="text-right hidden sm:block">
+<div class="text-xs font-medium text-[#e2e8f0]">Trực ban BQL</div>
+<div class="text-[10px] font-mono text-[#94a3b8]">16 Online</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Sub-Navigation Tabs Bar -->
+<div class="bg-[#0f172a] border-b border-[#1e293b] px-6 flex items-center justify-between flex-shrink-0">
+<nav class="flex space-x-6 text-xs font-medium" id="secondary-tabs">
+<a class="py-3 border-b-2 border-transparent text-[#94a3b8] hover:text-[#e2e8f0] flex items-center gap-1.5 transition-colors" href="#">
+<span>Tất cả camera</span>
+<span class="bg-[#1e293b] text-[#94a3b8] rounded-full px-1.5 py-0.2 text-[10px] font-mono">16</span>
+</a>
+<a class="py-3 border-b-2 border-blue-500 text-blue-400 font-semibold flex items-center gap-2 transition-colors" href="#">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+</span>
+<span>Cảnh báo sự cố</span>
+<span class="bg-red-500/20 text-red-400 border border-red-500/30 rounded-full px-1.5 py-0.2 text-[10px] font-mono font-bold" id="incident-counter-badge">5</span>
+</a>
+<a class="py-3 border-b-2 border-transparent text-[#94a3b8] hover:text-[#e2e8f0] flex items-center gap-1.5 transition-colors" href="#">
+<span>Trạm sạc xe điện</span>
+<span class="bg-[#1e293b] text-[#94a3b8] rounded-full px-1.5 py-0.2 text-[10px] font-mono">6</span>
+</a>
+<a class="py-3 border-b-2 border-transparent text-[#94a3b8] hover:text-[#e2e8f0] flex items-center gap-1.5 transition-colors" href="#">
+<span>Sân nền &amp; Lối PCCC</span>
+<span class="bg-[#1e293b] text-[#94a3b8] rounded-full px-1.5 py-0.2 text-[10px] font-mono">10</span>
+</a>
+<a class="py-3 border-b-2 border-transparent text-[#94a3b8] hover:text-[#e2e8f0] flex items-center gap-1.5 transition-colors" href="#">
+<span>Bản đồ mặt bằng</span>
+</a>
+<a class="py-3 border-b-2 border-transparent text-[#94a3b8] hover:text-[#e2e8f0] flex items-center gap-1.5 transition-colors" href="#">
+<span>Nhật ký biển số</span>
+</a>
+</nav>
+<div class="hidden md:flex items-center space-x-1 text-[#94a3b8] bg-[#1e293b] p-0.5 rounded-lg border border-[#334155]">
+<button class="p-1 rounded text-[#94a3b8] hover:text-white transition" title="Lưới 2x2">
+<span class="material-symbols-outlined text-[16px]">grid_view</span>
+</button>
+<button class="p-1 rounded bg-[#0f172a] text-blue-400 shadow-sm" title="Chế độ sự cố">
+<span class="material-symbols-outlined text-[16px]">splitscreen</span>
+</button>
+</div>
+</div>
+<!-- Main Live Feeds Content (Scrollable Workspace) -->
+<main class="flex-1 overflow-y-auto p-6 space-y-7 bg-[#020617]">
+<div class="flex flex-col w-full">
+<!-- Master-Detail Operational Workspace Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-5 w-full items-start">
+<!-- Left: Incident Queue -->
+<div class="lg:col-span-5 xl:col-span-4 flex flex-col space-y-3">
+<div class="bg-[#0f172a] border border-[#1e293b] rounded-xl p-3 shadow-sm flex flex-col space-y-2.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center space-x-2">
+<span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+<span class="text-[#e2e8f0] font-bold text-sm tracking-tight font-heading">Hàng đợi sự cố</span>
+</div>
+<span class="font-mono text-xs text-[#94a3b8] bg-[#1e293b] border border-[#334155] px-2 py-0.5 rounded-full" id="queue-pending-count">5 Chưa xử lý</span>
+</div>
+<div class="flex items-center gap-1 overflow-x-auto pb-1 text-xs">
+<button class="px-2.5 py-1 rounded-md bg-blue-600 text-white font-medium whitespace-nowrap shadow-sm">Tất cả (5)</button>
+<button class="px-2 py-1 rounded-md bg-[#1e293b] text-[#94a3b8] hover:text-[#e2e8f0] font-medium whitespace-nowrap">Mới (3)</button>
+<button class="px-2 py-1 rounded-md bg-[#1e293b] text-[#94a3b8] hover:text-[#e2e8f0] font-medium whitespace-nowrap">Đang xử lý (1)</button>
+<button class="px-2 py-1 rounded-md bg-[#1e293b] text-[#94a3b8] hover:text-[#e2e8f0] font-medium whitespace-nowrap">Đã xử lý (1)</button>
+<button class="px-2 py-1 rounded-md bg-[#1e293b] text-[#64748b] hover:text-[#94a3b8] font-medium whitespace-nowrap">Báo giả (0)</button>
+</div>
+<div class="flex items-center gap-1 overflow-x-auto pt-1 border-t border-[#1e293b] text-[11px]">
+<span class="text-[#64748b] text-[10px] uppercase font-mono mr-1">Quy tắc:</span>
+<button class="px-2 py-0.5 rounded bg-[#1e293b] text-blue-400 font-medium whitespace-nowrap">Tất cả</button>
+<button class="px-2 py-0.5 rounded hover:bg-[#1e293b] text-[#94a3b8] whitespace-nowrap">Khẩn cấp</button>
+<button class="px-2 py-0.5 rounded hover:bg-[#1e293b] text-[#94a3b8] whitespace-nowrap">Quá nhiệt</button>
+<button class="px-2 py-0.5 rounded hover:bg-[#1e293b] text-[#94a3b8] whitespace-nowrap">Lối PCCC</button>
+<button class="px-2 py-0.5 rounded hover:bg-[#1e293b] text-[#94a3b8] whitespace-nowrap">Chiếm ô sạc</button>
+</div>
+</div>
+<div class="flex flex-col space-y-2.5" id="incident-list-container">
+<!-- Active incident card #1042 -->
+<div class="cursor-pointer rounded-xl p-3.5 bg-[#0f172a] border-2 border-blue-500 shadow-md transition-all flex flex-col space-y-2" id="card-1042">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-red-500/20 text-red-400 border border-red-500/30 font-mono text-[10px] font-bold tracking-wide uppercase">
+<span class="material-symbols-outlined text-[12px]">local_fire_department</span>KHẨN CẤP
+                  </span>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30 font-mono text-[10px] font-medium" id="card-status-badge-1042">Đang xử lý</span>
+</div>
+<span class="font-mono text-[11px] text-[#94a3b8]">18:13:00 (Hôm nay)</span>
+</div>
+<div>
+<h4 class="text-[#e2e8f0] font-semibold text-sm">Quá nhiệt pin 68.5°C (ngưỡng 60°C)</h4>
+<p class="text-xs text-red-400 font-medium mt-0.5 font-mono">CAM-EV-01 • Trạm sạc Xe máy 01</p>
+</div>
+<div class="pt-1 flex items-center justify-between text-xs text-[#94a3b8]">
+<span class="flex items-center gap-1.5" id="card-assignee-1042">
+<span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+<span class="text-[#e2e8f0] text-xs">Lê Văn Minh đang xử lý</span>
+</span>
+<span class="flex items-center gap-1 text-[11px] font-mono text-[#64748b]">
+<span class="material-symbols-outlined text-[13px]">location_on</span>Trụ số 01
+                </span>
+</div>
+</div>
+<!-- Incident card 2 -->
+<div class="cursor-pointer rounded-xl p-3.5 bg-[#0f172a] hover:bg-[#1e293b]/60 border border-[#1e293b] shadow-xs transition-all flex flex-col space-y-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30 font-mono text-[10px] font-bold tracking-wide uppercase">
+<span class="material-symbols-outlined text-[12px]">warning</span>CẢNH BÁO
+                  </span>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30 font-mono text-[10px] font-medium">Mới</span>
+</div>
+<span class="font-mono text-[11px] text-[#64748b]">3 phút trước</span>
+</div>
+<div>
+<h4 class="text-[#e2e8f0] font-semibold text-sm">Đỗ xe lấn lối PCCC quá 3 phút</h4>
+<p class="text-xs text-[#94a3b8] mt-0.5">Toyota Cross • Biển số: <span class="font-mono text-[#e2e8f0] font-semibold">51H-123.45</span> • <span class="font-mono text-amber-400">03:15</span></p>
+</div>
+<div class="pt-1 flex items-center justify-between text-xs text-[#94a3b8]">
+<span class="text-[11px] font-mono text-[#94a3b8]">CAM-GR-01 • Lối PCCC Đông</span>
+<span class="flex items-center gap-1 text-[11px] font-mono text-[#64748b]">
+<span class="material-symbols-outlined text-[13px]">location_on</span>Cổng số 2
+                </span>
+</div>
+</div>
+<!-- Incident card 3 -->
+<div class="cursor-pointer rounded-xl p-3.5 bg-[#0f172a] hover:bg-[#1e293b]/60 border border-[#1e293b] shadow-xs transition-all flex flex-col space-y-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30 font-mono text-[10px] font-bold tracking-wide uppercase">
+<span class="material-symbols-outlined text-[12px]">ev_station</span>CẢNH BÁO
+                  </span>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30 font-mono text-[10px] font-medium">Mới</span>
+</div>
+<span class="font-mono text-[11px] text-[#64748b]">14 phút trước</span>
+</div>
+<div>
+<h4 class="text-[#e2e8f0] font-semibold text-sm">Xe xăng chiếm ô sạc 14 phút</h4>
+<p class="text-xs text-[#94a3b8] mt-0.5">Biển số: <span class="font-mono text-[#e2e8f0] font-semibold">59A-456.78</span> • Ô sạc EV 03</p>
+</div>
+<div class="pt-1 flex items-center justify-between text-xs text-[#94a3b8]">
+<span class="text-[11px] font-mono text-[#94a3b8]">CAM-EV-03 • Ô sạc Ô tô 03</span>
+<span class="flex items-center gap-1 text-[11px] font-mono text-[#64748b]">
+<span class="material-symbols-outlined text-[13px]">location_on</span>Sân nền
+                </span>
+</div>
+</div>
+<!-- Incident card 4 -->
+<div class="cursor-pointer rounded-xl p-3.5 bg-[#0f172a] hover:bg-[#1e293b]/60 border border-[#1e293b] shadow-xs transition-all flex flex-col space-y-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30 font-mono text-[10px] font-bold tracking-wide uppercase">
+<span class="material-symbols-outlined text-[12px]">luggage</span>CẢNH BÁO
+                  </span>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30 font-mono text-[10px] font-medium">Mới</span>
+</div>
+<span class="font-mono text-[11px] text-[#64748b]">22 phút trước</span>
+</div>
+<div>
+<h4 class="text-[#e2e8f0] font-semibold text-sm">Vali bỏ quên quá 2 phút</h4>
+<p class="text-xs text-[#94a3b8] mt-0.5">Vật thể không người trông coi</p>
+</div>
+<div class="pt-1 flex items-center justify-between text-xs text-[#94a3b8]">
+<span class="text-[11px] font-mono text-[#94a3b8]">CAM-GR-03 • Công viên sân nền</span>
+<span class="flex items-center gap-1 text-[11px] font-mono text-[#64748b]">
+<span class="material-symbols-outlined text-[13px]">location_on</span>Khu ghế đá
+                </span>
+</div>
+</div>
+<!-- Incident card 5 -->
+<div class="cursor-pointer rounded-xl p-3.5 bg-[#0f172a] hover:bg-[#1e293b]/60 border border-[#1e293b] shadow-xs transition-all flex flex-col space-y-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-500/20 text-[#94a3b8] border border-slate-500/30 font-mono text-[10px] font-bold tracking-wide uppercase">
+<span class="material-symbols-outlined text-[12px]">videocam_off</span>THÔNG TIN
+                  </span>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30 font-mono text-[10px] font-medium">Mới</span>
+</div>
+<span class="font-mono text-[11px] text-[#64748b]">35 phút trước</span>
+</div>
+<div>
+<h4 class="text-[#e2e8f0] font-semibold text-sm">Mất kết nối camera</h4>
+<p class="text-xs text-[#94a3b8] mt-0.5">Mất tín hiệu RTSP stream</p>
+</div>
+<div class="pt-1 flex items-center justify-between text-xs text-[#94a3b8]">
+<span class="text-[11px] font-mono text-[#94a3b8]">CAM-GR-07 • Hàng rào Tây</span>
+<span class="flex items-center gap-1 text-[11px] font-mono text-[#64748b]">
+<span class="material-symbols-outlined text-[13px]">location_on</span>Khu vực 04
+                </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Incident Detail & Live Monitoring Workspace -->
+<div class="lg:col-span-7 xl:col-span-8 flex flex-col space-y-4">
+<!-- Incident Header Banner -->
+<div class="bg-[#0f172a] border border-[#1e293b] rounded-xl p-4 shadow-sm flex flex-col space-y-3">
+<div class="flex flex-wrap items-center justify-between gap-2">
+<div class="flex items-center space-x-2">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded bg-red-500/20 text-red-400 border border-red-500/30 text-xs font-mono font-bold tracking-wide">
+<span class="material-symbols-outlined text-[13px]">error</span>KHẨN CẤP
+                </span>
+<span class="font-mono text-xs text-[#94a3b8] bg-[#1e293b] border border-[#334155] px-2 py-0.5 rounded-md">ID: #INC-1042</span>
+</div>
+<div class="flex items-center space-x-3 text-xs font-mono text-[#94a3b8]">
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30 font-medium" id="detail-header-status-badge">Đang xử lý</span>
+<span class="text-[#64748b]">•</span>
+<span class="flex items-center gap-1 text-red-400 font-medium">
+<span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>18:13:00 (Hôm nay)
+                </span>
+</div>
+</div>
+<div>
+<h2 class="text-lg text-[#e2e8f0] font-bold tracking-tight font-heading">Quá nhiệt pin 68.5°C (ngưỡng 60°C)</h2>
+<div class="flex flex-wrap items-center gap-2 mt-2 font-mono text-xs">
+<div class="flex items-center gap-1 bg-[#1e293b] border border-[#334155] px-2.5 py-1 rounded text-[#e2e8f0]">
+<span class="material-symbols-outlined text-[13px] text-blue-400">location_on</span>
+<span>Trạm sạc xe điện – Sân nền • Vị trí: Trụ số 01</span>
+</div>
+<div class="flex items-center gap-1 bg-[#1e293b] border border-[#334155] px-2.5 py-1 rounded text-[#e2e8f0]">
+<span class="material-symbols-outlined text-[13px] text-[#94a3b8]">videocam</span>
+<span>CAM-EV-01 (Trạm sạc Xe máy 01)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Dual Video Feeds: Left Optical + Right Thermal -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-3.5 items-stretch">
+<!-- Left: Optical Live View -->
+<div class="md:col-span-7 bg-[#020617] border border-[#1e293b] rounded-xl overflow-hidden relative shadow-md flex flex-col group min-h-[300px]">
+<div class="absolute top-0 inset-x-0 p-3 bg-gradient-to-b from-black/80 via-black/40 to-transparent z-10 flex items-center justify-between">
+<div class="flex items-center space-x-2">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-red-600 text-white font-mono text-[10px] font-bold tracking-wider">
+<span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>LIVE
+                  </span>
+<span class="font-mono text-[11px] text-white/90">CAM-EV-01 | SÂN NỀN</span>
+</div>
+<div class="font-mono text-[10px] text-white/80 bg-black/60 px-2 py-0.5 rounded border border-white/10">AI Core (YOLOv8 + ByteTrack)</div>
+</div>
+<div class="relative w-full h-full min-h-[240px] flex-1 overflow-hidden">
+<img alt="Optical live camera view" class="w-full h-full object-cover" src="../assets/img/ev-scooter-bbox.jpg"/>
+<div class="absolute bottom-8 left-1/4 w-1/2 h-16 rounded border-2 border-red-500 bg-red-500/15 pointer-events-none flex flex-col justify-between p-1.5">
+<div class="flex items-center justify-between">
+<span class="bg-red-600 text-white font-mono text-[9px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wider">PIN XE MÁY ĐIỆN: 68.5°C</span>
+<span class="font-mono text-[9px] text-red-300 bg-black/70 px-1 rounded">QUÁ NHIỆT</span>
+</div>
+</div>
+</div>
+<div class="p-2 bg-[#0f172a] border-t border-[#1e293b] flex items-center justify-between font-mono text-xs text-[#94a3b8]">
+<span class="text-red-400 font-bold truncate">Cảnh báo nhiệt độ pin: 68.5°C / 60°C</span>
+<span class="text-[#64748b]">Luồng phụ 720p • AI 5 FPS</span>
+</div>
+</div>
+<!-- Right: Thermal Heat View -->
+<div class="md:col-span-5 bg-[#020617] border border-[#1e293b] rounded-xl overflow-hidden relative shadow-md flex flex-col group min-h-[300px]">
+<div class="absolute top-0 inset-x-0 p-2.5 bg-gradient-to-b from-black/80 via-black/40 to-transparent z-10 flex items-center justify-between font-mono text-xs text-white">
+<div class="flex items-center space-x-1.5">
+<span class="font-bold tracking-wider text-amber-400">Camera nhiệt Bi-spectrum</span>
+</div>
+<div class="text-red-400 font-bold bg-black/70 px-1.5 py-0.5 rounded border border-red-500/30">HOTSPOT: 68.5°C</div>
+</div>
+<div class="relative w-full flex-1 overflow-hidden min-h-[240px]">
+<img alt="Thermal heat view" class="w-full h-full object-cover" src="../assets/img/ev-thermal.jpg"/>
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="relative flex items-center justify-center">
+<div class="w-8 h-8 rounded-full border border-red-500/50 bg-red-500/20 flex items-center justify-center">
+<div class="w-1 h-1 bg-red-500 rounded-full"></div>
+</div>
+<div class="absolute -top-6 bg-black/90 border border-red-500/40 text-red-400 font-mono text-[9px] px-1.5 py-0.5 rounded whitespace-nowrap">T-MAX: 68.5°C</div>
+</div>
+</div>
+</div>
+<div class="p-2 bg-[#0f172a] border-t border-[#1e293b] flex items-center justify-between font-mono text-xs text-[#94a3b8]">
+<span>Thang nhiệt: 20°C - 80°C</span>
+<span class="text-amber-400 font-medium">Ngưỡng báo: 60°C</span>
+</div>
+</div>
+</div>
+<!-- Video Clip scrubber -->
+<div class="bg-[#0f172a] border border-[#1e293b] rounded-xl p-3.5 shadow-sm space-y-2">
+<div class="flex items-center justify-between text-xs">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-[16px] text-blue-400">play_circle</span>
+<span class="font-semibold text-[#e2e8f0]">Clip sự kiện (15s) • AI Core (YOLOv8 + ByteTrack)</span>
+</div>
+<span class="font-mono text-[#94a3b8] text-xs">00:09 / 00:15</span>
+</div>
+<div class="w-full bg-[#1e293b] rounded-full h-2 relative cursor-pointer">
+<div class="bg-blue-600 h-full rounded-full w-[60%]"></div>
+<div class="absolute top-1/2 -mt-1.5 left-[60%] w-3 h-3 bg-white rounded-full shadow-md border-2 border-blue-600"></div>
+</div>
+<div class="flex justify-between items-center text-[11px] text-[#64748b] font-mono">
+<span>-00:06 (Trước sự kiện)</span>
+<span class="text-red-400 font-semibold">[18:13:00 Phát hiện quá nhiệt]</span>
+<span>+00:09 (Ghi nhận)</span>
+</div>
+</div>
+<!-- Incident Details Table -->
+<div class="bg-[#0f172a] border border-[#1e293b] rounded-xl p-4 shadow-sm space-y-3">
+<div class="flex items-center justify-between border-b border-[#1e293b] pb-2">
+<h3 class="text-xs font-mono font-bold text-[#94a3b8] uppercase tracking-wider">Thông số sự cố chi tiết</h3>
+<span class="text-[11px] font-mono text-blue-400 flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">verified</span>
+                AI Core xác thực
+              </span>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-3 font-mono text-xs">
+<div class="bg-[#1e293b]/60 border border-[#1e293b] p-2.5 rounded-lg">
+<div class="text-[#64748b] text-[10px] uppercase">Camera</div>
+<div class="text-[#e2e8f0] font-semibold mt-0.5">CAM-EV-01</div>
+</div>
+<div class="bg-[#1e293b]/60 border border-[#1e293b] p-2.5 rounded-lg">
+<div class="text-[#64748b] text-[10px] uppercase">Quy tắc vi phạm</div>
+<div class="text-red-400 font-semibold mt-0.5">Quá nhiệt (OVERHEAT)</div>
+</div>
+<div class="bg-[#1e293b]/60 border border-[#1e293b] p-2.5 rounded-lg">
+<div class="text-[#64748b] text-[10px] uppercase">Nhiệt độ phát hiện</div>
+<div class="text-red-400 font-bold mt-0.5">68.5°C / ngưỡng 60°C</div>
+</div>
+<div class="bg-[#1e293b]/60 border border-[#1e293b] p-2.5 rounded-lg">
+<div class="text-[#64748b] text-[10px] uppercase">Thời điểm phát hiện</div>
+<div class="text-[#e2e8f0] mt-0.5">18:13:00 • 11/11/2026</div>
+</div>
+<div class="bg-[#1e293b]/60 border border-[#1e293b] p-2.5 rounded-lg">
+<div class="text-[#64748b] text-[10px] uppercase">Người nhận xử lý</div>
+<div class="text-amber-400 font-semibold mt-0.5" id="detail-assignee">Lê Văn Minh (Bảo vệ ca 2)</div>
+</div>
+<div class="bg-[#1e293b]/60 border border-[#1e293b] p-2.5 rounded-lg">
+<div class="text-[#64748b] text-[10px] uppercase">Thời điểm hoàn tất</div>
+<div class="text-[#64748b] mt-0.5" id="detail-completion-time">--</div>
+</div>
+</div>
+</div>
+<!-- Triage Actions -->
+<div class="bg-[#0f172a] border border-[#1e293b] rounded-xl p-4 shadow-sm flex flex-col space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-blue-400 text-[18px]">assignment_turned_in</span>
+<h3 class="text-xs font-mono font-bold text-[#e2e8f0] uppercase tracking-wider">Xử lý sự cố (Triage Actions)</h3>
+</div>
+<span class="text-[11px] font-mono text-[#94a3b8]">Quy trình chuẩn</span>
+</div>
+<div class="flex flex-col md:flex-row gap-2.5 items-stretch">
+<!-- Action a: Nhận xử lý / Đã nhận -->
+<button class="py-2 px-3 rounded-lg bg-[#1e293b] text-[#94a3b8] border border-[#334155] hover:text-[#e2e8f0] font-medium text-xs flex items-center justify-center gap-1.5 whitespace-nowrap transition" id="btn-claim-action" onclick="handleClaimIncident()">
+<span class="material-symbols-outlined text-[15px]" id="claim-icon">lock</span>
+<span id="claim-text">Đã nhận (Lê Văn Minh)</span>
+</button>
+<!-- Action b: Input note -->
+<div class="flex-1">
+<input class="w-full bg-[#1e293b] border border-[#334155] rounded-lg px-3 py-2 text-xs text-[#e2e8f0] placeholder:text-[#64748b] focus:outline-none focus:border-blue-500 transition" id="dispatch-note-input" placeholder="Ghi chú kết quả xử lý (VD: Đã dời xe máy ra khỏi trụ sạc, làm mát an toàn)..." type="text"/>
+</div>
+<!-- Action c: Hoàn tất -->
+<button class="py-2 px-4 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition flex items-center justify-center gap-1.5 whitespace-nowrap shadow-sm" onclick="handleResolveIncident()">
+<span class="material-symbols-outlined text-[15px]">check_circle</span>
+<span>Hoàn tất</span>
+</button>
+<!-- Action d: Báo giả -->
+<button class="py-2 px-3 rounded-lg border border-[#334155] bg-[#1e293b] hover:bg-[#334155] hover:border-red-500/40 text-[#94a3b8] hover:text-red-400 font-medium text-xs transition flex items-center justify-center gap-1 whitespace-nowrap" onclick="handleFalseAlarmIncident()">
+<span class="material-symbols-outlined text-[15px]">report_off</span>
+<span>Báo giả</span>
+</button>
+</div>
+</div>
+<!-- Activity Log -->
+<div class="bg-[#0f172a] border border-[#1e293b] rounded-xl p-4 shadow-sm space-y-2.5">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-[15px] text-[#64748b]">history</span>
+<h4 class="text-xs font-mono font-bold text-[#94a3b8] uppercase tracking-wider">Nhật ký sự kiện</h4>
+</div>
+<div class="bg-[#020617] border border-[#1e293b] rounded-lg p-3 space-y-2 font-mono text-xs" id="activity-log-container">
+<div class="flex items-start space-x-2 text-red-400">
+<span class="w-1.5 h-1.5 rounded-full bg-red-400 mt-1.5 flex-shrink-0"></span>
+<span class="font-bold flex-shrink-0">[18:13:00]</span>
+<span>Mới (AI Core (YOLOv8 + ByteTrack)) - Phát hiện nhiệt độ pin 68.5°C</span>
+</div>
+<div class="flex items-start space-x-2 text-red-400/90">
+<span class="w-1.5 h-1.5 rounded-full bg-red-400/80 mt-1.5 flex-shrink-0"></span>
+<span class="font-bold flex-shrink-0">[18:13:05]</span>
+<span>Kích hoạt cảnh báo KHẨN CẤP trên hệ thống</span>
+</div>
+<div class="flex items-start space-x-2 text-amber-400" id="log-assigned-entry">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 flex-shrink-0"></span>
+<span class="font-bold flex-shrink-0">[18:13:20]</span>
+<span>Đang xử lý (Lê Văn Minh) - Tiếp nhận xử lý tại hiện trường</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Feedback Toast Container -->
+<div class="fixed bottom-12 right-8 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none" id="toast-feedback">
+<div class="bg-[#1e293b] text-[#e2e8f0] border border-[#334155] rounded-xl px-4 py-3 shadow-2xl flex items-center space-x-3 text-xs font-medium">
+<span class="material-symbols-outlined text-emerald-400 text-[20px]" id="toast-icon">check_circle</span>
+<span id="toast-message">Đã cập nhật trạng thái sự cố</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Status & System Health Bar (36px) -->
+<footer class="h-9 bg-[#0f172a] border-t border-[#1e293b] px-6 flex items-center justify-between text-xs text-[#94a3b8] flex-shrink-0">
+<div class="flex items-center space-x-3 text-xs">
+<span class="flex items-center gap-1.5 text-[#e2e8f0]">
+<span class="w-2 h-2 rounded-full bg-emerald-400"></span>AI API: <span class="text-emerald-400 font-mono font-medium">Online</span>
+</span>
+<span class="text-[#334155]">•</span>
+<span>AI Core: <span class="text-[#e2e8f0] font-mono">18 ms/frame</span></span>
+<span class="text-[#334155]">•</span>
+<span>MediaMTX WebRTC: <span class="text-[#e2e8f0] font-mono">0.28s</span></span>
+<span class="text-[#334155]">•</span>
+<span>GPU RTX 4060 Ti: <span class="text-[#e2e8f0] font-mono">6.2 / 16 GB</span></span>
+</div>
+<div class="flex items-center space-x-2 text-xs">
+<span class="text-emerald-400 font-mono">Online 15/16</span>
+<span class="text-[#334155]">•</span>
+<span class="text-[#64748b]">Hiển thị 8 / 16 camera</span>
+<span class="text-[#334155]">•</span>
+<span class="font-mono text-[#e2e8f0]" id="live-clock">18:15:20 GMT+7</span>
+</div>
+</footer>
+</div>
+<!-- Interactive Clean Triage Logic -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
+  });
+
+  function updateClock() {
+    const clockEl = document.getElementById('live-clock');
+    if (clockEl) {
+      const now = new Date();
+      clockEl.textContent = now.toTimeString().split(' ')[0] + ' GMT+7';
+    }
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  function showToast(message, isError = false) {
+    const toast = document.getElementById('toast-feedback');
+    const msgEl = document.getElementById('toast-message');
+    const iconEl = document.getElementById('toast-icon');
+    if (toast && msgEl && iconEl) {
+      msgEl.textContent = message;
+      iconEl.textContent = isError ? 'error' : 'check_circle';
+      iconEl.className = isError ? 'material-symbols-outlined text-red-400 text-[20px]' : 'material-symbols-outlined text-emerald-400 text-[20px]';
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-24', 'opacity-0');
+      }, 3000);
+    }
+  }
+
+  function appendLog(text, colorClass = "text-[#e2e8f0]") {
+    const container = document.getElementById('activity-log-container');
+    if (!container) return;
+    const now = new Date();
+    const timeStr = now.toTimeString().split(' ')[0];
+    const row = document.createElement('div');
+    row.className = `flex items-start space-x-2 ${colorClass}`;
+    row.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-current mt-1.5 flex-shrink-0"></span><span class="font-bold flex-shrink-0">[${timeStr}]</span><span>${text}</span>`;
+    container.appendChild(row);
+  }
+
+  function handleClaimIncident() {
+    const claimText = document.getElementById('claim-text');
+    const claimIcon = document.getElementById('claim-icon');
+    const cardStatusBadge = document.getElementById('card-status-badge-1042');
+    const detailHeaderBadge = document.getElementById('detail-header-status-badge');
+    const detailAssignee = document.getElementById('detail-assignee');
+
+    if (claimText && claimIcon) {
+      claimText.textContent = "Đã nhận (Lê Văn Minh)";
+      claimIcon.textContent = "lock";
+    }
+
+    if (cardStatusBadge) {
+      cardStatusBadge.textContent = "Đang xử lý";
+      cardStatusBadge.className = "inline-flex items-center px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30 font-mono text-[10px] font-medium";
+    }
+
+    if (detailHeaderBadge) {
+      detailHeaderBadge.textContent = "Đang xử lý";
+      detailHeaderBadge.className = "inline-flex items-center px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30 font-medium";
+    }
+
+    if (detailAssignee) {
+      detailAssignee.textContent = "Lê Văn Minh (Bảo vệ ca 2)";
+    }
+
+    appendLog("Đang xử lý (Lê Văn Minh) - Xác nhận phụ trách hiện trường", "text-amber-400");
+    showToast("Đã ghi nhận người tiếp nhận xử lý: Lê Văn Minh");
+  }
+
+  function handleResolveIncident() {
+    const noteInput = document.getElementById('dispatch-note-input');
+    const noteText = noteInput ? noteInput.value.trim() : '';
+
+    const cardStatusBadge = document.getElementById('card-status-badge-1042');
+    const detailHeaderBadge = document.getElementById('detail-header-status-badge');
+    const detailCompletion = document.getElementById('detail-completion-time');
+    const queuePendingCount = document.getElementById('queue-pending-count');
+
+    const now = new Date();
+    const timeStr = now.toTimeString().split(' ')[0];
+
+    if (cardStatusBadge) {
+      cardStatusBadge.textContent = "Đã xử lý";
+      cardStatusBadge.className = "inline-flex items-center px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-mono text-[10px] font-medium";
+    }
+
+    if (detailHeaderBadge) {
+      detailHeaderBadge.textContent = "Đã xử lý";
+      detailHeaderBadge.className = "inline-flex items-center px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-medium";
+    }
+
+    if (detailCompletion) {
+      detailCompletion.textContent = `${timeStr} • 11/11/2026`;
+      detailCompletion.className = "text-emerald-400 font-semibold mt-0.5";
+    }
+
+    if (queuePendingCount) {
+      queuePendingCount.textContent = "4 Chưa xử lý";
+    }
+
+    const logMsg = noteText ? `Đã xử lý (Lê Văn Minh) - Hoàn tất: ${noteText}` : `Đã xử lý (Lê Văn Minh) - Đã hoàn tất xử lý hiện trường`;
+    appendLog(logMsg, "text-emerald-400");
+
+    if (noteInput) noteInput.value = '';
+    showToast("Sự cố #INC-1042 đã được chuyển sang trạng thái: ĐÃ XỬ LÝ");
+  }
+
+  function handleFalseAlarmIncident() {
+    const noteInput = document.getElementById('dispatch-note-input');
+    const noteText = noteInput ? noteInput.value.trim() : '';
+
+    const cardStatusBadge = document.getElementById('card-status-badge-1042');
+    const detailHeaderBadge = document.getElementById('detail-header-status-badge');
+    const detailCompletion = document.getElementById('detail-completion-time');
+    const queuePendingCount = document.getElementById('queue-pending-count');
+
+    const now = new Date();
+    const timeStr = now.toTimeString().split(' ')[0];
+
+    if (cardStatusBadge) {
+      cardStatusBadge.textContent = "Báo giả";
+      cardStatusBadge.className = "inline-flex items-center px-2 py-0.5 rounded bg-slate-500/20 text-[#94a3b8] border border-slate-500/30 font-mono text-[10px] font-medium";
+    }
+
+    if (detailHeaderBadge) {
+      detailHeaderBadge.textContent = "Báo giả";
+      detailHeaderBadge.className = "inline-flex items-center px-2 py-0.5 rounded bg-slate-500/20 text-[#94a3b8] border border-slate-500/30 font-medium";
+    }
+
+    if (detailCompletion) {
+      detailCompletion.textContent = `${timeStr} (Hủy)`;
+      detailCompletion.className = "text-[#94a3b8] font-semibold mt-0.5";
+    }
+
+    if (queuePendingCount) {
+      queuePendingCount.textContent = "4 Chưa xử lý";
+    }
+
+    const logMsg = noteText ? `Báo giả (Đóng sự cố): ${noteText}` : `Đã xác nhận sự cố báo giả - Đã đóng phiếu`;
+    appendLog(logMsg, "text-[#94a3b8]");
+
+    if (noteInput) noteInput.value = '';
+    showToast("Sự cố đã được đánh dấu là Báo giả");
+  }
+</script>
+
+<link rel="stylesheet" href="../assets/css/app.css"/>
+<script src="../assets/js/mock-db.js"></script>
+<script src="../assets/js/app.js"></script>
+</body></html>
