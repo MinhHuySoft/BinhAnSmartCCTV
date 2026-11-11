@@ -70,12 +70,15 @@
     }, true);
   }
 
+  function inShell(el) { return !!el.closest('.app-sidebar, .app-header, .app-footer'); }
+
   function wireNavigation() {
     document.querySelectorAll('aside a, aside button, nav a, nav button').forEach(function (el) {
+      if (inShell(el)) return;
       linkify(el, match(NAV_RULES, labelOf(el)));
     });
-    document.querySelectorAll('main button, main a, header button, header a').forEach(function (el) {
-      if (el.closest('nav')) return;
+    document.querySelectorAll('main button, main a').forEach(function (el) {
+      if (el.closest('nav') || inShell(el)) return;
       linkify(el, match(ACTION_RULES, labelOf(el)));
     });
   }
@@ -159,6 +162,7 @@
     if (!window.MockDB || here === 'alert-popup.html' || here === 'server.html') return;
     setTimeout(function tick() {
       var a = MockDB.pushNextLiveAlert();
+      if (!a) return;
       var cam = MockDB.camera(a.cameraId);
       toast((a.severity === 'CRITICAL' ? 'KHẨN CẤP: ' : 'CẢNH BÁO: ') + a.title + ' • ' + a.cameraId + (cam ? ' ' + cam.name : ''), {
         level: a.severity === 'CRITICAL' ? 'critical' : 'warning',
@@ -170,7 +174,42 @@
     }, 20000);
   }
 
+  // ---------- shell: open-alert badges, clock, collapsible sidebar ----------
+  function refreshAlertBadges() {
+    if (!window.MockDB) return;
+    var n = MockDB.openAlerts().length;
+    document.querySelectorAll('[data-open-alerts]').forEach(function (el) {
+      el.textContent = n;
+      if (n) el.removeAttribute('data-zero'); else el.setAttribute('data-zero', '');
+    });
+  }
+
+  function wireShell() {
+    var body = document.body;
+    if (!body.classList.contains('app')) return;
+    var KEY = 'binhan-sidebar-collapsed';
+    try { if (localStorage.getItem(KEY) === '1') body.classList.add('is-collapsed'); } catch (e) { /* ignore */ }
+    var btn = document.querySelector('[data-collapse]');
+    if (btn) btn.addEventListener('click', function () {
+      if (window.matchMedia('(max-width: 1024px)').matches) {
+        body.classList.toggle('is-expanded');
+        return;
+      }
+      var on = body.classList.toggle('is-collapsed');
+      try { localStorage.setItem(KEY, on ? '1' : '0'); } catch (e) { /* ignore */ }
+    });
+    var clock = document.querySelector('[data-clock]');
+    if (clock) {
+      var tick = function () { clock.textContent = new Date().toLocaleTimeString('vi-VN', { hour12: false }) + ' GMT+7'; };
+      tick();
+      setInterval(tick, 1000);
+    }
+    refreshAlertBadges();
+    if (window.MockDB) MockDB.onChange(refreshAlertBadges);
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
+    wireShell();
     wireNavigation();
     wireAlertWorkflow();
     buildSwitcher();

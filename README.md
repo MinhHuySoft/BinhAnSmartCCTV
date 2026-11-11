@@ -21,8 +21,8 @@ Sau đó mở http://localhost:5173. Trang gốc sẽ tự chuyển sang `pages/
 | `index.html` | Trang mở đầu, tự chuyển sang Trung tâm giám sát |
 | `pages/*.html` | 13 màn hình xuất từ Stitch |
 | `assets/js/mock-db.js` | Mock DB theo schema mục 4.1 của tài liệu kỹ thuật: Cameras, CameraRules, AI_Alerts, RegisteredVehicles, ANPR_Logs. Dữ liệu được lưu trong `localStorage` |
-| `assets/js/app.js` | Nối điều hướng giữa các màn, toast thay cho `alert()`, menu "Màn hình demo", mô phỏng cảnh báo realtime |
-| `assets/css/app.css` | Style cho toast và menu demo |
+| `assets/js/app.js` | Khung web chung: số cảnh báo, đồng hồ, thu gọn sidebar. Ngoài ra nối điều hướng, toast thay cho `alert()`, menu "Màn hình demo" và mô phỏng cảnh báo realtime |
+| `assets/css/app.css` | Style của khung web chung (sidebar chia nhóm, header, footer trạng thái), toast và menu demo |
 | `assets/img/` | Ảnh CCTV do Stitch sinh ra |
 
 ## Các màn hình

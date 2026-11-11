@@ -105,8 +105,11 @@
       save();
       return clone(a);
     },
+    /* Pushes the next scripted alert; returns null once every scripted alert has been shown. */
     pushNextLiveAlert: function () {
-      var next = liveFeed[(db.alerts.length - seed.alerts.length) % liveFeed.length];
+      var pushed = db.alerts.length - seed.alerts.length;
+      if (pushed >= liveFeed.length) return null;
+      var next = liveFeed[pushed];
       var maxId = db.alerts.reduce(function (m, a) { return Math.max(m, a.id); }, 0);
       var a = Object.assign(clone(next), { id: maxId + 1, status: 'NEW', createdAt: new Date().toISOString() });
       db.alerts.unshift(a);

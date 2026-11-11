@@ -3,7 +3,7 @@
 <html class="dark" lang="vi"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Aegis Residential SOC - Cấu hình Vùng cấm đỗ &amp; Thiết lập luật AI</title><link rel="icon" href="../assets/img/favicon.svg"/>
+<title>Cấu hình vùng & luật AI – Bình An CCTV</title><link rel="icon" href="../assets/img/favicon.svg"/>
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -114,113 +114,29 @@
     }
   </script>
 </head>
-<body class="bg-[#020617] text-on-surface font-body-md antialiased h-screen flex flex-col overflow-hidden select-none">
-<!-- TOP APP BAR (56px) -->
-<header class="flex justify-between items-center w-full px-4 h-14 z-50 bg-surface-container border-b border-outline-variant shrink-0">
-<div class="flex items-center gap-6">
-<div class="flex items-center gap-3">
-<div class="w-8 h-8 rounded bg-primary-container/20 border border-primary-container/40 flex items-center justify-center text-primary">
-<span class="material-symbols-outlined text-[20px]">security</span>
-</div>
-<div class="flex flex-col">
-<span class="font-headline-md text-headline-md font-bold tracking-tight text-on-surface">Bình An CCTV</span>
-<span class="font-label-caps text-[9px] uppercase tracking-wider text-secondary">Aegis Residential SOC</span>
-</div>
-</div>
-<div class="h-5 w-px bg-outline-variant"></div>
-<!-- Site Context -->
-<div class="flex items-center gap-2 px-2.5 py-1 rounded bg-surface-variant border border-outline-variant">
-<span class="material-symbols-outlined text-on-surface-variant text-[16px]">domain</span>
-<span class="font-mono-sm text-mono-sm text-on-surface">Site: HQ - Khu phức hợp Đông Tây 2</span>
-<span class="inline-block w-1.5 h-1.5 rounded-full bg-secondary"></span>
-</div>
-<!-- Header Navigation Links -->
-<nav class="hidden lg:flex items-center gap-1 ml-2">
-<a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/40 rounded transition-colors" href="#">Live Feeds</a>
-<a class="px-3 py-1.5 font-body-sm text-body-sm font-semibold rounded bg-primary-container/15 text-primary border border-primary-container/30" href="#">Cấu hình Vùng cấm đỗ</a>
-<a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/40 rounded transition-colors" href="#">Rule Engine</a>
-<a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/40 rounded transition-colors" href="#">Incident Triage</a>
-</nav>
-</div>
-<!-- Header Trailing Actions -->
-<div class="flex items-center gap-3">
-<div class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#020617] border border-outline-variant">
-<span class="inline-block w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
-<span class="font-mono-sm text-mono-sm text-on-surface-variant">Zone 3.1 &amp; 3.2</span>
-</div>
-<div class="flex items-center gap-1">
-<button class="w-8 h-8 rounded flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors" title="Thông báo">
-<span class="material-symbols-outlined text-[18px]">notifications</span>
-</button>
-<button class="w-8 h-8 rounded flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors" title="Hiệu chỉnh">
-<span class="material-symbols-outlined text-[18px]">tune</span>
-</button>
-<button class="w-8 h-8 rounded flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors" title="Trợ giúp">
-<span class="material-symbols-outlined text-[18px]">help</span>
-</button>
-</div>
-<div class="h-5 w-px bg-outline-variant"></div>
-<button class="flex items-center gap-2 px-3 py-1.5 rounded bg-primary-container hover:bg-blue-600 text-white font-body-sm text-body-sm font-medium transition-all active:scale-95 shadow-sm">
-<span class="material-symbols-outlined text-[16px]">cloud_upload</span>
-<span>Deploy Config</span>
-</button>
-<div class="flex items-center gap-2 pl-1">
-<div class="w-7 h-7 rounded bg-surface-variant border border-outline flex items-center justify-center text-primary font-mono-sm font-semibold">
-          OP
-        </div>
-</div>
-</div>
-</header>
-<!-- MAIN WRAPPER (Rail + Three Column Workspace) -->
-<div class="flex-1 flex overflow-hidden">
-<!-- LEFT RAIL (56px / w-14) -->
-<aside class="flex flex-col justify-between items-center w-14 py-2 border-r border-outline-variant shrink-0 bg-[#070d1f] z-40">
-<div class="flex flex-col items-center gap-4 w-full">
-<!-- Node status -->
-<div class="flex flex-col items-center">
-<span class="font-label-caps text-[9px] uppercase tracking-wider text-secondary">NODE 01</span>
-<span class="font-mono-sm text-[8px] text-secondary">ONLINE</span>
-</div>
-<div class="w-8 h-px bg-outline-variant"></div>
-<!-- Rail Navigation tabs -->
-<div class="flex flex-col gap-1.5 w-full items-center">
-<button class="w-10 h-10 rounded flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors" title="Matrix">
-<span class="material-symbols-outlined text-[18px]">videocam</span>
-<span class="font-label-caps text-[8px] mt-0.5">Matrix</span>
-</button>
-<button class="w-10 h-10 rounded flex flex-col items-center justify-center bg-primary-container/20 text-primary border-l-2 border-primary-container" title="Calibration">
-<span class="material-symbols-outlined text-[18px]">polyline</span>
-<span class="font-label-caps text-[8px] mt-0.5 font-semibold">Calib</span>
-</button>
-<button class="w-10 h-10 rounded flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors" title="Rules">
-<span class="material-symbols-outlined text-[18px]">rule</span>
-<span class="font-label-caps text-[8px] mt-0.5">Rules</span>
-</button>
-<button class="w-10 h-10 rounded flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors" title="Sensors">
-<span class="material-symbols-outlined text-[18px]">sensors</span>
-<span class="font-label-caps text-[8px] mt-0.5">Sensors</span>
-</button>
-<button class="w-10 h-10 rounded flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors" title="Audit Logs">
-<span class="material-symbols-outlined text-[18px]">shield</span>
-<span class="font-label-caps text-[8px] mt-0.5">Logs</span>
-</button>
-</div>
-</div>
-<!-- Rail Footer actions -->
-<div class="flex flex-col items-center gap-2 w-full">
-<button class="w-9 h-9 rounded flex items-center justify-center text-error bg-error/10 hover:bg-error/20 border border-error/30 transition-colors" title="Quick Alert">
-<span class="material-symbols-outlined text-[18px]">e911_emergency</span>
-</button>
-<button class="w-9 h-9 rounded flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors" title="Settings">
-<span class="material-symbols-outlined text-[18px]">settings</span>
-</button>
-<button class="w-9 h-9 rounded flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors" title="Diagnostics">
-<span class="material-symbols-outlined text-[18px]">terminal</span>
-</button>
-</div>
+<body class="app">
+<div class="app-shell">
+<aside class="app-sidebar" aria-label="Điều hướng chính">
+  <a class="app-brand" href="dashboard.html"><span class="app-brand__mark"><svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span><span class="app-brand__text"><strong>Bình An CCTV</strong><small>Camera AI • Mục 3</small></span></a>
+  <nav class="app-nav"><div class="app-nav__group"><div class="app-nav__title">Giám sát</div><a class="app-nav__link" href="dashboard.html" title="Trung tâm giám sát"><svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg><span class="app-nav__label">Trung tâm giám sát</span></a><a class="app-nav__link" href="live-grid.html" title="Lưới camera"><svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 13 5.2 3.5a.5.5 0 0 0 .8-.4V7.9a.5.5 0 0 0-.8-.4L16 11"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg><span class="app-nav__label">Lưới camera</span></a><a class="app-nav__link" href="incidents.html" title="Hàng đợi sự cố"><svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span class="app-nav__label">Hàng đợi sự cố</span><span class="app-nav__badge" data-open-alerts>0</span></a></div><div class="app-nav__group"><div class="app-nav__title">Khu vực</div><a class="app-nav__link" href="ev-charging.html" title="Khu 3.1 · Trạm sạc EV"><svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg><span class="app-nav__label">Khu 3.1 · Trạm sạc EV</span></a><a class="app-nav__link" href="ground-firelane.html" title="Khu 3.2 · Sân nền & PCCC"><svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg><span class="app-nav__label">Khu 3.2 · Sân nền & PCCC</span></a><a class="app-nav__link" href="anpr.html" title="Nhật ký biển số"><svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg><span class="app-nav__label">Nhật ký biển số</span></a></div><div class="app-nav__group"><div class="app-nav__title">Quản trị</div><a class="app-nav__link is-active" href="rules.html" title="Vùng & luật AI" aria-current="page"><svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 2 7l2 11 8 4 8-4 2-11z"/><circle cx="12" cy="12" r="2"/></svg><span class="app-nav__label">Vùng & luật AI</span></a><a class="app-nav__link" href="cameras.html" title="Quản lý camera"><svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.75 12h3.63a1 1 0 0 1 .68 1.73l-7.41 6.9a1 1 0 0 1-1.17.13L8.5 18.5"/><path d="M3 9.75 14.5 3.5a1 1 0 0 1 1.37.37l3.25 5.63a1 1 0 0 1-.37 1.37L7.25 17.12a1 1 0 0 1-1.37-.37L3.63 12.8"/><path d="M2 21v-4"/><path d="M2 19h4"/></svg><span class="app-nav__label">Quản lý camera</span></a><a class="app-nav__link" href="vehicles.html" title="Xe cư dân"><svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="app-nav__label">Xe cư dân</span></a><a class="app-nav__link" href="reports.html" title="Báo cáo"><svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg><span class="app-nav__label">Báo cáo</span></a></div></nav>
+  <div class="app-sidebar__foot">
+    <a class="app-nav__link" href="server.html" title="Core Server (WinForms)"><svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><path d="M6 6h.01"/><path d="M6 18h.01"/></svg><span class="app-nav__label">Core Server</span></a>
+    <button class="app-nav__link app-collapse" type="button" data-collapse title="Thu gọn menu"><svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/></svg><span class="app-nav__label">Thu gọn</span></button>
+  </div>
 </aside>
-<!-- CONTENT WORKSPACE: THREE-COLUMN LAYOUT -->
-<main class="flex-1 flex overflow-hidden bg-[#020617]">
+<div class="app-body">
+  <header class="app-header">
+    <div class="app-header__title">
+      <div class="app-crumb">Quản trị <span>/</span> <b>Cấu hình vùng & luật AI</b></div>
+      <div class="app-subtitle">9 loại luật • áp dụng ngay (hot-reload)</div>
+    </div>
+    <div class="app-header__tools">
+      <button class="app-site" type="button"><svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg><span>HQ – Khu phức hợp Đông Tây 2</span><svg class="app-icon app-icon--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+      <label class="app-search"><svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input type="search" placeholder="Tìm camera, biển số, sự cố…" aria-label="Tìm kiếm"/></label>
+      <a class="app-bell" href="incidents.html" title="Cảnh báo đang mở"><svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span class="app-bell__count" data-open-alerts>0</span></a>
+      <div class="app-user"><span class="app-user__avatar">BA</span><span class="app-user__text"><b>Trực ban BQL</b><small>Ca 2 • 14:00–22:00</small></span></div>
+    </div>
+  </header><main class="app-main flex overflow-hidden">
 <!-- COLUMN 1: CAMERA DIRECTORY & SELECTION (w-72 / 280px) -->
 <section class="w-72 border-r border-outline-variant bg-[#0f172a] flex flex-col shrink-0">
 <!-- Directory Header & Search -->
@@ -653,35 +569,20 @@
 </div>
 </section>
 </main>
+  <footer class="app-footer">
+    <span class="app-status"><i class="ok"></i>Kestrel API <b>Online</b></span>
+    <span class="app-status">AI Core <b>18 ms/frame</b></span>
+    <span class="app-status">MediaMTX WebRTC <b>0.28s</b></span>
+    <span class="app-status">GPU RTX 4060 Ti <b>6.2 / 16 GB</b></span>
+    <span class="app-footer__spacer"></span>
+    <span class="app-status"><i class="ok"></i>Camera <b>15/16 online</b></span>
+    <span class="app-status app-clock" data-clock>--:--:--</span>
+  </footer>
+</div>
+</div>
 </div>
 <!-- TACTICAL SOC FOOTER (36px / h-9) -->
-<footer class="h-9 px-4 bg-[#070d1f] border-t border-outline-variant flex items-center justify-between text-on-surface-variant font-mono-sm text-mono-sm shrink-0 z-50">
-<!-- Left Engine Telemetry Readout -->
-<div class="flex items-center gap-2 truncate">
-<span class="flex items-center gap-1.5 text-secondary">
-<span class="inline-block w-2 h-2 rounded-full bg-secondary"></span>
-<span class="text-on-surface">Kestrel API: Online</span>
-</span>
-<span class="text-outline">•</span>
-<span class="text-on-surface">AI Core: <span class="text-primary font-medium">18 ms/frame</span></span>
-<span class="text-outline">•</span>
-<span class="text-on-surface">MediaMTX WebRTC: <span class="text-secondary font-medium">0.28s</span></span>
-<span class="text-outline">•</span>
-<span class="text-on-surface">GPU RTX 4060 Ti: <span class="text-primary font-medium">6.2 / 16 GB</span></span>
-</div>
-<!-- Right Live Stats and Clock -->
-<div class="flex items-center gap-4 shrink-0">
-<div class="flex items-center gap-1.5">
-<span class="material-symbols-outlined text-[14px] text-secondary">cloud_done</span>
-<span>Mesh Cluster: 13/13 Online</span>
-</div>
-<div class="h-3 w-px bg-outline-variant"></div>
-<div class="flex items-center gap-1.5 text-on-surface">
-<span class="material-symbols-outlined text-[14px] text-outline">schedule</span>
-<span id="live-clock">14:32:48 GMT+7</span>
-</div>
-</div>
-</footer>
+
 <!-- Light Vanilla Script for Clock Realtime Update -->
 <script>
     function updateClock() {

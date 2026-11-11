@@ -3,7 +3,7 @@
 <html class="h-full bg-slate-950 text-slate-100 antialiased" lang="vi"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Bình An CCTV - Autonomous Operations Console (Dark)</title><link rel="icon" href="../assets/img/favicon.svg"/>
+<title>Lưới camera trực tiếp – Bình An CCTV</title><link rel="icon" href="../assets/img/favicon.svg"/>
 <!-- Tailwind CSS CDN v3 -->
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <!-- Lucide Icons -->
@@ -40,142 +40,29 @@
     ::-webkit-scrollbar-thumb:hover { background: #475569; }
   </style>
 </head>
-<body class="h-full flex overflow-hidden text-sm bg-[#020617] text-[#e2e8f0]">
-<!-- Left Rail Icon Navigation (56px Minimalist Verkada Style) -->
-<aside class="w-14 flex-shrink-0 bg-[#0f172a] border-r border-[#1e293b] flex flex-col items-center justify-between py-3.5 z-30 select-none">
-<div class="flex flex-col items-center space-y-5 w-full">
-<!-- Minimalist Verkada / Bình An Symbol -->
-<a class="w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center text-white hover:bg-blue-500 transition-colors shadow-sm" href="#" title="Bình An CCTV Command">
-<svg class="w-4 h-4 fill-white" viewbox="0 0 24 24">
-<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-</svg>
-</a>
-<!-- Primary Sidebar Navigation Icons -->
-<nav class="flex flex-col space-y-1.5 w-full px-2">
-<button class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1e293b]" title="Bảng điều khiển tổng quan">
-<i class="w-4 h-4" data-lucide="layout-dashboard"></i>
-</button>
-<button class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors bg-[rgba(37,99,235,0.15)] text-[#60a5fa] font-medium" title="Lưới Camera Trực Tiếp">
-<i class="w-4 h-4" data-lucide="video"></i>
-</button>
-<button class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1e293b]" title="Nhật ký biển số">
-<i class="w-4 h-4" data-lucide="scan"></i>
-</button>
-<button class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1e293b]" title="Cảnh báo sự cố">
-<i class="w-4 h-4" data-lucide="shield-alert"></i>
-</button>
-<button class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1e293b]" title="Bản đồ mặt bằng">
-<i class="w-4 h-4" data-lucide="map"></i>
-</button>
-</nav>
-</div>
-<!-- User & Settings Footer -->
-<div class="flex flex-col items-center space-y-3 w-full">
-<button class="w-8 h-8 rounded-lg flex items-center justify-center text-[#64748b] hover:text-[#e2e8f0] hover:bg-[#1e293b] transition" title="Cài đặt hệ thống">
-<i class="w-4 h-4" data-lucide="settings"></i>
-</button>
-<div class="w-7 h-7 rounded-full bg-[#1e293b] text-blue-400 text-[11px] font-semibold flex items-center justify-center cursor-pointer border border-[#334155]" title="BQL: Nguyễn Văn An (801 căn hộ)">
-        BA
-      </div>
-</div>
+<body class="app">
+<div class="app-shell">
+<aside class="app-sidebar" aria-label="Điều hướng chính">
+  <a class="app-brand" href="dashboard.html"><span class="app-brand__mark"><svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span><span class="app-brand__text"><strong>Bình An CCTV</strong><small>Camera AI • Mục 3</small></span></a>
+  <nav class="app-nav"><div class="app-nav__group"><div class="app-nav__title">Giám sát</div><a class="app-nav__link" href="dashboard.html" title="Trung tâm giám sát"><svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg><span class="app-nav__label">Trung tâm giám sát</span></a><a class="app-nav__link is-active" href="live-grid.html" title="Lưới camera" aria-current="page"><svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 13 5.2 3.5a.5.5 0 0 0 .8-.4V7.9a.5.5 0 0 0-.8-.4L16 11"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg><span class="app-nav__label">Lưới camera</span></a><a class="app-nav__link" href="incidents.html" title="Hàng đợi sự cố"><svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span class="app-nav__label">Hàng đợi sự cố</span><span class="app-nav__badge" data-open-alerts>0</span></a></div><div class="app-nav__group"><div class="app-nav__title">Khu vực</div><a class="app-nav__link" href="ev-charging.html" title="Khu 3.1 · Trạm sạc EV"><svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg><span class="app-nav__label">Khu 3.1 · Trạm sạc EV</span></a><a class="app-nav__link" href="ground-firelane.html" title="Khu 3.2 · Sân nền & PCCC"><svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg><span class="app-nav__label">Khu 3.2 · Sân nền & PCCC</span></a><a class="app-nav__link" href="anpr.html" title="Nhật ký biển số"><svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg><span class="app-nav__label">Nhật ký biển số</span></a></div><div class="app-nav__group"><div class="app-nav__title">Quản trị</div><a class="app-nav__link" href="rules.html" title="Vùng & luật AI"><svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 2 7l2 11 8 4 8-4 2-11z"/><circle cx="12" cy="12" r="2"/></svg><span class="app-nav__label">Vùng & luật AI</span></a><a class="app-nav__link" href="cameras.html" title="Quản lý camera"><svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.75 12h3.63a1 1 0 0 1 .68 1.73l-7.41 6.9a1 1 0 0 1-1.17.13L8.5 18.5"/><path d="M3 9.75 14.5 3.5a1 1 0 0 1 1.37.37l3.25 5.63a1 1 0 0 1-.37 1.37L7.25 17.12a1 1 0 0 1-1.37-.37L3.63 12.8"/><path d="M2 21v-4"/><path d="M2 19h4"/></svg><span class="app-nav__label">Quản lý camera</span></a><a class="app-nav__link" href="vehicles.html" title="Xe cư dân"><svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="app-nav__label">Xe cư dân</span></a><a class="app-nav__link" href="reports.html" title="Báo cáo"><svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg><span class="app-nav__label">Báo cáo</span></a></div></nav>
+  <div class="app-sidebar__foot">
+    <a class="app-nav__link" href="server.html" title="Core Server (WinForms)"><svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><path d="M6 6h.01"/><path d="M6 18h.01"/></svg><span class="app-nav__label">Core Server</span></a>
+    <button class="app-nav__link app-collapse" type="button" data-collapse title="Thu gọn menu"><svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/></svg><span class="app-nav__label">Thu gọn</span></button>
+  </div>
 </aside>
-<!-- Main Content Layout -->
-<div class="flex-1 flex flex-col h-full overflow-hidden min-w-0 bg-[#020617]">
-<!-- Top Header Bar (56px) -->
-<header class="h-14 py-2.5 px-6 bg-[#0f172a] border-b border-[#1e293b] flex items-center justify-between flex-shrink-0 z-20">
-<!-- Left: Logo Title & Dropdown Site Selection -->
-<div class="flex items-center space-x-3">
-<div class="flex items-center space-x-2">
-<span class="font-display font-bold text-[#e2e8f0] text-sm tracking-tight">Bình An CCTV</span>
-<i class="w-3.5 h-3.5 text-[#64748b]" data-lucide="chevron-right"></i>
-<button class="flex items-center space-x-1.5 text-xs font-medium text-[#e2e8f0] hover:text-white bg-[#1e293b] hover:bg-[#334155] px-2.5 py-1.5 rounded-md transition-colors border border-[#334155]">
-<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-<span>HQ - Khu phức hợp Đông Tây 2</span>
-<i class="w-3.5 h-3.5 text-[#94a3b8] ml-1" data-lucide="chevron-down"></i>
-</button>
-</div>
-</div>
-<!-- Center: Minimal Search Bar -->
-<div class="flex-1 max-w-md mx-6">
-<div class="relative w-full">
-<i class="w-3.5 h-3.5 text-[#64748b] absolute left-3 top-2.5" data-lucide="search"></i>
-<input class="w-full bg-[#1e293b] border border-[#334155] text-xs rounded-lg pl-9 pr-3 py-1.5 focus:bg-[#0f172a] focus:outline-none focus:border-blue-500 transition placeholder:text-[#64748b] text-[#e2e8f0]" placeholder="Tìm camera, biển số xe, vị trí sự cố..." type="text"/>
-</div>
-</div>
-<!-- Right: Action & Operator -->
-<div class="flex items-center space-x-3">
-<button class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-[#2563eb] hover:bg-blue-600 text-white transition shadow-sm">
-<i class="w-3.5 h-3.5" data-lucide="plus"></i>
-<span>Quản lý Camera</span>
-</button>
-<div class="h-4 w-px bg-[#1e293b]"></div>
-<div class="flex items-center space-x-2 pl-1">
-<div class="text-right hidden sm:block">
-<div class="text-xs font-medium text-[#e2e8f0]">Trực ban BQL</div>
-<div class="text-[10px] text-[#94a3b8]">16 Camera AI</div>
-</div>
-</div>
-</div>
-</header>
-<!-- Sub-Navigation Tabs Bar -->
-<div class="bg-[#0f172a] border-b border-[#1e293b] px-6 flex items-center justify-between flex-shrink-0">
-<nav class="flex text-xs font-medium space-x-4" id="secondary-tabs">
-<button class="py-3 border-b-2 border-blue-500 text-white flex items-center gap-1.5 font-semibold" id="tab-all" onclick="switchCategory('all')">
-<span>Tất cả camera</span>
-<span class="bg-[#1e293b] text-[#94a3b8] rounded px-1.5 py-0.5 text-[10px] font-mono border border-[#334155]">16</span>
-</button>
-<button class="py-3 border-b-2 border-transparent text-[#94a3b8] hover:text-[#e2e8f0] flex items-center gap-1.5" id="tab-alert" onclick="switchCategory('alert')">
-<span>Cảnh báo sự cố</span>
-<span class="bg-rose-950/70 text-rose-300 border border-rose-800/60 rounded px-1.5 py-0.5 text-[10px] font-mono font-semibold">5</span>
-</button>
-<button class="py-3 border-b-2 border-transparent text-[#94a3b8] hover:text-[#e2e8f0] flex items-center gap-1.5" id="tab-ev" onclick="switchCategory('ev')">
-<span>Trạm sạc xe điện</span>
-<span class="bg-[#1e293b] text-[#94a3b8] rounded px-1.5 py-0.5 text-[10px] font-mono border border-[#334155]">6</span>
-</button>
-<button class="py-3 border-b-2 border-transparent text-[#94a3b8] hover:text-[#e2e8f0] flex items-center gap-1.5" id="tab-traffic" onclick="switchCategory('traffic')">
-<span>Sân nền &amp; Lối PCCC</span>
-<span class="bg-[#1e293b] text-[#94a3b8] rounded px-1.5 py-0.5 text-[10px] font-mono border border-[#334155]">10</span>
-</button>
-<button class="py-3 border-b-2 border-transparent text-[#94a3b8] hover:text-[#e2e8f0] flex items-center gap-1.5" id="tab-gis">
-<span>Bản đồ mặt bằng</span>
-</button>
-<button class="py-3 border-b-2 border-transparent text-[#94a3b8] hover:text-[#e2e8f0] flex items-center gap-1.5" id="tab-anpr" onclick="switchCategory('anpr')">
-<span>Nhật ký biển số</span>
-</button>
-</nav>
-<!-- Status Legend & Layout Mode Switches -->
-<div class="hidden lg:flex items-center space-x-4">
-<div class="flex items-center space-x-3 text-[11px] text-[#94a3b8]">
-<div class="flex items-center space-x-1.5">
-<span class="w-2 h-2 rounded-full bg-[#10b981]"></span>
-<span>Bình thường</span>
-</div>
-<div class="flex items-center space-x-1.5">
-<span class="w-2 h-2 rounded-full bg-[#f59e0b]"></span>
-<span>Cảnh báo</span>
-</div>
-<div class="flex items-center space-x-1.5">
-<span class="w-2 h-2 rounded-full bg-[#ef4444]"></span>
-<span>Khẩn cấp</span>
-</div>
-<div class="flex items-center space-x-1.5">
-<span class="w-2 h-2 rounded-full bg-[#64748b]"></span>
-<span>Mất kết nối</span>
-</div>
-</div>
-<div class="h-4 w-px bg-[#1e293b]"></div>
-<div class="flex items-center space-x-1 text-[#64748b] bg-[#1e293b] p-0.5 rounded-lg border border-[#334155]">
-<button class="p-1 rounded text-[#94a3b8] hover:text-white hover:bg-[#334155] transition" title="Lưới 2x2">
-<i class="w-3.5 h-3.5" data-lucide="layout-grid"></i>
-</button>
-<button class="p-1 rounded bg-[#0f172a] text-[#60a5fa] border border-[#334155] font-semibold" title="Lưới 4 Camera ngang">
-<i class="w-3.5 h-3.5" data-lucide="grid"></i>
-</button>
-</div>
-</div>
-</div>
-<!-- Main Live Feeds Content (Scrollable Workspace) -->
-<main class="flex-1 overflow-y-auto p-6 space-y-7 bg-[#020617]">
+<div class="app-body">
+  <header class="app-header">
+    <div class="app-header__title">
+      <div class="app-crumb">Giám sát <span>/</span> <b>Lưới camera trực tiếp</b></div>
+      <div class="app-subtitle">16 camera • Khu 3.1 & 3.2</div>
+    </div>
+    <div class="app-header__tools">
+      <button class="app-site" type="button"><svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg><span>HQ – Khu phức hợp Đông Tây 2</span><svg class="app-icon app-icon--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+      <label class="app-search"><svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input type="search" placeholder="Tìm camera, biển số, sự cố…" aria-label="Tìm kiếm"/></label>
+      <a class="app-bell" href="incidents.html" title="Cảnh báo đang mở"><svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span class="app-bell__count" data-open-alerts>0</span></a>
+      <div class="app-user"><span class="app-user__avatar">BA</span><span class="app-user__text"><b>Trực ban BQL</b><small>Ca 2 • 14:00–22:00</small></span></div>
+    </div>
+  </header><main class="app-main overflow-y-auto p-6 space-y-7">
 <!-- ================= SECTION 1: TRẠM SẠC XE ĐIỆN ================= -->
 <section class="space-y-3.5" id="sec-ev">
 <!-- Section Header Bar -->
@@ -472,28 +359,19 @@
 </button>
 </div>
 </main>
+  <footer class="app-footer">
+    <span class="app-status"><i class="ok"></i>Kestrel API <b>Online</b></span>
+    <span class="app-status">AI Core <b>18 ms/frame</b></span>
+    <span class="app-status">MediaMTX WebRTC <b>0.28s</b></span>
+    <span class="app-status">GPU RTX 4060 Ti <b>6.2 / 16 GB</b></span>
+    <span class="app-footer__spacer"></span>
+    <span class="app-status"><i class="ok"></i>Camera <b>15/16 online</b></span>
+    <span class="app-status app-clock" data-clock>--:--:--</span>
+  </footer>
+</div>
+</div>
 <!-- Bottom Status & System Health Bar (36px) -->
-<footer class="h-9 bg-[#0f172a] border-t border-[#1e293b] px-6 flex items-center justify-between text-xs text-[#94a3b8] flex-shrink-0">
-<div class="flex items-center space-x-3 text-[11px]">
-<span class="flex items-center gap-1.5 text-[#e2e8f0]">
-<span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-          Kestrel API: <span class="font-medium text-emerald-400">Online</span>
-</span>
-<span class="text-[#334155]">•</span>
-<span>AI Core (YOLOv8 + ByteTrack): <span class="text-[#e2e8f0] font-mono">18 ms/frame</span></span>
-<span class="text-[#334155]">•</span>
-<span>MediaMTX WebRTC: <span class="text-[#cbd5e1] font-mono">0.28s</span></span>
-<span class="text-[#334155]">•</span>
-<span>GPU RTX 4060 Ti: <span class="text-[#cbd5e1] font-mono">6.2 / 16 GB</span></span>
-</div>
-<div class="flex items-center space-x-2 text-[11px]">
-<span class="text-[#64748b]">Online 15/16</span>
-<span class="text-[#334155]">•</span>
-<span class="text-[#94a3b8]">Hiển thị 8 / 16 camera</span>
-<span class="text-[#334155]">•</span>
-<span class="font-mono text-[#cbd5e1]" id="live-clock">10:45:12 GMT+7</span>
-</div>
-</footer>
+
 </div>
 <!-- Interactive Logic -->
 <script>
